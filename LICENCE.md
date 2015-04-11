@@ -1,4 +1,10 @@
-# _.js
+                	     _    _____ 
+            	        | |  / ____|
+        	            | |  | (___  
+    	            _   | |  \___  \ 
+  	 ______    _   | |__| |  ____) |
+ 	|______|  (_)   \____/  |______/ 
+
 
 # Creative Commons Attribution 4.0 International Public License
 

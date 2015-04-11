@@ -1,6 +1,15 @@
 /*
-	_.js
-	v0.0.1
+
+                	     _    _____ 
+            	        | |  / ____|
+        	            | |  | (___  
+    	            _   | |  \___  \ 
+  	 ______    _   | |__| |  ____) |
+ 	|______|  (_)   \____/  |______/ 
+									v0.0.1
+
+	!!! NOT READY
+	!!! THIS VERSION IS NOT YET READY FOR PRODUCTION
 
 	https://www.github.com/wesdegroot/_.js/
 	or https://www.wdgwv.com
@@ -10,7 +19,8 @@
 	Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md
 */
 
-// Anonymous function
+
+// _ function
 (function () {
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
     var _ = function (params) {
