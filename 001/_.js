@@ -64,12 +64,35 @@
             return this;
         },
 		framebreak: function () {
-		if (top.location != location)
+			if (top.location != location)
+			{
+				top.location.href = document.location.href;
+			}
+			return this;
+		},
+		ajax: function (url, options)
 		{
-			top.location.href = document.location.href;
+            var len = this.length;
+            while (len--) 
+            {
+                var xmlhttp, change = this[len];
+
+				if (window.XMLHttpRequest)
+  					xmlhttp = new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
+				else
+  					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
+
+				xmlhttp.onreadystatechange=function()
+  				{
+  					if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    					change.innerHTML = xmlhttp.responseText;
+    			}
+  			
+				xmlhttp.open("GET",url,true);
+				xmlhttp.send();
+            }
+            return this
 		}
-		return this;
-	}
     };
     
     // Assign our _ object to global window object.

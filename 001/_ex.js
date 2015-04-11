@@ -4,7 +4,9 @@ if(!window._)
 }
 else
 {
-	_.fn.myPlugin = function(name) { alert(name); };
+	// Add a Plugin "MyPlugin"
+	_.fn.myPlugin = function(name) { console.log("myPlugin: " + name); };
 
-	_("wrapper").myPlugin("Rambo");
+	// Call the new "Plugin"
+	_("wrapper").myPlugin("WDGWV.com");
 }
