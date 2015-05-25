@@ -16,7 +16,8 @@
 
 	Git:     https://github.com/wesdegroot/_.js
 	Todo: 	 https://github.com/wesdegroot/_.js/issues
-	Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md
+    Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md
+    Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
 
 
