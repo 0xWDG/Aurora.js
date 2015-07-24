@@ -21,6 +21,7 @@ else
                 _(this).height(tallest);
             });
         }
+
 	// Call the new "Plugin"
 	_("wrapper").myPlugin("WDGWV.com");
 }
