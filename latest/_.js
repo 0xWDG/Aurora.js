@@ -57,6 +57,13 @@
             }
              return this;
         },
+        html: function (data) {
+            var len = this.length;
+            while (len--) {
+                this[len].innerHTML = data;
+            }
+            return this;
+        },
         show: function () {
             var len = this.length;
             while (len--) {
