@@ -94,8 +94,6 @@
             var len = this.length;
             while (len--) 
             {
-                alert('check!');
-
                 var xmlPhttp, change = this[len], url = form.action;
             
                 if (window.XMLHttpRequest)
