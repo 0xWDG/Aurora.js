@@ -127,8 +127,6 @@
                     {
                       change.innerHTML = xmlPhttp.responseText;
 
-                      alert(xmlPhttp.responseText);
-
                       //JavaScript Fix!
                       var js=change.getElementsByTagName('script');
                       for(var i=0,j=js.length;i<j;i++)
