@@ -88,6 +88,72 @@
             }
             return this;
         },
+
+        ajaxPOST: function (form, callback) 
+        {
+            var len = this.length;
+            while (len--) 
+            {
+                alert('check!');
+
+                var xmlPhttp, change = this[len], url = form.action;
+            
+                if (window.XMLHttpRequest)
+                    xmlPhttp = new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
+                else
+                    xmlPhttp = new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
+
+                    var elem   = form.elements;
+                    var url    = form.action;        
+                    var params = "";
+                    var value;
+                    var empty;
+
+                for (var i = 0; i < elem.length; i++) 
+                {
+                    if (elem[i].tagName == "SELECT") 
+                        value = elem[i].options[elem[i].selectedIndex].value;
+                    else
+                        value = elem[i].value;
+
+                    if (value)
+                        params += elem[i].name + "=" + encodeURIComponent(value) + "&";
+                }
+                params += 'WDGWVAJAX=true';
+
+                xmlPhttp.open("POST", url, true);
+                xmlPhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlPhttp.onreadystatechange=function()
+                {
+                    if (xmlPhttp.readyState==4 && xmlPhttp.status==200)
+                    {
+                      change.innerHTML = xmlPhttp.responseText;
+
+                      alert(xmlPhttp.responseText);
+
+                      //JavaScript Fix!
+                      var js=change.getElementsByTagName('script');
+                      for(var i=0,j=js.length;i<j;i++)
+                      {
+                        eval(js[i].innerHTML);
+                      }
+
+                      // fix posts also (.ajax)
+                      var pst=change.getElementsByTagName('form');
+                      for(var i=0,j=pst.length;i<j;i++)
+                      {
+                        console.log(pst[i]);
+                        pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
+                      }
+                    }
+                }
+                    
+                //All preperations are clear, send the request!
+                xmlPhttp.send(params);
+            }
+            return false;
+        },
+
         ajax: function (url, options)
         {
             var len = this.length;
@@ -107,10 +173,17 @@
                       change.innerHTML = xmlhttp.responseText;
                       
                       //JavaScript Fix!
-                      var l=change.getElementsByTagName('script');
-                      for(var i=0,j=l.length;i<j;i++)
+                      var js=change.getElementsByTagName('script');
+                      for(var i=0,j=js.length;i<j;i++)
                       {
-                        eval(l[i].innerHTML);
+                        eval(js[i].innerHTML);
+                      }
+
+                      // fix posts also (.ajax)
+                      var pst=change.getElementsByTagName('form');
+                      for(var i=0,j=pst.length;i<j;i++)
+                      {
+                        pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
                       }
                     }
                 }
