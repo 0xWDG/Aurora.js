@@ -103,7 +103,16 @@
                 xmlhttp.onreadystatechange=function()
                 {
                     if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                        change.innerHTML = xmlhttp.responseText;
+                    {
+                      change.innerHTML = xmlhttp.responseText;
+                      
+                      //JavaScript Fix!
+                      var l=change.getElementsByTagName('script');
+                      for(var i=0,j=l.length;i<j;i++)
+                      {
+                        eval(l[i].innerHTML);
+                      }
+                    }
                 }
             
                 xmlhttp.open("GET",url,true);
