@@ -20,8 +20,15 @@ else
             this.each(function(){
                 _(this).height(tallest);
             });
+        },
+        _.fn.isExtra = function() {
+            console.log('in-a-function-function-call-thing-test');
+        },
+        _.fn.loadExtra = function() {
+            this.isExtra();
         }
-
 	// Call the new "Plugin"
 	_("wrapper").myPlugin("WDGWV.com");
+
+    _("wrapper").loadExtra(); /// Plugin, in a plugin thing?
 }
