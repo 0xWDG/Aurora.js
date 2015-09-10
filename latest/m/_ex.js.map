@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"./m/_ex.js",
+"lineCount":1,
+"mappings":"AAAIA,MAAAC,EAAJ,EAOCA,CAAAC,GAAAC,SAGA,CAHgBC,QAAQ,CAACC,CAAD,CAAO,CAAEC,OAAAC,IAAA,CAAY,YAAZ,CAA2BF,CAA3B,CAAF,CAG/B,CAAAJ,CAAA,CAAE,SAAF,CAAAE,SAAA,CAAsB,WAAtB,CAVD,EAECK,KAAA,CAAM,oBAAN;",
+"sources":["./_ex.js"],
+"names":["window","_","fn","myPlugin","_.fn.myPlugin","name","console","log","alert"]
+}
