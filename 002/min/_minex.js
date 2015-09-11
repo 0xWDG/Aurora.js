@@ -1,0 +1,1 @@
+window._?(_.fn.myPlugin=function(n){alert(n)},_("wrapper").myPlugin("Rambo")):alert("MISSING SOMETHING!");
