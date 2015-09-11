@@ -31,10 +31,11 @@
         var selector = document.querySelectorAll(params),i = 0;
         // Get selector length
         this.length     = selector.length;
-        this.version    = '0.0.1';
+        this.version    = '0.0.2';
         this.website    = 'http://www.wdgwv.com';
         this.revision   = 'r01'
         this.isCompiled = false;
+        this.isStable   = true;
          
         // Add selector to object for method chaining
         for (; i < this.length; i++) {
