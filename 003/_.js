@@ -6,8 +6,8 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.2
-                              Stable
+                              v0.0.3
+                              Beta
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -34,7 +34,7 @@
         this.website    = 'http://www.wdgwv.com';
         this.revision   = 'r01'
         this.isCompiled = false;
-        this.isStable   = true;
+        this.isStable   = false;
          
         // Add selector to object for method chaining
         for(var i=0; i<this.length; i++)
@@ -49,6 +49,29 @@
     // Extend the Library object.
     _.fn = Library.prototype =  
     {
+        /**
+         * _
+         *
+         * Display/Set config
+         *
+         * @param object object
+         * @param configKey config parameter
+         * @example _()._('version');
+         */
+        _: function(configKey, set) {
+            if (!set)
+                return eval('this.' + configKey);
+            else
+            {
+                eval('this.' + configKey + '=\'' + set + '\';');
+                
+                // Why the error, this does not work ^^ EVAL ^^
+                console.error('Error, Failed to set \'' + configKey + '\' to \'' + set + '\'');
+
+                return eval('this.' + configKey);
+            }
+        },
+
         /**
          * Hide
          *
@@ -266,6 +289,21 @@
         },
 
         /**
+         * requireSSL
+         *
+         * this make "SSL" / "HTTPS" required
+         *
+         * @param object object
+         * @example _().requireSSL();
+         */
+        requireSSL: function()
+        {
+            if (window.location.protocol != "https:" && window.location.protocol != 'file:')
+                window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+            return;
+        },
+
+        /**
          * loadExtension
          *
          * loadExtension Tries to load a extension (module)
@@ -278,9 +316,9 @@
             // Future. Experimental.
             this.addToBody('script', 'src=' + src);
 
-            if (typeof callback !== 'undefined')
+            if(typeof callback === 'function')
             {
-                // After loading do something.
+                eval(callback);
             }
         }
     };
@@ -295,4 +333,5 @@
         window._ = _;
     }
     return _;
+
 })();

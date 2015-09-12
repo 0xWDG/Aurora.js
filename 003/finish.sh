@@ -1,7 +1,14 @@
+# if exists remove old files
+rm GenerateDocs.php &>/dev/null
+
+cp ../_.js_data/GenerateDocs.php GenerateDocs.php &>/dev/null
+
+# Generate index.html & generate wiki -> function list.
 php GenerateDocs.php &>/dev/null
+
 # Generate sourcemapping files.
 for i in *.js; 
-	do java -jar /usr/local/bin/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i} &>/dev/null; 
+	do java -jar ../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i}; # Show errors ;D 
 done
 
 # Add: //# sourceMappingURL=/path/to/file.js.map
@@ -11,6 +18,7 @@ done
 
 cd m &>/dev/null
 rm *.js-e &>/dev/null
+rm GenerateDocs.php &>/dev/null
 cd .. &>/dev/null
 
 # GOOD.

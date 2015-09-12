@@ -6,6 +6,15 @@ else
 {
 	// Add a a few plugins For some THANKS 2 phpjs.org!
 
+  /**
+   * base64_decode
+   *
+   * Decode base64 encoded data
+   *
+   * @param object object
+   * @param data the base64 string
+   * @example _().base64_decode('dGVzdA==');
+   */
 	_.fn.base64_decode = function(data) {
         // @see http://phpjs.org/functions/base64_decode/
         var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -41,6 +50,16 @@ else
 
         return dec.replace(/\0+$/, '');
     },
+
+  /**
+   * base64_encode
+   *
+   * Encode to base64
+   *
+   * @param object object
+   * @param data the plain string
+   * @example _().base64_encode('test');
+   */
     _.fn.base64_encode = function(data) {
         // @see http://phpjs.org/functions/base64_encode/
 
@@ -72,6 +91,17 @@ else
         
         return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
     },
+
+  /**
+   * implode
+   *
+   * Implode to one string
+   *
+   * @param object object
+   * @param glue the 'glue'
+   * @param pieces the array
+   * @example _().impode(';', myArray);
+   */
     _.fn.implode = function(glue, pieces) {
         // @see http://phpjs.org/functions/implode/
         var i = '',
@@ -93,6 +123,16 @@ else
         }
         return pieces;
     },
+
+  /**
+   * chr
+   *
+   * PHP's function chr()
+   *
+   * @param object object
+   * @param codePr the charCode
+   * @example _().chr('test');
+   */
     _.fn.chr = function(codePt) {
         // @see http://phpjs.org/functions/chr/
         if (codePt > 0xFFFF) {
@@ -101,6 +141,16 @@ else
         }
         return String.fromCharCode(codePt);
     },
+
+  /**
+   * ord
+   *
+   * PHP's function ord()
+   *
+   * @param object object
+   * @param string the string
+   * @example _().ord('test');
+   */
     _.fn.ord = function (string) {
         // @see: http://phpjs.org/functions/ord/
 
@@ -119,6 +169,16 @@ else
         }
         return code;
     },
+
+  /**
+   * bin2hex
+   *
+   * PHP's function bin2hex()
+   *
+   * @param object object
+   * @param s the bin
+   * @example _().bin2hex('test');
+   */
     _.fn.bin2hex = function(s) {
         // @see http://phpjs.org/functions/bin2hex/
         var i, l, o = '', n;
@@ -131,6 +191,15 @@ else
         
         return o;
     },
+
+  /**
+   * sprintf
+   *
+   * PHP's function sprintf()
+   *
+   * @param object object
+   * @example _().sprintf('test');
+   */
     _.fn.sprintf = function() {
         // @see http://phpjs.org/functions/sprintf/
 
@@ -302,21 +371,80 @@ else
         return format.replace(regex, doFormat);
     },
 
+  /**
+   * nl2br
+   *
+   * PHP's function nl2br()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().nl2br('test');
+   */
     _.fn.nl2br = function(str) {
         return str.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
     },
+
+  /**
+   * strlen
+   *
+   * PHP's function strlen()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().strlen('test');
+   */
     _.fn.strlen = function(string) {
         return string.length;
     },
+
+  /**
+   * strtolower
+   *
+   * PHP's function strtolower()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().strtolower('test');
+   */
     _.fn.strtolower = function(str) {
         return str.toLowerCase();
     },
+
+  /**
+   * strtoupper
+   *
+   * PHP's function strtoupper()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().strtoupper('test');
+   */
     _.fn.strtoupper = function(str) {
         return str.toUpperCase();
     },
+
+  /**
+   * explode
+   *
+   * PHP's function explode()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().explode('t;e;s;t;', ';');
+   */
     _.fn.explode = function(str, delimiter) {
       return str.split(delimiter);
     },
+
+  /**
+   * join
+   *
+   * PHP's function join()
+   *
+   * @param object object
+   * @param str the string
+   * @example _().join(';', myArray);
+   */
     _.fn.join = function(glue, pieces) {
         return this.implode(glue, pieces);
     }

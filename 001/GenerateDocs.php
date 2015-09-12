@@ -11,7 +11,7 @@ $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." .
 $file        = "_.js";
 $file        = file_get_contents($file);
 
-$replace     = "GenerateDocs.html";
+$replace     = "../_.js_data/GenerateDocs.html";
 $replace 	 = file_get_contents($replace);
 
 $functions   = array();
@@ -88,8 +88,6 @@ function isAnnotation ($s)
 	$replace = preg_replace("/VERSION/", 	$version, 			   $replace);
 	$replace = preg_replace("/MENU/", 		$replaceArray['menu'], $replace);
 	$replace = preg_replace("/CONTENT/", 	$replaceArray['text'], $replace);
-
-	echo $replace;
 
 	file_put_contents("index.html", $replace);
 
