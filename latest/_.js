@@ -6,8 +6,8 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.3
-                            UNStable
+                              v0.0.2
+                              Stable
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -31,11 +31,11 @@
         var selector = document.querySelectorAll(params),i = 0;
         // Get selector length
         this.length     = selector.length;
-        this.version    = '0.0.3';
+        this.version    = '0.0.2';
         this.website    = 'http://www.wdgwv.com';
-        this.revision   = 'r01';
+        this.revision   = 'r01'
         this.isCompiled = false;
-        this.isStable   = false;
+        this.isStable   = true;
          
         // Add selector to object for method chaining
         for (; i < this.length; i++) {
@@ -56,7 +56,6 @@
             }
              return this;
         },
-
         html: function (data) {
             var len = this.length;
             while (len--) {
@@ -64,7 +63,6 @@
             }
             return this;
         },
-
         show: function () {
             var len = this.length;
             while (len--) {
@@ -72,7 +70,6 @@
             }
             return this;
         },
-
         qr: function (data) {
             var len = this.length;
             while (len--) {
@@ -83,7 +80,6 @@
             }
             return this;
         },
-
         framebreak: function () {
             if (top.location != location)
             {
@@ -192,7 +188,6 @@
             }
             return this
         },
-
         noConflict: function()
         {
             if (typeof old_js === 'object')
