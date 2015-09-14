@@ -41,7 +41,7 @@
         this.version     = '0.0.3ß';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r01'
+        this.revision    = 'r20'
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
