@@ -7,7 +7,6 @@
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
                               v0.0.3
-                              Beta
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -28,13 +27,41 @@
      
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
-        var selector    = document.querySelectorAll(params);
-        this.length     = selector.length;
-        this.version    = '0.0.2';
-        this.website    = 'http://www.wdgwv.com';
-        this.revision   = 'r01'
-        this.isCompiled = false;
-        this.isStable   = false;
+        // We'll gonna select
+        var selector     = document.querySelectorAll(params);
+
+        // We gonna set the length
+        this.length      = selector.length;
+
+        // We'll gonna set the version (including: 
+        // α = Alpha (alfa) [DO NOT USE]
+        // ß = Beta, [SEMI-Stable]
+        // s or nothing for stable!
+        // )
+        this.version     = '0.0.3ß';
+
+        // We'll gonna set the revision (prefix: r)
+        this.revision    = 'r01'
+
+        // We'll gonna mix the version & revision (full build string)
+        this.fullversion = this.version + this.revision;
+
+        // is this a beta?
+        this.isBeta      = (this.version.match(/ß/g) ) ? true : false;
+
+        // is this a alpha?
+        this.isAlpha     = (this.version.match(/α/g) ) ? true : false;
+
+        // is this a compiled version
+        // Please note that _.js is always uncompiled.
+        // Compiled version = _.min.js
+        this.isCompiled  = false;
+
+        // is this a stable version?
+        this.isStable    = (!this.isBeta && !this.isAlpha) ? true : false;
+
+        // Un-used right now
+        this.website     = 'http://www.wdgwv.com';
          
         // Add selector to object for method chaining
         for(var i=0; i<this.length; i++)
@@ -184,7 +211,7 @@
 
                 for (var i = 0; i < elem.length; i++) 
                 {
-                    if (elem[i].tagName == "SELECT") 
+                    if (elem[i].tagName.toLowerCase() == "select") // to lowercase, we don't want issues with SeLeCt
                         value = elem[i].options[elem[i].selectedIndex].value;
                     else
                         value = elem[i].value;
@@ -192,7 +219,7 @@
                     if (value)
                         params += elem[i].name + "=" + encodeURIComponent(value) + "&";
                 }
-                params += 'WDGWVAJAX=true';
+                params += 'by=' + encodeURIComponent('_.js');
 
                 xmlPhttp.open("POST", url, true);
                 xmlPhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -299,7 +326,11 @@
         requireSSL: function()
         {
             if (window.location.protocol != "https:" && window.location.protocol != 'file:')
-                window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+            {
+                // if not on localhost (testing)
+                if ( !window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g) )
+                    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+            }
             return;
         },
 
@@ -329,6 +360,7 @@
     }
     else
     {
+        //save the old, for _().noConflict()
         var old_js = window._;
         window._ = _;
     }
