@@ -116,7 +116,7 @@
                     if (value)
                         params += elem[i].name + "=" + encodeURIComponent(value) + "&";
                 }
-                params += 'WDGWVAJAX=true';
+				params += 'AJAXby=' + encodeURIComponent('_.js');
 
                 xmlPhttp.open("POST", url, true);
                 xmlPhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
