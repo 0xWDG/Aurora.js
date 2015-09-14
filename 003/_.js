@@ -219,7 +219,7 @@
                     if (value)
                         params += elem[i].name + "=" + encodeURIComponent(value) + "&";
                 }
-                params += 'by=' + encodeURIComponent('_.js');
+                params += 'AJAXby=' + encodeURIComponent('_.js');
 
                 xmlPhttp.open("POST", url, true);
                 xmlPhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
