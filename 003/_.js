@@ -100,6 +100,27 @@
         },
 
         /**
+         * $
+         *
+         * Easter egg ;)
+         *
+         * @param object object
+         * @example _().$();
+         */
+        $: function() {
+            alert('Hi');
+            var answer = confirm('Did you know that i\'m not jQuery?');
+
+            if (answer)
+                alert('Why did you even try this?');
+            else
+                alert('Nope, i\'m not jQuery');
+
+            alert('Thanks for using \'_.js\'!\n' +
+                  decodeURIComponent('%F0%9F%92%99'));
+        },
+
+        /**
          * Hide
          *
          * Hide a object from the website
@@ -354,6 +375,16 @@
         }
     };
     
+    // We'll parse the errors for you!
+    window.onerror = function(msg, url, line, col, error) 
+    {
+        var extra = !col ? '' : ' (col: ' + col + ')';
+           extra += !error ? '' : '\nerror: ' + error;
+
+        console.error("[_.js INFORMATION]\nError: " + msg + "\nline: " + line + extra);
+        return true; //let browser continue.
+    };
+
     // Assign our _ object to global window object.
     if(!window._) {
         window._ = _;
