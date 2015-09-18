@@ -224,25 +224,6 @@
         },
 
         /**
-         * QR
-         *
-         * Will be deprecated as v0.0.2r2
-         * Will be removed in v0.0.3 stable.
-         *
-         * @deprecated
-         */
-        qr: function (data) {
-            var len = this.length;
-            while (len--) {
-                if (typeof(makeQRnow) == "function")
-                    this[len].src = makeQRnow(data);
-                else
-                    return false;
-            }
-            return this;
-        },
-
-        /**
          * Framebreak
          *
          * If i'm in a frame, please break out of it
