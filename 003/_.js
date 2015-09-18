@@ -41,7 +41,7 @@
         this.version     = '0.0.3ß';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r20'
+        this.revision    = 'r20';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -59,10 +59,13 @@
 
         // is this a stable version?
         this.isStable    = (!this.isBeta && !this.isAlpha) ? true : false;
+        
+        // Script RegeX
+        this.ScriptRX    = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>';
 
-        // Un-used right now
-        this.website     = 'http://www.wdgwv.com';
-         
+        // JSON RegeX
+        this.JSONRX      = '/^\/\*-secure-([\s\S]*)\*\/\s*$/';
+
         // Add selector to object for method chaining
         for(var i=0; i<this.length; i++)
         {
@@ -85,7 +88,7 @@
          * @param configKey config parameter
          * @example _()._('version');
          */
-        _: function(configKey, set) {
+        _: function (configKey, set) {
             if (!set)
                 return eval('this.' + configKey);
             else
@@ -107,7 +110,7 @@
          * @param object object
          * @example _().$();
          */
-        $: function() {
+        $: function () {
             alert('Hi');
             var answer = confirm('Did you know that i\'m not jQuery?');
 
@@ -118,6 +121,53 @@
 
             alert('Thanks for using \'_.js\'!\n' +
                   decodeURIComponent('%F0%9F%92%99'));
+        },
+
+        /**
+         * require
+         *
+         * Load/Require a javascript file
+         *
+         * @param object object
+         * @example _().require(['a','r','ra','y'], function(){doSomeThing();});
+         */
+        require: function (jsArray, Callback) {
+            if (typeof(jsArray) === "object")
+            {
+                for (var i = jsArray.length - 1; i >= 0; i--) 
+                {
+                    if (!jsArray[i].match(/\.js/g))
+                        jsArray[i] = jsArray[i] + ".js";
+
+                    var head                        = document.getElementsByTagName('head')[0];
+                    var script                      = document.createElement('script');
+                        script.type                 = 'text/javascript';
+                        script.src                  = jsArray[i];
+
+                    if (i == 1)
+                        script.onreadystatechange   = Callback;
+                    if (i == 1)
+                        script.onload               = Callback;
+                    
+                    head.appendChild(script);
+                };
+            }
+            else if (typeof(jsArray) === "string")
+            {
+                    if (!jsArray.match(/\.js/g))
+                        jsArray = jsArray + ".js";
+
+                var head                        = document.getElementsByTagName('head')[0];
+                var script                      = document.createElement('script');
+                    script.type                 = 'text/javascript';
+                    script.src                  = jsArray;
+                    script.onreadystatechange   = Callback;
+                    script.onload               = Callback;
+                head.appendChild(script);
+            }
+            else {
+                console.error('Please use only a array, or a string.');
+            }
         },
 
         /**
@@ -142,12 +192,17 @@
          * place html in a object from the website
          *
          * @param object object
-         * @example _('.wrapper').html('hi, i\'m new');
+         * @example _('.wrapper').html('hi, i\'m new'); //Write
+         * @example _('.wrapper').html(); //Read
          */
         html: function (data) {
             var len = this.length;
-            while (len--) {
-                this[len].innerHTML = data;
+            while (len--) 
+            {
+                if ( typeof(data) === "undefined" ) // Reading mode _().html()
+                    return this[len].innerHTML;
+                else
+                    this[len].innerHTML = data;     // Writing mode _().html('hi, i write!')
             }
             return this;
         },
@@ -328,7 +383,7 @@
          * @param object object
          * @example var W = _().noConflict();
          */
-        noConflict: function()
+        noConflict: function ()
         {
             if (typeof old_js === 'object')
                 window._ = old_js;
@@ -344,7 +399,7 @@
          * @param object object
          * @example _().requireSSL();
          */
-        requireSSL: function()
+        requireSSL: function ()
         {
             if (window.location.protocol != "https:" && window.location.protocol != 'file:')
             {
@@ -360,23 +415,88 @@
          *
          * loadExtension Tries to load a extension (module)
          *
+         * @deprecated 0.0.4
          * @param object object
          * @example _().loadExtension(src, callback);
          */
         loadExtension: function(src, callback)
         {
-            // Future. Experimental.
-            this.addToBody('script', 'src=' + src);
+            return this.require(src, callback);
+        },
 
-            if(typeof callback === 'function')
+        /**
+         * isUndefined
+         *
+         * isUndefined is a object undefined?
+         *
+         * @param object object
+         * @param object to test
+         * @return true / false
+         * @example _().isUndefined(myObject);
+         */
+        isUndefined: function (thing)
+        {
+            return (typeof(thing) == "undefined");
+        },
+
+        /**
+         * isEmpty
+         *
+         * isEmpty is a object empty?
+         *
+         * @param object object
+         * @param object to test
+         * @return true / false
+         * @example _().isEmpty(myObject);
+         */
+        isEmpty: function (check) {
+            return check == '';
+        },
+
+        /**
+         * isBlank
+         *
+         * isBlank is a object blank?
+         *
+         * @param object object
+         * @param object to test
+         * @return true / false
+         * @example _().isBlank(myObject);
+         */
+        isBlank: function ( check ) {
+            return /^\s*$/.test(check);
+        },
+
+        /**
+         * truncate
+         *
+         * truncate is a object undefined?
+         *
+         * @param object object
+         * @param string length (default: 30)
+         * @param string truncation after the truncate (default: ...)
+         * @return true
+         * @example _('.wrapper').truncate(length, truncation);
+         */
+        truncate: function (length, truncation)
+        {
+            var len = this.length;
+            while (len--) 
             {
-                eval(callback);
+                length = length || 30;
+                truncation = this.isUndefined(truncation) ? '...' : truncation;
+    
+                this[len].innerHTML = this[len].innerHTML.length > length ? 
+                                                            this[len].innerHTML.substring(0, length) + truncation 
+                                                           : 
+                                                            String(this[len].innerHTML);
             }
+            return true;
         }
     };
     
     // We'll parse the errors for you!
-    window.onerror = function(msg, url, line, col, error) 
+    window.onerror = function (msg, url, line, col, error) 
     {
         var extra = !col ? '' : ' (col: ' + col + ')';
            extra += !error ? '' : '\nerror: ' + error;

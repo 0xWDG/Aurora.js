@@ -33,6 +33,10 @@ function isAnnotation ($s)
 }
 
 // Ok, sorry this is dirty stuff, but it works. (feel free to make it better ;))
+
+// get all global things (:0)
+preg_match_all("#this\.(.*)=(.*);#", 			$file, $thitest);
+
 // Get the comments (yes)
 preg_match_all("#/\*[^*]*\*+([^/][^*]*\*+)*/#", $file, $comtest);
 
@@ -86,8 +90,22 @@ for ($i=0; $i < sizeof($rettest[0]); $i++)
 
 // The fun and tricky part, here we go processing the files! why here?, just becouse.
 $replaceArray 		  = array();
+$replaceArray['glob'] = null;
 $replaceArray['menu'] = null;
 $replaceArray['text'] = null;
+$replaceArray['test'] = null;
+
+for ($i=0; $i < sizeof($thitest[0])-1; $i++) 
+{ 
+	// 1 = DEF, 2 = VAL.
+
+	// those regex things cause shit.
+	if (!preg_match("/RX/", $thitest[1][$i]))
+	{
+		$replaceArray['glob'] .= "<li class=\"nav-chapter\"><a href=\"#def_".md5($thitest[1][$i])."\">{$thitest[1][$i]}</a></li>";
+		$replaceArray['text'] .= "<a name=\"def_".md5($thitest[1][$i])."\"></a><h3 style='font-size: 200%;'>this.{$thitest[1][$i]}</h3><div style='background: lightyellow;'><p>{$thitest[2][$i]}</p></div><br /><br /><br /><br /><br />";
+	}
+}
 
 // Put it in the layout (a sort of ;) )
 foreach ($functions as $functionName => $functionValue) 
@@ -113,8 +131,10 @@ foreach ($functions as $functionName => $functionValue)
 // Finally the end is coming, we'll putting it in the design
 // $replace
 $replace = preg_replace("/VERSION/", 	$version, 			   $replace);
+$replace = preg_replace("/GLOBALS/", 	$replaceArray['glob'], $replace);
 $replace = preg_replace("/MENU/", 		$replaceArray['menu'], $replace);
 $replace = preg_replace("/CONTENT/", 	$replaceArray['text'], $replace);
+$replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 
 // write it down.
 file_put_contents("index.html", $replace);
