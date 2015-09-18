@@ -18,8 +18,8 @@ done
 
 cd m &>/dev/null
 rm *.js-e &>/dev/null
-rm GenerateDocs.php &>/dev/null
 cd .. &>/dev/null
+rm GenerateDocs.php &>/dev/null
 
 # GOOD.
 /Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -appIcon "/Users/Wes/Cloud/WDGWV/Administatief/Logo's/logo.png" -contentImage "/Users/Wes/Cloud/Images/icons/-good.png" -title WDGWV -subtitle Success -message "Created Sourcemaps!" &> /dev/null
