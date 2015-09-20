@@ -499,8 +499,17 @@
                     return window.getComputedStyle(this[len]).getPropertyValue(read);
                 }
                 else
-                {
-                    //Write CSS.
+                { //Write
+                    var _read = read;
+                        _read = _read.replace(/-/g, '');
+
+                    // this[len].style._read = write; // does edit the dom.
+                    // this[len].setAttribute(_read, write); // does add... but not working
+                    
+                    this[len].setAttribute('style', read + ':' + write + ';'); // does edit the dom!
+                    // ^^ NOT HAPPY W/ IT; i think it can be done better.
+
+                    return this;//this.css(read);
                 }
             }
         },
