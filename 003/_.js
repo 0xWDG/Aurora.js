@@ -563,7 +563,7 @@
             // _().runTest(_().someFunction(), 'haha');
             // ..
             // _('.x').functionSome('isCool');
-            // _().runTest(_('.x').html(), 'isCool');
+            // _().runTest(function(){return _('.x').html()}, 'isCool');
 
             if (typeof(testCase) != "function")
                 return (testCase == expectedResult); // Pass!
