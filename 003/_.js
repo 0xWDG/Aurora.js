@@ -41,7 +41,7 @@
         this.version     = '0.0.3ß';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r20';
+        this.revision    = 'r25';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -615,6 +615,36 @@
         endsWith: function(str, pattern) {
           var d = str.length - pattern.length;
           return d >= 0 && str.indexOf(pattern, d) === d;
+        },
+
+        /**
+         * capitalize
+         *
+         * capitalize a string
+         *
+         * @param object object
+         * @param string str the string
+         * @return string
+         * @example _().capitalize('hi, i am wesley');
+         */
+        capitalize: function (str) {
+            return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+        },
+
+        /**
+         * camelize
+         *
+         * camelize a string
+         *
+         * @param object object
+         * @param string str the string
+         * @return string
+         * @example _().camelize('hi, i am wesley');
+         */
+        camelize: function (str) {
+            return str.replace(/-+(.)?/g, function(match, chr) {
+                return chr ? chr.toUpperCase() : '';
+            });
         },
 
         /**
