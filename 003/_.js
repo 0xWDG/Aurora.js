@@ -553,17 +553,22 @@
          * runTest Run a test [internal, external use.]
          *
          * @param object object
-         * @param string length (default: 30)
-         * @param string truncation after the runTest (default: ...)
-         * @return true
-         * @example _('.wrapper').runTest(length, truncation);
+         * @param object testCase test case
+         * @param object expectedResult expected Result
+         * @return true/false
+         * @example _().runTest(_().someFunction(), 'haha');
          */
-        runTest: function (testCase, check, expectedResult) {
+        runTest: function (testCase, expectedResult) {
             //.. ok, how to handle.. mmz :)
-            // _().runTest(_().someFunction(), 'return', 'haha');
-            // _().runTest(_('.x').functionSome(), _('.x').html(), 'isCool');
-            // !!! DOES NOT WORK !!!
-            // !! TO DO - TO DO - TO DO !!
+            // _().runTest(_().someFunction(), 'haha');
+            // ..
+            // _('.x').functionSome('isCool');
+            // _().runTest(_('.x').html(), 'isCool');
+
+            if (typeof(testCase) != "function")
+                return (testCase == expectedResult); // Pass!
+            else
+                return (testCase() == expectedResult); // Pass!
         },
 
         /**
