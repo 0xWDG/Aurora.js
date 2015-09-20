@@ -1,15 +1,3 @@
-  function strip() {
-    return this.replace(/^\s+/, '').replace(/\s+$/, '');
-  }
-
-  function stripTags() {
-    return this.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
-  }
-
-  function stripScripts() {
-    return this.replace(new RegExp(Prototype.ScriptFragment, 'img'), '');
-  }
-
   function extractScripts() {
     var matchAll = new RegExp(Prototype.ScriptFragment, 'img'),
         matchOne = new RegExp(Prototype.ScriptFragment, 'im');
@@ -20,18 +8,6 @@
 
   function evalScripts() {
     return this.extractScripts().map(function(script) { return eval(script); });
-  }
-
-  function escapeHTML() {
-    return this.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function unescapeHTML() {
-    return this.stripTags().replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
-  }
-
-  function toArray() {
-    return this.split('');
   }
 
   function camelize() {
@@ -65,4 +41,3 @@
     var d = this.length - pattern.length;
     return d >= 0 && this.indexOf(pattern, d) === d;
   }
-

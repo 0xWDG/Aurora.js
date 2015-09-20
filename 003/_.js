@@ -449,6 +449,124 @@
         },
 
         /**
+         * stripTags
+         *
+         * stripTags strip HTML tags of a object
+         *
+         * @param object object
+         * @example _('.codeField').stripTags();
+         */
+        stripTags: function () {
+            var len = this.length;
+            while (len--) 
+            {
+                this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
+            }
+        },
+
+        /**
+         * stripScripts
+         *
+         * stripScripts strip Scripts from a object
+         *
+         * @param object object
+         * @example _('.codeField').stripScripts();
+         */
+        stripScripts: function () {
+            var len = this.length;
+            while (len--) 
+            {
+                this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '');
+            }
+        },
+
+        /**
+         * css
+         *
+         * css read, or write css
+         *
+         * @param object object
+         * @param string read what to read
+         * @param string? write what to write
+         * @example _('.wrapper').css('width', '10px');
+         */
+        css: function (read, write) {
+            var len = this.length;
+            while (len--) 
+            {
+                if(this.isUndefined(write))
+                { //Read
+                    return window.getComputedStyle(this[len]).getPropertyValue(read);
+                }
+                else
+                {
+                    //Write CSS.
+                }
+            }
+        },
+
+        /**
+         * escapeHTML
+         *
+         * escape the HTML
+         *
+         * @param object object
+         * @param string string to escape
+         * @return string
+         * @example _().escapeHTML(str);
+         */
+        escapeHTML: function (str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        },
+
+        /**
+         * unescapeHTML
+         *
+         * unescape the HTML
+         *
+         * @param object object
+         * @param string string to escape
+         * @return string
+         * @example _().unescapeHTML(str);
+         */
+        unescapeHTML: function (str) {
+            return str.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+        },
+
+        /**
+         * toArray
+         *
+         * string to array
+         *
+         * @param object object
+         * @param string string to put in the array
+         * @return array
+         * @example _().toArray(str);
+         */
+        toArray: function (str) {
+            return str.split('');
+        },
+
+        /**
+         * runTest
+         *
+         * runTest Run a test [internal, external use.]
+         *
+         * @param object object
+         * @param string length (default: 30)
+         * @param string truncation after the runTest (default: ...)
+         * @return true
+         * @example _('.wrapper').runTest(length, truncation);
+         */
+        runTest: function (testCase, check, expectedResult) {
+            //.. ok, how to handle.. mmz :)
+            // _().runTest(_().someFunction(), 'return', 'haha');
+            // _().runTest(_('.x').functionSome(), _('.x').html(), 'isCool');
+            // !!! DOES NOT WORK !!!
+            // !! TO DO - TO DO - TO DO !!
+        },
+
+        /**
          * truncate
          *
          * truncate is a object undefined?
