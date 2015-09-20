@@ -5,7 +5,7 @@
     	            _   | |  \___  \ 
   	 ______    _   | |__| |  ____) |
  	|______|  (_)   \____/  |______/ 
-							  v0.0.2
+							  v0.0.3
 							  Stable
 
 Please report all your idea's in "[Issues](https://github.com/wesdegroot/_.js/issues)"
