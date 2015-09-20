@@ -572,6 +572,52 @@
         },
 
         /**
+         * includes
+         *
+         * includes does a string includes the thing?
+         *
+         * @param object object
+         * @param string str the string
+         * @param string pattern the pattern
+         * @return true/false
+         * @example _().includes('hi, i am wesley', 'hi');
+         */
+        includes: function(str, pattern) {
+          return str.indexOf(pattern) > -1;
+        },
+
+        /**
+         * startsWith
+         *
+         * startsWith does a string starts With the thing?
+         *
+         * @param object object
+         * @param string str the string
+         * @param string pattern the pattern
+         * @return true/false
+         * @example _().startsWith('hi, i am wesley', 'hi');
+         */
+        startsWith: function(str, pattern) {
+          return str.lastIndexOf(pattern, 0) === 0;
+        },
+
+        /**
+         * endsWith
+         *
+         * endsWith does a string ends With the thing?
+         *
+         * @param object object
+         * @param string str the string
+         * @param string pattern the pattern
+         * @return true/false
+         * @example _().endsWith('hi, i am wesley', 'wesley');
+         */
+        endsWith: function(str, pattern) {
+          var d = str.length - pattern.length;
+          return d >= 0 && str.indexOf(pattern, d) === d;
+        },
+
+        /**
          * truncate
          *
          * truncate is a object undefined?
