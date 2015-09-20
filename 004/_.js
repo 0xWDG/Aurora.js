@@ -38,10 +38,10 @@
         // ß = Beta, [SEMI-Stable]
         // s or nothing for stable!
         // )
-        this.version     = '0.0.3';
+        this.version     = '0.0.4α';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r25';
+        this.revision    = 'r0';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
