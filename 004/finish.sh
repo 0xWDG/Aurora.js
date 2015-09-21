@@ -12,10 +12,10 @@ rm GenerateDocs.php &>/dev/null
 cp ../_.js_data/GenerateDocs.php GenerateDocs.php &>/dev/null
 
 # Generate index.html & generate wiki -> function list.
-echo "* Generating documentation..."
+echo "* Generating documentation"
 php GenerateDocs.php &>/dev/null
 
-echo "* Generating map files"
+echo "* Generating map files..."
 # Generate sourcemapping files.
 for i in *.js; 
 	do java -jar ../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i}; # Show errors ;D 
