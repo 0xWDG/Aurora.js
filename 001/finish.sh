@@ -60,6 +60,7 @@ git push &>/dev/null
 
 echo "* Pushing _.js/www"
 cd ../_.js.www 
+php fix.php &>/dev/null
 mkdir $bs_Dir &>/dev/null
 cp ../index.html . &>/dev/null
 cp $my_Dir/index.html $bs_Dir/index.html &>/dev/null
