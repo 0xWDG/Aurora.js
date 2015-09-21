@@ -9,6 +9,16 @@
 $version 	 = end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
 
+// WIKI WIKI!
+$WIKI        = "                	     _    _____ \r\n";
+$WIKI       .= "            	        | |  / ____|\r\n";
+$WIKI       .= "        	            | |  | (___ \r\n";
+$WIKI       .= "    	            _   | |  \\___ \\\r\n";
+$WIKI       .= "  	 ______    _   | |__| |  ____) |\r\n";
+$WIKI       .= " 	|______|  (_)   \\____/  |______/\r\n";
+$WIKI       .= "# Function List ({$version})\r\n";
+$WIKI       .= "\r\n";
+
 // Get the file to parse
 $file        = "_.js";
 $file        = file_get_contents($file);
@@ -114,6 +124,7 @@ foreach ($functions as $functionName => $functionValue)
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$functionValue['function']}</a></li>";
+		$WIKI				  .= "* {$functionValue['function']}\r\n";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
@@ -138,6 +149,9 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 
 // write it down.
 file_put_contents("index.html", $replace);
+
+// Update wiki!
+file_put_contents("../_.js.wiki/Function List.md", $WIKI);
 
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)

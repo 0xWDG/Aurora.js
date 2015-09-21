@@ -1,4 +1,6 @@
 # if exists remove old files
+export my_Dir=$(pwd)
+
 rm GenerateDocs.php &>/dev/null
 
 cp ../_.js_data/GenerateDocs.php GenerateDocs.php &>/dev/null
@@ -20,6 +22,15 @@ cd m &>/dev/null
 rm *.js-e &>/dev/null
 cd .. &>/dev/null
 rm GenerateDocs.php &>/dev/null
+cd ..
+git add .
+git commit -m "Auto-Pushing `basename $my_Dir`"
+git push
+cd _.js.wiki
+git add .
+git commit -m "Auto-Pushing `basename $my_Dir`"
+git push
+cd $my_Dir
 
 # GOOD.
 /Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -appIcon "/Users/Wes/Cloud/WDGWV/Administatief/Logo's/logo.png" -contentImage "/Users/Wes/Cloud/Images/icons/-good.png" -title WDGWV -subtitle Success -message "Created Sourcemaps!" &> /dev/null
