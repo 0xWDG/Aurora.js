@@ -63,6 +63,9 @@ cd ../_.js.www
 mkdir $bs_Dir &>/dev/null
 cp ../index.html . &>/dev/null
 cp $my_Dir/index.html $bs_Dir/index.html &>/dev/null
+git add . &>/dev/null
+git commit -m "Auto-Pushing $version" &>/dev/null
+git push &>/dev/null
 
 echo "* DONE"
 
