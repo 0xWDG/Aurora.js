@@ -1,6 +1,14 @@
+#/usr/bin/bash sh
+
+# yeey! version
+export my_Dir=$(pwd)
+export bs_Dir=`basename $my_Dir`
+export version="v${bs_Dir:0:1}.${bs_Dir:1:1}.${bs_Dir:2:1}"
+
 # if exists remove old files
 rm GenerateDocs.php &>/dev/null
 
+# doc builder
 cp ../_.js_data/GenerateDocs.php GenerateDocs.php &>/dev/null
 
 # Generate index.html & generate wiki -> function list.
@@ -18,8 +26,22 @@ done
 
 cd m &>/dev/null
 rm *.js-e &>/dev/null
-rm GenerateDocs.php &>/dev/null
 cd .. &>/dev/null
+rm GenerateDocs.php &>/dev/null
+cd ..
+git add .
+git commit -m "Auto-Pushing $version"
+git push
+cd _.js.wiki
+git add .
+git commit -m "Auto-Pushing $version"
+git push
+cd $my_Dir
 
 # GOOD.
 /Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -appIcon "/Users/Wes/Cloud/WDGWV/Administatief/Logo's/logo.png" -contentImage "/Users/Wes/Cloud/Images/icons/-good.png" -title WDGWV -subtitle Success -message "Created Sourcemaps!" &> /dev/null
+
+#Unset
+unset my_Dir
+unset bs_Dir
+unset version
