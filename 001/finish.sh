@@ -5,6 +5,17 @@ export my_Dir=$(pwd)
 export bs_Dir=`basename $my_Dir`
 export version="v${bs_Dir:0:1}.${bs_Dir:1:1}.${bs_Dir:2:1}"
 
+# YEEY!
+echo "                       _    _____ "
+echo "                      | |  / ____|"
+echo "                      | |  | (___ " 
+echo "                  _   | |  \\___  \\" 
+echo "   ______    _   | |__| |  ____) |"
+echo "  |______|  (_)   \____/  |______/"
+echo "                                  "
+echo "                   Pushing:       "
+echo "                            $version"
+
 # if exists remove old files
 rm GenerateDocs.php &>/dev/null
 
