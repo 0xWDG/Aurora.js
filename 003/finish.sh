@@ -66,8 +66,8 @@ cp $my_Dir/index.html $bs_Dir/index.html &>/dev/null
 php fix.php &>/dev/null
 git add . &>/dev/null
 git commit -m "Auto-Pushing $version" &>/dev/null
-git push &>/dev/null
-
+#git push &>/dev/null
+git push origin gh-pages &>/dev/null
 echo "* DONE"
 
 cd $my_Dir &>/dev/null
