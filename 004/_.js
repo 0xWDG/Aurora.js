@@ -71,7 +71,7 @@
         {
             this[i] = selector[i];
         }
-         
+        
         // Return as object
         return this;        
     };
