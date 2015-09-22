@@ -347,6 +347,7 @@
                       var pst=change.getElementsByTagName('form');
                       for(var i=0,j=pst.length;i<j;i++)
                       {
+                        console.log(pst[i].method.toLowerCase());
                         if (pst[i].method.toLowerCase() == 'post')
                             pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
                       }
