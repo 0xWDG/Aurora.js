@@ -297,7 +297,8 @@
                       var pst=change.getElementsByTagName('form');
                       for(var i=0,j=pst.length;i<j;i++)
                       {
-                        pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
+                        if (pst[i].action.toLowerCase() == 'post')
+                            pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
                       }
                     }
                 }
@@ -345,7 +346,8 @@
                       var pst=change.getElementsByTagName('form');
                       for(var i=0,j=pst.length;i<j;i++)
                       {
-                        pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
+                        if (pst[i].action.toLowerCase() == 'post')
+                            pst[i].setAttribute("onsubmit", "event.preventDefault();_('." + change.className + "').ajaxPOST(this);");
                       }
                     }
                 }
