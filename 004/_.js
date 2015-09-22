@@ -659,6 +659,41 @@
         },
 
         /**
+         * scrollToBottom
+         *
+         * scroll To Bottom
+         *
+         * @param object object
+         * @return true
+         * @example _('.wrapper').scrollToBottom();
+         */
+        scrollToBottom: function () {
+            var len = this.length;
+            while (len--) 
+            {
+                this[len].scrollTop = 0;
+            }
+            return true;
+        },
+
+        /**
+         * scrollToTop
+         *
+         * scroll To Bottom
+         *
+         * @param object object
+         * @return true
+         * @example _('.wrapper').scrollToTop();
+         */
+        scrollToTop: function () {
+            var len = this.length;
+            while (len--) 
+            {
+                this[len].scrollTop = this[len].scrollHeight;
+            }
+            return true;
+        },
+        /**
          * truncate
          *
          * truncate is a object undefined?
