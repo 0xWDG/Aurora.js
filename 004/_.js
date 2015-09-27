@@ -87,18 +87,14 @@
          * @param object object
          * @param configKey config parameter
          * @example _()._('version');
+         * @deprecated set SET WILL BE REMOVED.
          */
         _: function (configKey, set) {
             if (!set)
                 return eval('this.' + configKey);
             else
             {
-                eval('this.' + configKey + '=\'' + set + '\';');
-                
-                // Why the error, this does not work ^^ EVAL ^^
-                console.error('Error, Failed to set \'' + configKey + '\' to \'' + set + '\'');
-
-                return eval('this.' + configKey);
+                console.error('[_.js Error: NOT SUPPORTED]\nError, Failed to set \'' + configKey + '\' to \'' + set + '\'.');
             }
         },
 
@@ -312,7 +308,7 @@
         /**
          * Ajax
          *
-         * Loads a page tru AJAX
+         * Loads a page AJAX
          *
          * @param object object
          * @example _('.wrapper').ajax(url, options);
