@@ -154,8 +154,11 @@
             }
             else if (typeof(jsArray) === "string")
             {
-                    if (!jsArray.match(/\.js/g))
-                        jsArray = jsArray + ".js";
+                if (!jsArray.match(/\.js/g))
+                    jsArray = jsArray + ".js";
+
+                if (this.startsWith(jsArray, '_'))
+                    jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray;
 
                 var head                        = document.getElementsByTagName('head')[0];
                 var script                      = document.createElement('script');
