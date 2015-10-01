@@ -15,6 +15,7 @@ echo "  |______|  (_)   \____/  |______/"
 echo "                                  "
 echo "                   Pushing:       "
 echo "                            $version"
+echo "Licenced under CC BY 4.0          "
 
 # if exists remove old files
 rm GenerateDocs.php &>/dev/null

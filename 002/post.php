@@ -1,4 +1,4 @@
-<?php
+<!-- _.js // (c) Wesley de Groot (WDGWV) // CC BY 4.0 --><?php
 echo "<pre>";
 print_r($_POST);
 echo "</pre>";

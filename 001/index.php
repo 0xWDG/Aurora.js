@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- _.js // (c) Wesley de Groot (WDGWV) // CC BY 4.0 --><!DOCTYPE html>
 <html>
 <head>
     <title>_.js</title>

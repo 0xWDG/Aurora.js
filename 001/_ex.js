@@ -1,3 +1,25 @@
+/*
+
+                         _    _____ 
+                        | |  / ____|
+                        | |  | (___  
+                    _   | |  \___  \ 
+     ______    _   | |__| |  ____) |
+    |______|  (_)   \____/  |______/ 
+                                    v0.0.1
+
+    !!! NOT READY
+    !!! THIS VERSION IS NOT YET READY FOR PRODUCTION
+
+    https://www.github.com/wesdegroot/_.js/
+    or https://www.wdgwv.com
+
+    Git:     https://github.com/wesdegroot/_.js
+    Todo:    https://github.com/wesdegroot/_.js/issues
+    Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md (CC BY 4.0)
+    Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
+*/
+
 if(!window._) 
 {
 	alert("MISSING SOMETHING!");
