@@ -1,8 +1,8 @@
 <div class="md">
-# _.js
+# WDGWV Api
     POST /api/login HTTP/1.0
     Content-Type: application/json
-    Host: api.the-app-team.com
+    Host: api.myDomain.com
 
     username={USERNAME}&email={EMAIL}&password={PASSWORD}
 
@@ -16,8 +16,10 @@
     {status: 'database down'}
 </div>
 
-<div id='md-test' class="md-test">Loading?</div>
-
 <script type="text/javascript" src='../_.js'></script>
 
-<script type="text/javascript" src='_markdown.js'></script>
+<script type="text/javascript">
+  _().require("_markdown.js", function(){ 
+    _('.md').markdown(); 
+  });
+</script>

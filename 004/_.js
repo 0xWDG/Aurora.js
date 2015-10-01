@@ -123,6 +123,8 @@
          * require
          *
          * Load/Require a javascript file
+         * if a file is starting with _ then it is a _.js module
+         * DO not use _ as first character on own modules! (unless you do a pull request.)
          *
          * @param object object
          * @example _().require(['a','r','ra','y'], function(){doSomeThing();});
@@ -135,7 +137,9 @@
                     if (!jsArray[i].match(/\.js/g))
                         jsArray[i] = jsArray[i] + ".js";
 
-                    var head                        = document.getElementsByTagName('head')[0];
+                    if (this.startsWith(jsArray[i], '_'))
+                        jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i];
+
                     var script                      = document.createElement('script');
                         script.type                 = 'text/javascript';
                         script.src                  = jsArray[i];
@@ -145,7 +149,7 @@
                     if (i == 1)
                         script.onload               = Callback;
                     
-                    head.appendChild(script);
+                    document.head.appendChild(script);
                 };
             }
             else if (typeof(jsArray) === "string")
