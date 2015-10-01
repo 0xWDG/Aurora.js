@@ -689,6 +689,7 @@
             }
             return true;
         },
+        
         /**
          * truncate
          *
