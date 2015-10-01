@@ -38,7 +38,7 @@
         // ß = Beta, [SEMI-Stable]
         // s or nothing for stable!
         // )
-        this.version     = '0.0.4α';
+        this.version     = '0.0.4';
 
         // We'll gonna set the revision (prefix: r)
         this.revision    = 'r0';
