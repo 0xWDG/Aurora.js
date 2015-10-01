@@ -21,6 +21,7 @@
     @todo: URLs
     @todo: Images
 */
+console.log('local :)');
 
 if(!window._) 
 {

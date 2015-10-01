@@ -137,7 +137,7 @@
                     if (!jsArray[i].match(/\.js/g))
                         jsArray[i] = jsArray[i] + ".js";
 
-                    if (this.startsWith(jsArray[i], '_'))
+                    if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
                         jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i];
 
                     var script                      = document.createElement('script');
@@ -157,7 +157,7 @@
                 if (!jsArray.match(/\.js/g))
                     jsArray = jsArray + ".js";
 
-                if (this.startsWith(jsArray, '_'))
+                if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
                     jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray;
 
                 var head                        = document.getElementsByTagName('head')[0];
@@ -375,6 +375,28 @@
                 window._ = old_js;
 
             return _;
+        },
+
+        /**
+         * isLocal
+         *
+         * Are we running local?
+         *
+         * @param object object
+         * @return true/false
+         * @example _().isLocal();
+         */
+        isLocal: function ()
+        {
+            if (window.location.protocol != 'file:')
+            {
+                if ( !window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g) )
+                    return false;
+                else
+                    return true;
+            }
+            else
+                return true;
         },
 
         /**
