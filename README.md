@@ -5,9 +5,6 @@
     	            _   | |  \___  \ 
   	 ______    _   | |__| |  ____) |
  	|______|  (_)   \____/  |______/ 
-							  v0.0.3
-							  Stable
-                         20-SEP-2015
 
 Please report all your idea's in "[Issues](https://github.com/wesdegroot/_.js/issues)"
 
