@@ -15,4 +15,10 @@ See here the [Function list](https://github.com/wesdegroot/_.js/wiki/Function%20
 
 Want to help? see: [Developers](https://github.com/wesdegroot/_.js/wiki/Developers)
 
-Thanks for using!
+Wiki: [Wiki](https://github.com/wesdegroot/_.js/wiki)
+
+---
+
+### Thanks for using!
+
+---
