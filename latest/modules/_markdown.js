@@ -17,23 +17,18 @@
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
 
-/*
-    @todo: URLs
-    @todo: Images
-*/
-
 if(!window._) 
 {
-	alert("MISSING SOMETHING!");
+    alert("MISSING SOMETHING!");
 }
 else
 {
-	_.fn.md_str_repeat = function( str, num )
-	{
-    	return new Array( num + 1 ).join( str );
-	};
-	// Add a Plugin "Markdown"
-	_.fn.markdown = function() {
+    _.fn.md_str_repeat = function( str, num )
+    {
+        return new Array( num + 1 ).join( str );
+    };
+    // Add a Plugin "Markdown"
+    _.fn.markdown = function() {
         //var len = this.length;
         //while (len--) 
         var len=0;
@@ -77,7 +72,27 @@ else
                         parse[i] = parse[i].replace(/`(.*)`/g, "<style>pre.prettyprint{border:0 !important;}</style><div style='display:inline-block;word-break:break-all;word-wrap:break-word;white-space:pre;white-space:pre-wrap;background-color:#f5f5f5;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.15);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;'><pre class=\"prettyprint\">$1</pre></div>");
                 }
 
+                //- image (![GitHub Logo](/images/logo.png))
+                if(parse[i].match(/\(\!\[(.*)\]\((.*)\)\)/g))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/\(\!\[(.*)\]\((.*)\)\)/g, "<img src='$2' alt='$1'>");
+                }
 
+                //- URL []()
+                if(parse[i].match(/\[(.*)\]\((.*)\)/g))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/\[(.*)\]\((.*)\)/g, "<a href='$2'>$1</a>");
+                }
+
+                //- URL
+                if(parse[i].match(/(?![^<]*>|[^<>]*<\/(?!(?:p|pre)>))((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/(?![^<]*>|[^<>]*<\/(?!(?:p|pre)>))((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi, "<a href='$1'>$1</a>");
+                }
+                
                 // OK parse the MarkDown ;)
 
                 // Empty line (break)
@@ -301,7 +316,7 @@ else
                         console.log('[' + i + '] Code Opened!!!');
                     }
 
-                    mrk += "\r\n" + parse[i].substr(4,parse[i].length);	
+                    mrk += "\r\n" + parse[i].substr(4,parse[i].length); 
 
                     if (debug)
                         console.log('[' + i + '] CS=' + ((codeOpen)?'Opened':'Closed') + '@' + openAt + '; Code: ' + parse[i]);

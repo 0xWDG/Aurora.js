@@ -17,12 +17,6 @@
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
 
-/*
-    @todo: URLs
-    @todo: Images
-*/
-console.log('local :)');
-
 if(!window._) 
 {
 	alert("MISSING SOMETHING!");
@@ -78,7 +72,27 @@ else
                         parse[i] = parse[i].replace(/`(.*)`/g, "<style>pre.prettyprint{border:0 !important;}</style><div style='display:inline-block;word-break:break-all;word-wrap:break-word;white-space:pre;white-space:pre-wrap;background-color:#f5f5f5;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.15);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;'><pre class=\"prettyprint\">$1</pre></div>");
                 }
 
+                //- image (![GitHub Logo](/images/logo.png))
+                if(parse[i].match(/\(\!\[(.*)\]\((.*)\)\)/g))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/\(\!\[(.*)\]\((.*)\)\)/g, "<img src='$2' alt='$1'>");
+                }
 
+                //- URL []()
+                if(parse[i].match(/\[(.*)\]\((.*)\)/g))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/\[(.*)\]\((.*)\)/g, "<a href='$2'>$1</a>");
+                }
+
+                //- URL
+                if(parse[i].match(/(?![^<]*>|[^<>]*<\/(?!(?:p|pre)>))((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi))
+                {
+                    if (!codeOpen)
+                        parse[i] = parse[i].replace(/(?![^<]*>|[^<>]*<\/(?!(?:p|pre)>))((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi, "<a href='$1'>$1</a>");
+                }
+                
                 // OK parse the MarkDown ;)
 
                 // Empty line (break)
