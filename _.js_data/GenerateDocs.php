@@ -157,7 +157,7 @@ exit;
 $ver = (end(explode("/",__dir__)));
 if (strlen($ver) == 1) $ver = "00".$ver;
 if (strlen($ver) == 2) $ver = "0". $ver;
-exit($ver);
+exit(strlen($ver) . "=" . $ver);
 
 if ( file_exists ( '../' . $ver . '/_.js' ) )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
