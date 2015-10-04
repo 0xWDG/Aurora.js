@@ -1,0 +1,19 @@
+<div class="testResults">...</div>
+
+<script type="text/javascript" src='../_.js'></script>
+
+<script type="text/javascript">
+  _().require("_multimedia", function() { 
+    _('.testResults').multimedia({
+      before: {
+                file: 'x.mp3',
+                skip: false
+              },
+      file: 'y.mp3',
+      after: {
+                file: 'z.mp3',
+                skip: false
+             }
+    });
+  });
+</script>

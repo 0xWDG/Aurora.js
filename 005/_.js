@@ -7,6 +7,7 @@
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
                               v0.0.5
+                         PRE-Release
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -38,10 +39,10 @@
         // ß = Beta, [SEMI-Stable]
         // s or nothing for stable!
         // )
-        this.version     = '0.0.5';
+        this.version     = '0.0.5ß';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r0';
+        this.revision    = 'r1';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -160,17 +161,50 @@
                 if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
                     jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray;
 
-                var head                        = document.getElementsByTagName('head')[0];
                 var script                      = document.createElement('script');
                     script.type                 = 'text/javascript';
                     script.src                  = jsArray;
                     script.onreadystatechange   = Callback;
                     script.onload               = Callback;
-                head.appendChild(script);
+                document.head.appendChild(script);
             }
             else {
                 console.error('Please use only a array, or a string.');
             }
+        },
+
+        /**
+         * Format
+         *
+         * Format sort of sprintf
+         *
+         * @param object object
+         * @example _().format('my %s', 'wesley');
+         */
+        format: function ( )
+        {
+            var args = arguments,
+              string = args[0],
+                   i = 1;
+
+            return string.replace(/%((%)|s|d)/g, function (m) {
+                var val = null;
+                if (m[2]) {
+                    val = m[2];
+                } else {
+                    val = args[i];
+                    switch (m) {
+                        case '%d':
+                        val = parseFloat(val);
+                        if (isNaN(val)) {
+                            val = 0;
+                        }
+                        break;
+                    }
+                  i++;
+                }
+                return val;
+            });
         },
 
         /**
