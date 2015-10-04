@@ -150,9 +150,6 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 // write it down.
 file_put_contents("index.html", $replace);
 
-echo '../' . (end(explode("/",__dir__))+1) . '/_.js';
-exit;
-
 // Update wiki! (Only if finial (final = one version behind.))
 $ver = (end(explode("/",__dir__)));
 if (strlen($ver) == 1) $ver = "00".$ver;
