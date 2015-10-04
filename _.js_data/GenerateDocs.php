@@ -151,7 +151,7 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 file_put_contents("index.html", $replace);
 
 // Update wiki! (Only if finial (final = one version behind.))
-$ver = (end(explode("/",__dir__)));
+$ver = (end(explode("/",__dir__)))+1;
 if (strlen($ver) == 1) $ver = "00".$ver;
 if (strlen($ver) == 2) $ver = "0". $ver;
 exit(strlen($ver) . "=" . $ver);
