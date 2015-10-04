@@ -150,8 +150,9 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 // write it down.
 file_put_contents("index.html", $replace);
 
-// Update wiki!
-file_put_contents("../_.js.wiki/Function List.md", $WIKI);
+// Update wiki! (Only if finial (final = one version behind.))
+if ( file_exists ( (end(explode("/",__dir__))+1) '/_.js' ) )
+	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
 
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
