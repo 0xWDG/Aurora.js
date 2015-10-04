@@ -154,7 +154,12 @@ echo '../' . (end(explode("/",__dir__))+1) . '/_.js';
 exit;
 
 // Update wiki! (Only if finial (final = one version behind.))
-if ( file_exists ( '../' . (end(explode("/",__dir__))+1) . '/_.js' ) )
+$ver = (end(explode("/",__dir__)));
+if (strlen($ver) == 1) $ver = "00".$ver;
+if (strlen($ver) == 2) $ver = "0". $ver;
+exit($ver);
+
+if ( file_exists ( '../' .  . '/_.js' ) )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
 
 // i promise, that the _.js code is not so terrible as this one!
