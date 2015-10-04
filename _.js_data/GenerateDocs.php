@@ -150,6 +150,9 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 // write it down.
 file_put_contents("index.html", $replace);
 
+echo '../' . (end(explode("/",__dir__))+1) '/_.js';
+exit;
+
 // Update wiki! (Only if finial (final = one version behind.))
 if ( file_exists ( '../' . (end(explode("/",__dir__))+1) '/_.js' ) )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
