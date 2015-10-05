@@ -28,7 +28,7 @@ else
   var players = {},      // the media players
       video   = 'video', // video -> video (if user forgets '')
       audio   = 'audio'; // audio -> audio (if user forgets '')
-      
+
   /**
    * multimedia
    *
@@ -111,6 +111,8 @@ else
           if (typeof data['before'] == 'object') //has parameters.
           {
             //Parse things
+            console.error('Not yet supported :(');
+            console.error('Please see: https://github.com/wesdegroot/_.js/wiki/module_multimedia');
           }
           else
           {
@@ -223,6 +225,8 @@ else
           if (typeof data['after'] == 'object') //has parameters.
           {
             //Parse things
+            console.error('Not yet supported :(');
+            console.error('Please see: https://github.com/wesdegroot/_.js/wiki/module_multimedia');
           }
           else
           {
