@@ -30,7 +30,7 @@ mkdir m &> /dev/null
 echo "* Generating map files..."
 # Generate sourcemapping files.
 for i in *.js; 
-	do java -jar ../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i}; # Show errors ;D 
+	do java -jar ../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i} --language_in=ES5; # Show errors ;D 
 done
 
 echo "* Fixing map files"
@@ -45,7 +45,7 @@ mkdir m &> /dev/null
 echo "* Generating map files (Modules)..."
 # Generate sourcemapping files.
 for i in *.js; 
-	do java -jar ../../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i}; # Show errors ;D 
+	do java -jar ../../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i} --language_in=ES5; # Show errors ;D 
 done
 
 echo "* Fixing map files (Modules)"
