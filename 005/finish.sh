@@ -29,6 +29,8 @@ php GenerateDocs.php &>/dev/null
 mkdir m &> /dev/null
 echo "* Generating map files..."
 # Generate sourcemapping files.
+
+# --language_in=ES5 Fixes weird, IE<7 errors.
 for i in *.js; 
 	do java -jar ../_.js_data/compiler.jar --js ./${i} --create_source_map ./m/${i}.map --js_output_file ./m/${i} --language_in=ES5; # Show errors ;D 
 done
