@@ -17,9 +17,12 @@
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
 
-if(window._) 
+if(!window._) 
 {
-
+	alert("MISSING SOMETHING!");
+}
+else
+{
 	// Add a a few plugins For some THANKS 2 phpjs.org!
 
   /**
@@ -31,7 +34,6 @@ if(window._)
    * @param data the base64 string
    * @example _().base64_decode('dGVzdA==');
    */
-
 	_.fn.base64_decode = function(data) {
         // @see http://phpjs.org/functions/base64_decode/
         var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
