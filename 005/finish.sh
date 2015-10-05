@@ -53,6 +53,9 @@ echo "* Fixing map files (Modules)"
 for i in *.js;
 	do sed -i -e '1i\'$'\n''//# sourceMappingURL='${i}'.map'$'\n' m/${i} &>/dev/null;
 done
+cd m
+rm *.js-e &>/dev/null
+cd ..
 cd ..
 
 # remove temp files
