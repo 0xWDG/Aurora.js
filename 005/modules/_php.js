@@ -34,7 +34,8 @@ else
    * @param data the base64 string
    * @example _().base64_decode('dGVzdA==');
    */
-	window._.fn.base64_decode = function(data) {
+   
+	.fn.base64_decode = function(data) {
         // @see http://phpjs.org/functions/base64_decode/
         var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
         var o1, o2, o3, h1, h2, h3, h4, bits, i = 0, ac = 0, dec = '', tmp_arr = [];
