@@ -153,34 +153,54 @@ else
               document.getElementById('MMMain').play(); //Play the next
             });
 
-            this[len].appendChild(MMElement); //Add to HTML
+            //Add to HTML
+            this[len].appendChild(MMElement);
 
-            window.players = this.merge(window.players, {before:{file:data['before'],html:MMElement,options:options}}); // Temporary
+            window.players=this.merge(window.players,{before:{file:data['before'],html:MMElement,options:options}}); // Temporary
           }
         }
         
         // Main file
-            var MMElement = document.createElement('audio');
-                if (options['controls'])
-                  MMElement.setAttribute("controls", "yes");
-                    
-                MMElement.setAttribute("preload", "auto");
-                MMElement.setAttribute("id",      "MMMain");
-                MMElement.autobuffer = true;
+        // Create "MMElement" (MultiMediaElement)
+        var MMElement = document.createElement('audio');
+        
+        // Does it need controls?
+        if (options['controls'])
+            MMElement.setAttribute("controls", "yes");
+            
+            // Pre load ;) 
+            MMElement.setAttribute("preload", "auto");
+            
+            // Set the id
+            MMElement.setAttribute("id",      "MMMain");
+            
+            // Autobuffer ;) (we dont like delay)
+            MMElement.autobuffer = true;
 
+            // Create the source
             var source = document.createElement('source');
+                // What is the type of the file?
                 source.type = audioTypes[data['file'].substr(data['file'].indexOf('.')+1)];
+
+                // And the SouRCe
                 source.src  = data['file'];
             
+            // Append source to "MMElement"
             MMElement.appendChild(source);
+
+            // Start loading
             MMElement.load();
+
+            // On end play the next.
             MMElement.addEventListener('ended',function() {
-              this.pause();
-              document.getElementById('MMAfter').play();
+              this.pause(); //Pause this one
+              document.getElementById('MMAfter').play(); //Play the next
             });
+
+            //Add to HTML
             this[len].appendChild(MMElement);
 
-            window.players = this.merge(window.players,{main:{file:data['file'],html:MMElement,options:options}}); // Temporary
+            window.players=this.merge(window.players,{main:{file:data['file'],html:MMElement,options:options}}); // Temporary
 
         // Ad on end.
         if (!this.isUndefined(data['after']))
@@ -191,33 +211,46 @@ else
           }
           else
           {
+            // Create "MMElement" (MultiMediaElement)
             var MMElement = document.createElement('audio');
-                if (options['controls'])
-                  MMElement.setAttribute("controls", "yes");
+            
+            // Does it need controls?
+            if (options['controls'])
+                MMElement.setAttribute("controls", "yes");
                     
+                // Pre load ;) 
                 MMElement.setAttribute("preload", "auto");
+
+                // Set the id
                 MMElement.setAttribute("id",      "MMAfter");
+
+                // Autobuffer ;) (we dont like delay)
                 MMElement.autobuffer = true;
 
+            // Create the source
             var source = document.createElement('source');
+
+                // What is the type of the file?
                 source.type = audioTypes[data['after'].substr(data['after'].indexOf('.')+1)];
+
+                // What is the type of the file?
                 source.src  = data['after'];
             
+            // Append source to "MMElement"
             MMElement.appendChild(source);
+
+            // Start loading
             MMElement.load();
+
+            // On end pause
             MMElement.addEventListener('ended',function() {
-              this.pause();
+              this.pause(); // Pause, all done my friend.
             });
+
+            //Add to HTML
             this[len].appendChild(MMElement);
 
-            window.players = this.merge(window.players, {
-                          after:
-                          {
-                            file:    data['after'],
-                            html:    MMElement,
-                            options: options
-                          }
-                         });
+            window.players=this.merge(window.players,{after:{file:data['after'],html:MMElement,options:options}}); // Temporary
           }
         }
 
