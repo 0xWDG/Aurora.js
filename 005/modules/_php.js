@@ -24,7 +24,6 @@ if(!window._)
 else
 {
   var PHPjs = 'http://www.phpjs.org';
-	// Add a a few plugins For some THANKS 2 phpjs.org!
 
   /**
    * base64_decode
