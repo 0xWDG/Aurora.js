@@ -5,15 +5,9 @@
 <script type="text/javascript">
   _().require("_multimedia", function() { 
     _('.testResults').multimedia({
-      before: {
-                file: 'x.mp3',
-                skip: false
-              },
-      file: 'y.mp3',
-      after: {
-                file: 'z.mp3',
-                skip: false
-             }
+      before: 'audio/before.mp3',
+      file:   'audio/main.mp3',
+      after:  'audio/after.mp3'
     });
   });
 </script>
