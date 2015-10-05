@@ -62,7 +62,7 @@ else
           options       = {
                             autoplay: true,
                             controls: false,
-                            skip:     false,
+                            visible:  false,
                             default:  true,
                             type:     'ERROR',
                           };
@@ -132,8 +132,10 @@ else
 
             // Create the source
             var source = document.createElement('source');
+
                 // What is the type of the file?
                 source.type = audioTypes[data['before'].substr(data['before'].indexOf('.')+1)];
+
                 // And the SouRCe
                 source.src  = data['before'];
             
@@ -149,8 +151,13 @@ else
 
             // On end play the next.
             MMElement.addEventListener('ended',function() {
-              this.pause(); //Pause this one
-              document.getElementById('MMMain').play(); //Play the next
+              
+              //Pause this one
+              this.pause();
+              
+              //Play the next
+              document.getElementById('MMMain').play();
+
             });
 
             //Add to HTML
@@ -179,6 +186,7 @@ else
 
             // Create the source
             var source = document.createElement('source');
+
                 // What is the type of the file?
                 source.type = audioTypes[data['file'].substr(data['file'].indexOf('.')+1)];
 
@@ -193,8 +201,13 @@ else
 
             // On end play the next.
             MMElement.addEventListener('ended',function() {
-              this.pause(); //Pause this one
-              document.getElementById('MMAfter').play(); //Play the next
+              
+              //Pause this one
+              this.pause(); 
+              
+              //Play the next
+              document.getElementById('MMAfter').play();
+
             });
 
             //Add to HTML
@@ -244,7 +257,10 @@ else
 
             // On end pause
             MMElement.addEventListener('ended',function() {
-              this.pause(); // Pause, all done my friend.
+              
+              // Pause, all done my friend.
+              this.pause();
+            
             });
 
             //Add to HTML
