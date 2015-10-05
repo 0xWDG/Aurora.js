@@ -752,7 +752,39 @@
             }
             return true;
         },
-        
+
+        /**
+         * merge
+         *
+         * merge objects to one
+         *
+         * @param object object
+         * @param object obj1
+         * @param object obj2
+         * @return object
+         * @example _().merge(obj1, obj2);
+         */
+        merge: function() 
+        {
+            var obj={},
+                  i=0,
+                 il=arguments.length,
+                key;
+
+            for (; i < il; i++) 
+            {
+                for (key in arguments[i]) 
+                {
+                    if (arguments[i].hasOwnProperty(key)) 
+                    {
+                        obj[key] = arguments[i][key];
+                    }
+                }
+            }
+            
+            return obj;
+        },
+
         /**
          * truncate
          *
