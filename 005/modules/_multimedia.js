@@ -25,8 +25,10 @@ if(!window._)
 }
 else
 {
-  var players = {};
-
+  var players = {},      // the media players
+      video   = 'video', // video -> video (if user forgets '')
+      audio   = 'audio'; // audio -> audio (if user forgets '')
+      
   /**
    * multimedia
    *
