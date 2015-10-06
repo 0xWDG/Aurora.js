@@ -25,9 +25,10 @@ if(!window._)
 }
 else
 {
-  var players = {},      // the media players
-      video   = 'video', // video -> video (if user forgets '')
-      audio   = 'audio'; // audio -> audio (if user forgets '')
+  var players  = {},      // the media players
+      video    = 'video', // video -> video (if user forgets '')
+      audio    = 'audio', // audio -> audio (if user forgets '')
+      MMActive = '';      // Wich player is active?
 
   /**
    * multimedia
@@ -64,7 +65,7 @@ else
           options       = {
                             autoplay: true,
                             controls: false,
-                            visible:  false,
+                            visible:  false, //Deprecated. (yes that's soon, it's useless (use's parent class ;))
                             default:  true,
                             type:     'ERROR',
                           };
@@ -89,6 +90,21 @@ else
               options['type'] = data['options']['type']
             else //else
               options['type'] = mediaType[data['file'].substr(data['file'].indexOf('.')+1)];
+
+            // autoplay on? off?
+            if (typeof data['options']['autoplay'] != 'undefined')
+              options['autoplay'] = data['options']['autoplay'];
+
+            // controls visible?
+            if (typeof data['options']['controls'] != 'undefined')
+              options['controls'] = data['options']['controls'];
+
+            // must the player be visible?
+            if (typeof data['options']['visible'] != 'undefined')
+              options['visible'] = data['options']['visible'];
+
+            // Not the default config anymore!
+            options['default'] = false;
           }
           else
           {
@@ -119,7 +135,7 @@ else
             // even better. our default data.
 
             // Create "MMElement" (MultiMediaElement)
-            var MMElement = document.createElement('audio'); //TODO: audio OR video ;)
+            var MMElement = document.createElement(options['type']); //TODO: audio OR video ;)
 
             // Does it need controls?
             if (options['controls'])
@@ -153,6 +169,8 @@ else
             if (options['autoplay'])
               MMElement.play();
 
+            window.MMActive = MMElement;
+
             // On end play the next.
             MMElement.addEventListener('ended',function() {
               
@@ -161,6 +179,9 @@ else
               
               //Play the next
               document.getElementById('MMMain').play();
+
+              // Wich player is active
+              window.MMActive = document.getElementById('MMMain');
 
             });
 
@@ -173,7 +194,7 @@ else
         
         // Main file
         // Create "MMElement" (MultiMediaElement)
-        var MMElement = document.createElement('audio');
+        var MMElement = document.createElement(options['type']);
         
         // Does it need controls?
         if (options['controls'])
@@ -185,6 +206,14 @@ else
             // Set the id
             MMElement.setAttribute("id",      "MMMain");
             
+            // Wich player is active
+            if (this.isUndefined(data['before']))
+              window.MMActive = MMElement;
+
+            //No ad, but autoplay ;)
+            if (options['autoplay'] && this.isUndefined(data['before']))
+              MMElement.play();
+
             // Autobuffer ;) (we dont like delay)
             MMElement.autobuffer = true;
 
@@ -203,16 +232,32 @@ else
             // Start loading
             MMElement.load();
 
-            // On end play the next.
-            MMElement.addEventListener('ended',function() {
+            if (!this.isUndefined(data['after']))
+            {
+              // On end play the next.
+              MMElement.addEventListener('ended',function() {
               
-              //Pause this one
-              this.pause(); 
+                //Pause this one
+                this.pause(); 
               
-              //Play the next
-              document.getElementById('MMAfter').play();
+                //Play the next
+                document.getElementById('MMAfter').play();
 
-            });
+                // Wich player is active
+                window.MMActive = document.getElementById('MMAfter');
+
+              });
+            }
+            else
+            {
+              // We got only this one :)
+              MMElement.addEventListener('ended',function() {
+              
+                //Pause this one
+                this.pause(); 
+
+              }); 
+            }
 
             //Add to HTML
             this[len].appendChild(MMElement);
@@ -287,6 +332,6 @@ else
 
   _.fn.mmPlayer_start = function ( playerID ) 
   {
-    //_()[0].id
+    window.MMActive.play();
   };
 }
