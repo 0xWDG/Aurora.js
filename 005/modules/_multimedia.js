@@ -188,7 +188,8 @@ else
             //Add to HTML
             this[len].appendChild(MMElement);
 
-            window.players=this.merge(window.players,{before:{file:data['before'],html:MMElement,options:options}}); // Temporary
+            // Add Player to the global window.players list (for skip, pause, active, multiple files)
+            window.players=this.merge(window.players,{before:{file:data['before'],html:MMElement,options:options}});
           }
         }
         
@@ -262,7 +263,8 @@ else
             //Add to HTML
             this[len].appendChild(MMElement);
 
-            window.players=this.merge(window.players,{main:{file:data['file'],html:MMElement,options:options}}); // Temporary
+            // Add Player to the global window.players list (for skip, pause, active, multiple files)
+            window.players=this.merge(window.players,{main:{file:data['file'],html:MMElement,options:options}});
 
         // Ad on end.
         if (!this.isUndefined(data['after']))
@@ -317,7 +319,8 @@ else
             //Add to HTML
             this[len].appendChild(MMElement);
 
-            window.players=this.merge(window.players,{after:{file:data['after'],html:MMElement,options:options}}); // Temporary
+            // Add Player to the global window.players list (for skip, pause, active, multiple files)
+            window.players=this.merge(window.players,{after:{file:data['after'],html:MMElement,options:options}});
           }
         }
 
