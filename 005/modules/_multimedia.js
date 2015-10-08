@@ -31,8 +31,9 @@ else
       video    = 'video', // video -> video (if user forgets '')
       audio    = 'audio', // audio -> audio (if user forgets '')
       MMActive = '',      // Wich player is active?
-      MMTime   = 0;       // What is the playing time?
-
+      MMTime   = 0,       // What is the playing time?
+      MMLTime  = 0,       // What is the (last) playing time?
+      MMisSeek = false;   // Is seeking?
   /**
    * multimedia
    *
@@ -195,19 +196,34 @@ else
             window.MMActive = MMElement;
 
             // Kill seeking (skipping ad)
+            MMElement.addEventListener("seeking", function(event) {
+
+              // Warn the 'timeupdate' that the user is seeking, don't save anything!
+              window.MMisSeek = true;
+
+              // if seeked more then now, then revert
+
+              if (this.currentTime > window.MMLTime)
+              {
+                this.currentTime = window.MMLTime;
+              }
+
+              // + unset seeking action (always)
+              window.MMisSeek = false;
+              
+            }); 
+
             MMElement.addEventListener("timeupdate", function(event) {
               // save the time
-              window.MMTime = 0; //this.currentTime;
-            });
-
-            MMElement.addEventListener("seeking", function(event) {
-              // if the time is more than the ticker, then reset it back!
-              if (this.currentTime > window.MMTime)
+              if ( !window.MMisSeek )
               {
-                // this.currentTime = 0; 
-                //this.currentTime = window.MMTime;
+                // save the 'last' time (seeking sets time)
+                window.MMLTime = window.MMTime;
+
+                // set the time
+                window.MMTime = this.currentTime;
               }
-            }); 
+            });
 
             // On end play the next.
             MMElement.addEventListener('ended', function() {
@@ -404,17 +420,32 @@ else
             MMElement.load();
 
             // Kill seeking (skipping ad)
+            MMElement.addEventListener("seeking", function(event) {
+
+              // Warn the 'timeupdate' that the user is seeking, don't save anything!
+              window.MMisSeek = true;
+
+              // if seeked more then now, then revert
+
+              if (this.currentTime > window.MMLTime)
+              {
+                this.currentTime = window.MMLTime;
+              }
+
+              // + unset seeking action (always)
+              window.MMisSeek = false;
+              
+            }); 
+
             MMElement.addEventListener("timeupdate", function(event) {
               // save the time
-              window.MMTime = 0; //this.currentTime;
-            });
-
-            MMElement.addEventListener("seeking", function(event) {
-              // if the time is more than the ticker, then reset it back!
-              if (this.currentTime > window.MMTime)
+              if ( !window.MMisSeek )
               {
-                this.currentTime = 0; 
-                //this.currentTime = window.MMTime;
+                // save the 'last' time (seeking sets time)
+                window.MMLTime = window.MMTime;
+
+                // set the time
+                window.MMTime = this.currentTime;
               }
             });
 
