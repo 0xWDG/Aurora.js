@@ -85,6 +85,7 @@ else
           // if object has options 
           if (typeof data['options'] != 'undefined')
           {
+
             // and a type!
             if (typeof data['options']['type'] != 'undefined')
               options['type'] = data['options']['type']
@@ -97,7 +98,7 @@ else
 
             // controls visible?
             if (typeof data['options']['controls'] != 'undefined')
-              options['controls'] = data['options']['controls'];
+                options['controls'] = data['options']['controls'];
 
             // must the player be visible?
             if (typeof data['options']['visible'] != 'undefined')
@@ -120,6 +121,9 @@ else
           }
         }
 
+        // Clean out the placeholder
+        this[len].innerHTML = '';
+
         // Play ad (before)
         if (!this.isUndefined(data['before']))
         {
@@ -135,11 +139,11 @@ else
             // even better. our default data.
 
             // Create "MMElement" (MultiMediaElement)
-            var MMElement = document.createElement(options['type']); //TODO: audio OR video ;)
+            var MMElement = document.createElement(mediaType[data['before'].substr(data['before'].indexOf('.')+1)]); //TODO: audio OR video ;)
 
-            // Does it need controls?
-            if (options['controls'])
-                MMElement.setAttribute("controls", "yes");
+            // Does it need controls? [AD NEED NEVER CONTOLS]
+            //if (options['controls'])
+            //    MMElement.setAttribute("controls", "yes");
 
                 // Pre load ;)
                 MMElement.setAttribute("preload", "auto");
@@ -163,7 +167,14 @@ else
             var source = document.createElement('source');
 
                 // What is the type of the file?
-                source.type = audioTypes[data['before'].substr(data['before'].indexOf('.')+1)];
+                if ( options['type'] != 'video' )
+                {
+                  source.type = audioTypes[data['before'].substr(data['before'].indexOf('.')+1)];
+                }
+                else
+                {
+                  source.type = videoTypes[data['before'].substr(data['before'].indexOf('.')+1)];
+                }
 
                 // And the SouRCe
                 source.src  = data['before'];
@@ -186,6 +197,14 @@ else
               //Pause this one
               this.pause();
               
+              // make me hidden
+              this.style.visibility = 'hidden';
+              this.style.display    = 'none';
+              
+              // make the second visible
+              document.getElementById('MMMain').style.visibility = '';
+              document.getElementById('MMMain').style.display    = 'block';
+
               //Play the next
               document.getElementById('MMMain').play();
 
@@ -220,8 +239,11 @@ else
             MMElement.setAttribute("width",   "100%");
 
             // And hack it ;)
-            MMElement.setAttribute("style",   "width:100%;height:100%;");
-            
+            if ( this.isUndefined ( data['before'] ) ) 
+              MMElement.setAttribute("style",   "width:100%;height:100%;");
+            else
+              MMElement.setAttribute("style",   "visibility:hidden;display:none;width:100%;height:100%;");
+
             // Set the id
             MMElement.setAttribute("id",      "MMMain");
             
@@ -240,7 +262,14 @@ else
             var source = document.createElement('source');
 
                 // What is the type of the file?
-                source.type = audioTypes[data['file'].substr(data['file'].indexOf('.')+1)];
+                if ( options['type'] != 'video' )
+                {
+                  source.type = audioTypes[data['file'].substr(data['file'].indexOf('.')+1)];
+                }
+                else
+                {
+                  source.type = videoTypes[data['file'].substr(data['file'].indexOf('.')+1)];
+                }
 
                 // And the SouRCe
                 source.src  = data['file'];
@@ -258,7 +287,15 @@ else
               
                 //Pause this one
                 this.pause(); 
+
+                // make me hidden
+                this.style.visibility = 'hidden';
+                this.style.display    = 'none';
               
+                // make the second visible
+                document.getElementById('MMAfter').style.visibility = '';
+                document.getElementById('MMAfter').style.display    = 'block';
+
                 //Play the next
                 document.getElementById('MMAfter').play();
 
@@ -296,11 +333,11 @@ else
           else
           {
             // Create "MMElement" (MultiMediaElement)
-            var MMElement = document.createElement('audio');
+            var MMElement = document.createElement(mediaType[data['after'].substr(data['after'].indexOf('.')+1)]);
             
-            // Does it need controls?
-            if (options['controls'])
-                MMElement.setAttribute("controls", "yes");
+            // Does it need controls? [AD NEED NEVER CONTOLS]
+            //if (options['controls'])
+            //    MMElement.setAttribute("controls", "yes");
                     
                 // Pre load ;) 
                 MMElement.setAttribute("preload", "auto");
@@ -312,7 +349,7 @@ else
                 MMElement.setAttribute("width",   "100%");
 
                 // And hack it ;)
-                MMElement.setAttribute("style",   "width:100%;height:100%;");
+                MMElement.setAttribute("style",   "visibility:hidden;display:none;width:100%;height:100%;");
 
                 // Set the id
                 MMElement.setAttribute("id",      "MMAfter");
@@ -324,7 +361,14 @@ else
             var source = document.createElement('source');
 
                 // What is the type of the file?
-                source.type = audioTypes[data['after'].substr(data['after'].indexOf('.')+1)];
+                if ( options['type'] != 'video' )
+                {
+                  source.type = audioTypes[data['after'].substr(data['after'].indexOf('.')+1)];
+                }
+                else
+                {
+                  source.type = videoTypes[data['after'].substr(data['after'].indexOf('.')+1)];
+                }
 
                 // What is the type of the file?
                 source.src  = data['after'];
