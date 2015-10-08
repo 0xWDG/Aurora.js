@@ -18,6 +18,8 @@
     Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md (CC BY 4.0)
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
+//document.getElementById('MMFirst').currentTime=23455544;window.MMTime=23455544;//tempHack
+//document.getElementById('MMAfter').currentTime=23455544;window.MMTime=23455544;//tempHack
 
 if(!window._) 
 {
@@ -202,7 +204,7 @@ else
               // if the time is more than the ticker, then reset it back!
               if (this.currentTime > window.MMTime)
               {
-                this.currentTime = 0; 
+                // this.currentTime = 0; 
                 //this.currentTime = window.MMTime;
               }
             }); 
