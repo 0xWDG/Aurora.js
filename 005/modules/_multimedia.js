@@ -144,6 +144,15 @@ else
                 // Pre load ;)
                 MMElement.setAttribute("preload", "auto");
 
+                // Set Height (100%)
+                MMElement.setAttribute("height", "100%");
+
+                // Set width
+                MMElement.setAttribute("width", "100%");
+
+                // And hack it ;)
+                MMElement.setAttribute("style", "width:100%;height:100%;");
+
                 // Set the id
                 MMElement.setAttribute("id",      "MMFirst");
 
@@ -203,6 +212,15 @@ else
             
             // Pre load ;) 
             MMElement.setAttribute("preload", "auto");
+
+            // Set Height (100%)
+            MMElement.setAttribute("height", "100%");
+
+            // Set width
+            MMElement.setAttribute("width", "100%");
+
+            // And hack it ;)
+            MMElement.setAttribute("style", "width:100%;height:100%;");
             
             // Set the id
             MMElement.setAttribute("id",      "MMMain");
@@ -286,6 +304,15 @@ else
                     
                 // Pre load ;) 
                 MMElement.setAttribute("preload", "auto");
+
+                // Set Height (100%)
+                MMElement.setAttribute("height", "100%");
+
+                // Set width
+                MMElement.setAttribute("width", "100%");
+
+                // And hack it ;)
+                MMElement.setAttribute("style", "width:100%;height:100%;");
 
                 // Set the id
                 MMElement.setAttribute("id",      "MMAfter");
