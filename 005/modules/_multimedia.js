@@ -40,7 +40,7 @@ else
    * @see https://github.com/wesdegroot/_.js/wiki/module_multimedia
    * @example _().multimedia();
    */
-	_.fn.multimedia = function(data) {
+  _.fn.multimedia = function(data) {
     var len = this.length;
     while (len--)
     {
