@@ -145,13 +145,13 @@ else
                 MMElement.setAttribute("preload", "auto");
 
                 // Set Height (100%)
-                MMElement.setAttribute("height", "100%");
+                MMElement.setAttribute("height",  "100%");
 
                 // Set width
-                MMElement.setAttribute("width", "100%");
+                MMElement.setAttribute("width",   "100%");
 
                 // And hack it ;)
-                MMElement.setAttribute("style", "width:100%;height:100%;");
+                MMElement.setAttribute("style",   "width:100%;height:100%;");
 
                 // Set the id
                 MMElement.setAttribute("id",      "MMFirst");
@@ -214,13 +214,13 @@ else
             MMElement.setAttribute("preload", "auto");
 
             // Set Height (100%)
-            MMElement.setAttribute("height", "100%");
+            MMElement.setAttribute("height",  "100%");
 
             // Set width
-            MMElement.setAttribute("width", "100%");
+            MMElement.setAttribute("width",   "100%");
 
             // And hack it ;)
-            MMElement.setAttribute("style", "width:100%;height:100%;");
+            MMElement.setAttribute("style",   "width:100%;height:100%;");
             
             // Set the id
             MMElement.setAttribute("id",      "MMMain");
@@ -306,13 +306,13 @@ else
                 MMElement.setAttribute("preload", "auto");
 
                 // Set Height (100%)
-                MMElement.setAttribute("height", "100%");
+                MMElement.setAttribute("height",  "100%");
 
                 // Set width
-                MMElement.setAttribute("width", "100%");
+                MMElement.setAttribute("width",   "100%");
 
                 // And hack it ;)
-                MMElement.setAttribute("style", "width:100%;height:100%;");
+                MMElement.setAttribute("style",   "width:100%;height:100%;");
 
                 // Set the id
                 MMElement.setAttribute("id",      "MMAfter");
