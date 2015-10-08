@@ -28,7 +28,8 @@ else
   var players  = {},      // the media players
       video    = 'video', // video -> video (if user forgets '')
       audio    = 'audio', // audio -> audio (if user forgets '')
-      MMActive = '';      // Wich player is active?
+      MMActive = '',      // Wich player is active?
+      MMTime   = 0;       // What is the playing time?
 
   /**
    * multimedia
@@ -191,8 +192,23 @@ else
 
             window.MMActive = MMElement;
 
+            // Kill seeking (skipping ad)
+            MMElement.addEventListener("timeupdate", function(event) {
+              // save the time
+              window.MMTime = 0; //this.currentTime;
+            });
+
+            MMElement.addEventListener("seeking", function(event) {
+              // if the time is more than the ticker, then reset it back!
+              if (this.currentTime > window.MMTime)
+              {
+                this.currentTime = 0; 
+                //this.currentTime = window.MMTime;
+              }
+            }); 
+
             // On end play the next.
-            MMElement.addEventListener('ended',function() {
+            MMElement.addEventListener('ended', function() {
               
               //Pause this one
               this.pause();
@@ -210,6 +226,9 @@ else
 
               // Wich player is active
               window.MMActive = document.getElementById('MMMain');
+
+              // Reset player time
+              window.MMTime   = 0;
 
             });
 
@@ -302,6 +321,9 @@ else
                 // Wich player is active
                 window.MMActive = document.getElementById('MMAfter');
 
+                // Reset playing time
+                window.MMTime   = 0;
+
               });
             }
             else
@@ -338,7 +360,7 @@ else
             // Does it need controls? [AD NEED NEVER CONTOLS]
             //if (options['controls'])
             //    MMElement.setAttribute("controls", "yes");
-                    
+                
                 // Pre load ;) 
                 MMElement.setAttribute("preload", "auto");
 
@@ -379,11 +401,29 @@ else
             // Start loading
             MMElement.load();
 
+            // Kill seeking (skipping ad)
+            MMElement.addEventListener("timeupdate", function(event) {
+              // save the time
+              window.MMTime = 0; //this.currentTime;
+            });
+
+            MMElement.addEventListener("seeking", function(event) {
+              // if the time is more than the ticker, then reset it back!
+              if (this.currentTime > window.MMTime)
+              {
+                this.currentTime = 0; 
+                //this.currentTime = window.MMTime;
+              }
+            });
+
             // On end pause
             MMElement.addEventListener('ended',function() {
               
               // Pause, all done my friend.
               this.pause();
+
+              // And reset playing time
+              window.MMTime = 0;
             
             });
 
