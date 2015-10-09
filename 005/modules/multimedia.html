@@ -20,7 +20,12 @@ Works:
     _('.testResults').multimedia({
       options:{controls:true},
       before: 'multimedia/before.mp4',
-      file:   'multimedia/main.mp4',
+      // file:   'multimedia/main.mp4',
+      file:   [
+      			'multimedia/before.mp3',
+      			'multimedia/main.mp3',
+      			'multimedia/after.mp3',
+      		  ],
       after:  'multimedia/after.mp4'
     });
   });
