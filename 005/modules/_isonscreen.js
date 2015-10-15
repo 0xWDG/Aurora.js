@@ -23,8 +23,8 @@ if(!window._)
 }
 else
 {
-	// Add a Plugin "isOnScreen"
-	_.fn.isOnScreen = function(idle, scrolled) {
+    // Add a Plugin "isOnScreen"
+    _.fn.isOnScreen = function(idle, scrolled) {
         var _ios = 0;
         var len  = 0;
 
