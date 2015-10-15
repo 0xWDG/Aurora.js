@@ -6,7 +6,7 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.3
+                              v0.0.5
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -23,7 +23,7 @@ if(!window._)
 }
 else
 {
-	// Add a a few plugins For some THANKS 2 phpjs.org!
+  var PHPjs = 'http://www.phpjs.org';
 
   /**
    * base64_decode

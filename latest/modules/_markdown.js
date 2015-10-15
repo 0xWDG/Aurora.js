@@ -6,7 +6,7 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.4
+                              v0.0.5
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -19,18 +19,38 @@
 
 if(!window._) 
 {
-    alert("MISSING SOMETHING!");
+	alert("MISSING SOMETHING!");
 }
 else
 {
-    _.fn.md_str_repeat = function( str, num )
-    {
-        return new Array( num + 1 ).join( str );
-    };
-    // Add a Plugin "Markdown"
-    _.fn.markdown = function() {
-        //var len = this.length;
-        //while (len--) 
+    /**
+     * md_str_repeat
+     *
+     * MARKDOWN: STRING REPEAT
+     *
+     * @internal
+     * @param object object
+     * @param string string
+     * @param int times
+     * @see https://github.com/wesdegroot/_.js/wiki/module_markdown
+     * @example _('.wrapper').md_str_repeat('x', 5);
+     */
+	_.fn.md_str_repeat = function( str, num )
+	{
+    	return new Array( num + 1 ).join( str );
+	};
+	
+    /**
+     * markdown
+     *
+     * convert from markdown to Markdown
+     *
+     * @param object object
+     * @param data the configuration array.
+     * @see https://github.com/wesdegroot/_.js/wiki/module_markdown
+     * @example _('.wrapper').markdown();
+     */
+	_.fn.markdown = function() {
         var len=0;
         if ( true )
         {            
@@ -111,18 +131,9 @@ else
                         {
                             mrk += "</pre></div>";
                             codeOpen = false;
-                            
-                            if (debug)
-                                console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                         }
                         mrk += "<br />";
-
-                        if (debug)
-                            console.log('[' + i + '] Rep-Empty: ' + parse[i]);
                     }
-
-                    if (debug)
-                        console.log('[' + i + '] Empty: ' + parse[i]);
                 }
 
                 // ##### H5
@@ -137,15 +148,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h5>" + parse[i].substr(5, parse[i].length) + "</h5>";
-
-                    if (debug)
-                        console.log('[' + i + '] H5: ' + parse[i]);
                 }
 
                 // #### H4
@@ -160,15 +165,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h4>" + parse[i].substr(4, parse[i].length) + "</h4>";
-
-                    if (debug)
-                        console.log('[' + i + '] H4: ' + parse[i]);
                 }
 
                 // ### H3
@@ -183,15 +182,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h3>" + parse[i].substr(3, parse[i].length) + "</h3>";
-
-                    if (debug)
-                        console.log('[' + i + '] H3: ' + parse[i]);
                 }
 
                 // ## H2
@@ -206,15 +199,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h2>" + parse[i].substr(2, parse[i].length) + "</h2>";
-
-                    if (debug)
-                        console.log('[' + i + '] H2: ' + parse[i]);
                 }
 
                 // # H1
@@ -229,15 +216,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h1>" + parse[i].substr(1, parse[i].length) + "</h1>";
-
-                    if (debug)
-                        console.log('[' + i + '] H1: ' + parse[i]);
                 }
 
                 //Alt-H1
@@ -253,16 +234,10 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h1>" + parse[i] + "</h1>";
                     parse[i+1]='';
-
-                    if (debug)
-                        console.log('[' + i + '] ALT H1: ' + parse[i]);
                 }
 
                 //Alt-H2
@@ -278,16 +253,10 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<h2>" + parse[i] + "</h2>";
                     parse[i+1]='';
-
-                    if (debug)
-                        console.log('[' + i + '] ALT-H2: ' + parse[i]);
                 }
 
                 // * unordered list
@@ -300,9 +269,6 @@ else
                     }
 
                     mrk += "<li>" + parse[i].substr(2, parse[i].length) + "</li>";
-
-                    if (debug)
-                        console.log('[' + i + '] List: ' + parse[i]);
                 }
 
                 // \s\s\s\s CODE
@@ -312,14 +278,9 @@ else
                     {
                         mrk += "<style>pre.prettyprint{border:0 !important;}</style><div style='display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:20px;word-break:break-all;word-wrap:break-word;white-space:pre;white-space:pre-wrap;background-color:#f5f5f5;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.15);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;'><pre class=\"prettyprint\">";
                         codeOpen = true;
-                        openAt   = i;
-                        console.log('[' + i + '] Code Opened!!!');
                     }
 
-                    mrk += "\r\n" + parse[i].substr(4,parse[i].length); 
-
-                    if (debug)
-                        console.log('[' + i + '] CS=' + ((codeOpen)?'Opened':'Closed') + '@' + openAt + '; Code: ' + parse[i]);
+                    mrk += "\r\n" + parse[i].substr(4,parse[i].length);	
                 }
 
                 // --- (HR)
@@ -338,15 +299,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<hr />";
-
-                    if (debug)
-                        console.log('[' + i + '] HR: ' + parse[i]);
                 }
 
                 //Checkbox (un-checked)
@@ -361,16 +316,10 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<br />";
                     mrk += "<input type='checkbox' disabled=''>" + parse[i].substr(4,parse[i].length);
-
-                    if (debug)
-                        console.log('[' + i + '] Checkbox (unchecked): ' + parse[i]);
                 }
 
                 //Checkbox (un-checked)
@@ -385,16 +334,10 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<br />";
                     mrk += "<input type='checkbox' disabled=''>" + parse[i].substr(5,parse[i].length);
-
-                    if (debug)
-                        console.log('[' + i + '] Checkbox (unchecked): ' + parse[i]);
                 }
 
                 // Color!
@@ -409,9 +352,6 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     // Need to be a real, regex, since i'm not good with it.
@@ -422,9 +362,6 @@ else
                         texts = texts[1].split('[')[0];
 
                     mrk += "<font color='" + color + "'>" + texts + "</font>";
-
-                    if (debug)
-                        console.log('[' + i + '] Color: ' + parse[i]);
                 }
 
                 //Checkbox (checked)
@@ -439,16 +376,10 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += "<br />";
                     mrk += "<input type='checkbox' checked='' disabled=''>" + parse[i].substr(5,parse[i].length);
-
-                    if (debug)
-                        console.log('[' + i + '] Checkbox (checked): ' + parse[i]);
                 }
 
                 // Something we don't know.
@@ -463,15 +394,9 @@ else
                     {
                         mrk += "</pre></div>";
                         codeOpen = false;
-                        
-                        if (debug)
-                            console.log('Code closed at ' + i + ' String: "' + parse[i] + '"');
                     }
 
                     mrk += parse[i];
-
-                    if (debug)
-                        console.log('[' + i + '] ??: ' + parse[i]);
                 }
 
             };

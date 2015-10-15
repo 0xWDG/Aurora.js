@@ -23,8 +23,17 @@ if(!window._)
 }
 else
 {
-	// Add a Plugin "isOnScreen"
-	_.fn.isOnScreen = function(idle, scrolled) {
+    /**
+     * isOnScreen
+     *
+     * is the object still on the screen?
+     *
+     * @param object object
+     * @param data the configuration array.
+     * @see https://github.com/wesdegroot/_.js/wiki/module_isOnScreen
+     * @example _().isOnScreen('background:red;','background:green;');
+     */
+    _.fn.isOnScreen = function(idle, scrolled) {
         var _ios = 0;
         var len  = 0;
 

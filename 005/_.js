@@ -21,6 +21,10 @@
 
 // _ function
 (function () {
+
+    // Wich modules are loaded?
+    window._modLoaded = [];
+
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
     var _ = function (params) {
         return new Library(params);
@@ -135,38 +139,57 @@
             {
                 for (var i = jsArray.length - 1; i >= 0; i--) 
                 {
-                    if (!jsArray[i].match(/\.js/g))
-                        jsArray[i] = jsArray[i] + ".js";
+                    if (window._modLoaded.indexOf(jsArray[i]) == -1)
+                    {
+                        window._modLoaded.push(jsArray[i]);
 
-                    if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
-                        jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i];
+                        if (!jsArray[i].match(/\.js/g))
+                            jsArray[i] = jsArray[i] + ".js";
 
-                    var script                      = document.createElement('script');
-                        script.type                 = 'text/javascript';
-                        script.src                  = jsArray[i];
+                        if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
+                            jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase();
 
-                    if (i == 1)
-                        script.onreadystatechange   = Callback;
-                    if (i == 1)
-                        script.onload               = Callback;
+                        var script                      = document.createElement('script');
+                            script.type                 = 'text/javascript';
+                            script.src                  = jsArray[i];
+
+                        if (i == 1)
+                            script.onreadystatechange   = Callback;
+                        if (i == 1)
+                            script.onload               = Callback;
                     
-                    document.head.appendChild(script);
+                        document.head.appendChild(script);
+                    }
+                    else
+                    {
+                        Callback();
+                    }
                 };
             }
             else if (typeof(jsArray) === "string")
             {
-                if (!jsArray.match(/\.js/g))
-                    jsArray = jsArray + ".js";
+                if (window._modLoaded.indexOf(jsArray) == -1)
+                {
+                    window._modLoaded.push(jsArray);
 
-                if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
-                    jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray;
+                    if (!jsArray.match(/\.js/g))
+                        jsArray = jsArray + ".js";
 
-                var script                      = document.createElement('script');
-                    script.type                 = 'text/javascript';
-                    script.src                  = jsArray;
-                    script.onreadystatechange   = Callback;
-                    script.onload               = Callback;
-                document.head.appendChild(script);
+                    if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
+                        jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase();
+
+                    var script                      = document.createElement('script');
+                        script.type                 = 'text/javascript';
+                        script.src                  = jsArray;
+                        script.onreadystatechange   = Callback;
+                        script.onload               = Callback;
+
+                    document.head.appendChild(script);
+                }
+                else
+                {
+                    Callback();
+                }
             }
             else {
                 console.error('Please use only a array, or a string.');
