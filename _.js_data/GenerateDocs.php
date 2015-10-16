@@ -19,7 +19,7 @@ $LOGO       .= " 	|______|  (_)   \\____/  |______/\r\n";
 
 $WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
-$WIKI       .= "\r\n";
+$WIKI       .= "\r\n<table>";
 
 // Get the file to parse
 $file        = "_.js";
@@ -126,7 +126,7 @@ foreach ($functions as $functionName => $functionValue)
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$functionValue['function']}</a></li>";
-		$WIKI				  .= "* [{$functionValue['function']}](https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}) [WIKI](https://github.com/wesdegroot/_.js/wiki/function_{$functionName})\r\n";
+		$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>\r\n";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
@@ -155,6 +155,8 @@ $replace = preg_replace("/TESTS/", 		$replaceArray['test'], $replace);
 
 // write it down.
 file_put_contents("index.html", $replace);
+
+$WIKI       .= "</table>\r\n";
 
 // Update wiki! (Only if finial (final = one version behind.))
 $ver = (end(explode("/",__dir__)))+1;
