@@ -140,7 +140,7 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "</p></div><br /><br /></p>";
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
-		writeToWiki($functionName, "##### `{$functionValue['function']}`\r\n".
+		writeToWiki($functionName, "##### `_('.wrapper').{$functionValue['function']}`\r\n".
 								   implode("<br />", $functionValue['text']));
 }
 
