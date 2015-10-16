@@ -32,6 +32,7 @@
      
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
+
         // We'll gonna select
         var selector     = document.querySelectorAll(params);
 
@@ -46,7 +47,7 @@
         this.version     = '0.0.5ß';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r1';
+        this.revision    = 'r5';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -101,6 +102,19 @@
             {
                 console.error('[_.js Error: NOT SUPPORTED]\nError, Failed to set \'' + configKey + '\' to \'' + set + '\'.');
             }
+        },
+
+        /**
+         * emulatejQuery
+         *
+         * emulate jQuery's $ script :D
+         *
+         * @param object object
+         * @example _().emulatejQuery();
+         */
+        emulatejQuery: function () {
+            window.$ = window._;
+            return window._;
         },
 
         /**
@@ -591,8 +605,6 @@
                     // this[len].setAttribute(_read, write); // does add... but not working
                     
                     this[len].setAttribute('style', read + ':' + write + ';'); // does edit the dom!
-                    // ^^ NOT HAPPY W/ IT; i think it can be done better.
-
                     return this;//this.css(read);
                 }
             }
@@ -632,12 +644,28 @@
          * string to array
          *
          * @param object object
-         * @param string string to put in the array
+         * @param string string/object to put in the array
          * @return array
          * @example _().toArray(str);
+         * @example _().toArray({my:'super',object:'rocks!'});
          */
         toArray: function (str) {
-            return str.split('');
+            if (typeof str === 'string')
+            {
+                return str.split('');
+            }
+            else
+            {
+                var arr = [];
+                for(var i in str) 
+                {
+                    if (str.hasOwnProperty(i))
+                    {
+                        arr.push(str[i]);
+                    }
+                }
+                return arr;
+            }
         },
 
         /**
@@ -652,12 +680,6 @@
          * @example _().runTest(_().someFunction(), 'haha');
          */
         runTest: function (testCase, expectedResult) {
-            //.. ok, how to handle.. mmz :)
-            // _().runTest(_().someFunction(), 'haha');
-            // ..
-            // _('.x').functionSome('isCool');
-            // _().runTest(function(){return _('.x').html()}, 'isCool');
-
             if (typeof(testCase) != "function")
                 return (testCase == expectedResult); // Pass!
             else
@@ -774,6 +796,72 @@
                 this[len].scrollTop = this[len].scrollHeight;
             }
             return true;
+        },
+
+        /**
+         * map
+         *
+         * Walk trough the array, and perform a function
+         *
+         * @param object object
+         * @return true
+         * @example _().map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
+         */
+        map: function (arr, callback_int) {
+            var __ret=[];
+
+            for (var i=0; i < arr.length; i++) 
+            {
+                // (other) Underscore.js uses -> : __ret.push(callback_int(i, arr[i]));
+
+                var temp = callback_int(i, arr[i]);
+
+                if (typeof temp[0] === 'string')
+                {
+                    for (j=0; j<temp.length; j++)
+                    {
+                        __ret.push(temp[j]);
+                    }
+                }
+                else
+                {
+                    __ret.push(callback_int(i, arr[i]));
+                }
+            };
+
+            return __ret;
+        },
+
+        /**
+         * each
+         *
+         * Walk trough array and peform callback
+         *
+         * @param object object
+         * @return true
+         * @example _().each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
+         * @example _().each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
+         */
+        each: function (myArr, callback_int) {
+            var arr   = [];
+            var count = 0;
+
+            for(var i in myArr) 
+            {
+                if (myArr.hasOwnProperty(i))
+                {
+                    if (!isNaN(i))
+                    {
+                        arr.push(callback_int(count, myArr[i]));
+                        count++;
+                    }
+                    else
+                    {
+                        arr.push(callback_int(i, myArr[i]));
+                    }
+                }
+            }
+            return arr;
         },
 
         /**

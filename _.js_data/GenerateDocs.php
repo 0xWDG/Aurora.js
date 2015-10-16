@@ -10,12 +10,14 @@ $version 	 = end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
 
 // WIKI WIKI!
-$WIKI        = "                	     _    _____ \r\n";
-$WIKI       .= "            	        | |  / ____|\r\n";
-$WIKI       .= "        	            | |  | (___ \r\n";
-$WIKI       .= "    	            _   | |  \\___  \\\r\n";
-$WIKI       .= "  	 ______    _   | |__| |  ____) |\r\n";
-$WIKI       .= " 	|______|  (_)   \\____/  |______/\r\n";
+$LOGO        = "                	     _    _____ \r\n";
+$LOGO       .= "            	        | |  / ____|\r\n";
+$LOGO       .= "        	            | |  | (___ \r\n";
+$LOGO       .= "    	            _   | |  \\___  \\\r\n";
+$LOGO       .= "  	 ______    _   | |__| |  ____) |\r\n";
+$LOGO       .= " 	|______|  (_)   \\____/  |______/\r\n";
+
+$WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
 $WIKI       .= "\r\n";
 
@@ -137,6 +139,8 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= implode("<br />", $functionValue['annotation']);
 		$replaceArray['text'] .= "</p></div><br /><br /></p>";
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
+
+		writeToWiki($functionName, "##### `{$functionValue['function']}`");
 }
 
 // Finally the end is coming, we'll putting it in the design
@@ -159,4 +163,20 @@ if ( file_exists ( '../' . $ver . '/_.js' ) )
 
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
+
+function writeToWiki($filename, $contents)
+{
+	global $LOGO;
+
+	$write  = $LOGO;
+	$write .= "# Function {$filename}\r\n\r\n";
+	$write .= $contents;
+
+	// Update wiki! (Only if finial (final = one version behind.))
+	$ver = (end(explode("/",__dir__)))+1;
+	if (strlen($ver) == 1) $ver = "00".$ver;
+	if (strlen($ver) == 2) $ver = "0". $ver;
+	if ( file_exists ( '../' . $ver . '/_.js' ) )
+		file_put_contents("../_.js.wiki/functions/function_{$filename}.md", $write);
+}
 ?>

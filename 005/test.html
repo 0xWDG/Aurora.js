@@ -1,0 +1,15 @@
+<script type="text/javascript" src='_.js'></script>
+
+<script>
+	var EX = _().map(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], function(i, v) {
+		return [v, v.toUpperCase()];
+	});
+	console.log('map: ' + EX);
+
+	var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
+	var realArray = _().toArray(fakeArray);
+
+	_().each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
+    _().each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
+
+</script>
