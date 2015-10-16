@@ -1,0 +1,25 @@
+<div class="md">
+# WDGWV Api
+    POST /api/login HTTP/1.0
+    Content-Type: application/json
+    Host: api.myDomain.com
+
+    username={USERNAME}&email={EMAIL}&password={PASSWORD}
+
+[c=green]onSucess:[/c]
+    {status: 'OK'}
+
+[c=red]onFailure:[/c]
+    {status: 'Unkown user/pass'}
+
+[c=red]onError:[/c]
+    {status: 'database down'}
+</div>
+
+<script type="text/javascript" src='../_.js'></script>
+
+<script type="text/javascript">
+  _().require("_markdown.js", function(){ 
+    _('.md').markdown(); 
+  });
+</script>
