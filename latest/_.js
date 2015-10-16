@@ -6,7 +6,7 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.4
+                              v0.0.5
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -20,6 +20,10 @@
 
 // _ function
 (function () {
+
+    // Wich modules are loaded?
+    window._modLoaded = [];
+
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
     var _ = function (params) {
         return new Library(params);
@@ -27,6 +31,7 @@
      
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
+
         // We'll gonna select
         var selector     = document.querySelectorAll(params);
 
@@ -38,10 +43,10 @@
         // ß = Beta, [SEMI-Stable]
         // s or nothing for stable!
         // )
-        this.version     = '0.0.4';
+        this.version     = '0.0.5';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r0';
+        this.revision    = 'r6';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -99,6 +104,19 @@
         },
 
         /**
+         * emulatejQuery
+         *
+         * emulate jQuery's $ script :D
+         *
+         * @param object object
+         * @example _().emulatejQuery();
+         */
+        emulatejQuery: function () {
+            window.$ = window._;
+            return window._;
+        },
+
+        /**
          * $
          *
          * Easter egg ;)
@@ -134,43 +152,95 @@
             {
                 for (var i = jsArray.length - 1; i >= 0; i--) 
                 {
-                    if (!jsArray[i].match(/\.js/g))
-                        jsArray[i] = jsArray[i] + ".js";
+                    if (window._modLoaded.indexOf(jsArray[i]) == -1)
+                    {
+                        window._modLoaded.push(jsArray[i]);
 
-                    if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
-                        jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i];
+                        if (!jsArray[i].match(/\.js/g))
+                            jsArray[i] = jsArray[i] + ".js";
 
-                    var script                      = document.createElement('script');
-                        script.type                 = 'text/javascript';
-                        script.src                  = jsArray[i];
+                        if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
+                            jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase();
 
-                    if (i == 1)
-                        script.onreadystatechange   = Callback;
-                    if (i == 1)
-                        script.onload               = Callback;
+                        var script                      = document.createElement('script');
+                            script.type                 = 'text/javascript';
+                            script.src                  = jsArray[i];
+
+                        if (i == 1)
+                            script.onreadystatechange   = Callback;
+                        if (i == 1)
+                            script.onload               = Callback;
                     
-                    document.head.appendChild(script);
+                        document.head.appendChild(script);
+                    }
+                    else
+                    {
+                        Callback();
+                    }
                 };
             }
             else if (typeof(jsArray) === "string")
             {
-                if (!jsArray.match(/\.js/g))
-                    jsArray = jsArray + ".js";
+                if (window._modLoaded.indexOf(jsArray) == -1)
+                {
+                    window._modLoaded.push(jsArray);
 
-                if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
-                    jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray;
+                    if (!jsArray.match(/\.js/g))
+                        jsArray = jsArray + ".js";
 
-                var head                        = document.getElementsByTagName('head')[0];
-                var script                      = document.createElement('script');
-                    script.type                 = 'text/javascript';
-                    script.src                  = jsArray;
-                    script.onreadystatechange   = Callback;
-                    script.onload               = Callback;
-                head.appendChild(script);
+                    if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
+                        jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase();
+
+                    var script                      = document.createElement('script');
+                        script.type                 = 'text/javascript';
+                        script.src                  = jsArray;
+                        script.onreadystatechange   = Callback;
+                        script.onload               = Callback;
+
+                    document.head.appendChild(script);
+                }
+                else
+                {
+                    Callback();
+                }
             }
             else {
                 console.error('Please use only a array, or a string.');
             }
+        },
+
+        /**
+         * Format
+         *
+         * Format sort of sprintf
+         *
+         * @param object object
+         * @example _().format('my %s', 'wesley');
+         */
+        format: function ( )
+        {
+            var args = arguments,
+              string = args[0],
+                   i = 1;
+
+            return string.replace(/%((%)|s|d)/g, function (m) {
+                var val = null;
+                if (m[2]) {
+                    val = m[2];
+                } else {
+                    val = args[i];
+                    switch (m) {
+                        case '%d':
+                        val = parseFloat(val);
+                        if (isNaN(val)) {
+                            val = 0;
+                        }
+                        break;
+                    }
+                  i++;
+                }
+                return val;
+            });
         },
 
         /**
@@ -534,8 +604,6 @@
                     // this[len].setAttribute(_read, write); // does add... but not working
                     
                     this[len].setAttribute('style', read + ':' + write + ';'); // does edit the dom!
-                    // ^^ NOT HAPPY W/ IT; i think it can be done better.
-
                     return this;//this.css(read);
                 }
             }
@@ -575,12 +643,28 @@
          * string to array
          *
          * @param object object
-         * @param string string to put in the array
+         * @param string string/object to put in the array
          * @return array
          * @example _().toArray(str);
+         * @example _().toArray({my:'super',object:'rocks!'});
          */
         toArray: function (str) {
-            return str.split('');
+            if (typeof str === 'string')
+            {
+                return str.split('');
+            }
+            else
+            {
+                var arr = [];
+                for(var i in str) 
+                {
+                    if (str.hasOwnProperty(i))
+                    {
+                        arr.push(str[i]);
+                    }
+                }
+                return arr;
+            }
         },
 
         /**
@@ -595,12 +679,6 @@
          * @example _().runTest(_().someFunction(), 'haha');
          */
         runTest: function (testCase, expectedResult) {
-            //.. ok, how to handle.. mmz :)
-            // _().runTest(_().someFunction(), 'haha');
-            // ..
-            // _('.x').functionSome('isCool');
-            // _().runTest(function(){return _('.x').html()}, 'isCool');
-
             if (typeof(testCase) != "function")
                 return (testCase == expectedResult); // Pass!
             else
@@ -718,7 +796,105 @@
             }
             return true;
         },
-        
+
+        /**
+         * map
+         *
+         * Walk trough the array, and perform a function
+         *
+         * @param object object
+         * @return true
+         * @example _().map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
+         */
+        map: function (arr, callback_int) {
+            var __ret=[];
+
+            for (var i=0; i < arr.length; i++) 
+            {
+                // (other) Underscore.js uses -> : __ret.push(callback_int(i, arr[i]));
+
+                var temp = callback_int(i, arr[i]);
+
+                if (typeof temp[0] === 'string')
+                {
+                    for (j=0; j<temp.length; j++)
+                    {
+                        __ret.push(temp[j]);
+                    }
+                }
+                else
+                {
+                    __ret.push(callback_int(i, arr[i]));
+                }
+            };
+
+            return __ret;
+        },
+
+        /**
+         * each
+         *
+         * Walk trough array and peform callback
+         *
+         * @param object object
+         * @return true
+         * @example _().each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
+         * @example _().each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
+         */
+        each: function (myArr, callback_int) {
+            var arr   = [];
+            var count = 0;
+
+            for(var i in myArr) 
+            {
+                if (myArr.hasOwnProperty(i))
+                {
+                    if (!isNaN(i))
+                    {
+                        arr.push(callback_int(count, myArr[i]));
+                        count++;
+                    }
+                    else
+                    {
+                        arr.push(callback_int(i, myArr[i]));
+                    }
+                }
+            }
+            return arr;
+        },
+
+        /**
+         * merge
+         *
+         * merge objects to one
+         *
+         * @param object object
+         * @param object obj1
+         * @param object obj2
+         * @return object
+         * @example _().merge(obj1, obj2);
+         */
+        merge: function() 
+        {
+            var obj={},
+                  i=0,
+                 il=arguments.length,
+                key;
+
+            for (; i < il; i++) 
+            {
+                for (key in arguments[i]) 
+                {
+                    if (arguments[i].hasOwnProperty(key)) 
+                    {
+                        obj[key] = arguments[i][key];
+                    }
+                }
+            }
+            
+            return obj;
+        },
+
         /**
          * truncate
          *

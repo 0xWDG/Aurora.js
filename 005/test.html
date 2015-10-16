@@ -9,7 +9,7 @@
 	var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
 	var realArray = _().toArray(fakeArray);
 
-	_().each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
-    _().each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
+	_().each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
+    _().each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
 
 </script>

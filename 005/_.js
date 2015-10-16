@@ -7,7 +7,6 @@
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
                               v0.0.5
-                         PRE-Release
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -44,10 +43,10 @@
         // ß = Beta, [SEMI-Stable]
         // s or nothing for stable!
         // )
-        this.version     = '0.0.5ß';
+        this.version     = '0.0.5';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r5';
+        this.revision    = 'r6';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
