@@ -126,7 +126,7 @@ foreach ($functions as $functionName => $functionValue)
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$functionValue['function']}</a></li>";
-		$WIKI				  .= "* [{$functionValue['function']}](https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName})\r\n";
+		$WIKI				  .= "* [{$functionValue['function']}](https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}) [WIKI](https://github.com/wesdegroot/_.js/wiki/function_{$functionName})\r\n";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
