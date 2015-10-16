@@ -140,9 +140,9 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "</p></div><br /><br /></p>";
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
-		writeToWiki($functionName, "##### `_('.wrapper').{$functionValue['function']}`\r\n" .
-								   implode("<br />", $functionValue['text'])."<br>\r\n* " .
-								   implode("\r\n* ", $functionValue['annotation']) . "\r\n" );
+		// writeToWiki($functionName, "##### `_('.wrapper').{$functionValue['function']}`\r\n" .
+			       					   // implode("<br />", $functionValue['text'])."<br>\r\n* " .
+								   // implode("\r\n* ", $functionValue['annotation']) . "\r\n" );
 }
 
 // Finally the end is coming, we'll putting it in the design
