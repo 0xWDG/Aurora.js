@@ -171,6 +171,9 @@
                             script.onreadystatechange   = Callback;
                         if (i == 1)
                             script.onload               = Callback;
+                        
+                        // catch loading error
+                            script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
                     
                         document.head.appendChild(script);
                     }
@@ -197,6 +200,8 @@
                         script.src                  = jsArray;
                         script.onreadystatechange   = Callback;
                         script.onload               = Callback;
+                        // catch loading error
+                        script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
 
                     document.head.appendChild(script);
                 }
