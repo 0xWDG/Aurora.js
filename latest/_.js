@@ -172,7 +172,7 @@
                             script.onload               = Callback;
                         
                         // catch loading error
-                            script.onerror              = '().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\', ' + Callback + ');';
+                            script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\', ' + Callback + ');';
                     
                         document.head.appendChild(script);
                     }
@@ -200,7 +200,7 @@
                         script.onreadystatechange   = Callback;
                         script.onload               = Callback;
                         // catch loading error
-                        script.onerror              = '().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\', ' + Callback + ');';
+                        script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\', ' + Callback + ');';
 
                     document.head.appendChild(script);
                 }
