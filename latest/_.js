@@ -172,7 +172,7 @@
                             script.onload               = Callback;
                         
                         // catch loading error
-                            script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + this.src +'\';';
+                            script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
                     
                         document.head.appendChild(script);
                     }
