@@ -1151,12 +1151,16 @@
 
     // Add some "Global" Objects (what does not need a wrapper)
     // https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
-    for (func in _.fn)
+    // make a "temporary _.js"
+    var tLib = new Library();
+    // Loop through it...
+    for (copy in tLib)
     {
         // Still the most terrible code, but working verry well!
-        eval('_.' + func + ' = _.fn.' + func + ';'); //_.func=_.fn.func;
+        eval('_.' + copy + ' = tLib.' + copy + ';'); //_.copy=tLib.copy;
     }
-
+    // Done.
+    
     // Assign our _ object to global window object.
     if(!window._) {
         window._ = _;

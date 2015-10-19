@@ -1,22 +1,22 @@
 <script type="text/javascript" src='_.js'></script>
 
 <script>
-	var EX = _().map(['a','b','c'], function(i, v) {
+	var EX = _.map(['a','b','c'], function(i, v) {
 		return [v, v.toUpperCase()];
 	});
 	console.log('map: ' + EX);
 
 	var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
-	var realArray = _().toArray(fakeArray);
+	var realArray = _.toArray(fakeArray);
 
-	_().each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
-    _().each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
+	_.each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
+    _.each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
  
- console.log('IA: ' + _().isArray(['my', 'array']));
+ console.log('IA: ' + _.isArray(['my', 'array']));
 
 // Merge object2 into object1
-var myRet1 = _().extend( {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100} );
-var myRet2 = _().extend( true, {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100});
+var myRet1 = _.extend( {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100} );
+var myRet2 = _.extend( true, {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100});
 
 
  if (JSON.stringify(myRet1) == '{"apple":0,"banana":{"price":200},"cherry":97,"durian":100}')
