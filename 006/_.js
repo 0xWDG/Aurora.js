@@ -249,7 +249,8 @@
          * @example _.isArray(['my', 'array']);
          */
         isArray: Array.isArray || function( obj ) {
-            return this.type(obj) === "array" ? true : false;
+            return this.type(obj) === "array" ?
+                    true : false;
         },
 
         /**
@@ -275,7 +276,8 @@
          * @example _.isFunction(function(){});
          */
         isFunction: function( obj ) {
-            return this.type(obj) === "function";
+            return this.type(obj) === "function"
+                    ;
         },
 
         /**
@@ -377,7 +379,6 @@
                         
                         // catch loading error
                             script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\', ' + Callback + ');';
-                            // script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
                     
                         document.head.appendChild(script);
                     }
@@ -406,7 +407,6 @@
                         script.onload               = Callback;
                         // catch loading error
                         script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\', ' + Callback + ');';
-                        // script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\';';
 
                     document.head.appendChild(script);
                 }
