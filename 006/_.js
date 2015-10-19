@@ -1148,14 +1148,14 @@
         return true; //let browser continue.
     };
 
+
     // Add some "Global" Objects (what does not need a wrapper)
-    // https://github.com/wesdegroot/_.js/issues/12
+    // https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
     for (func in _.fn)
     {
         // Still the most terrible code, but working verry well!
-        eval('_.' + func + ' = _.fn.' + func + ';');
+        eval('_.' + func + ' = _.fn.' + func + ';'); //_.func=_.fn.func;
     }
-
 
     // Assign our _ object to global window object.
     if(!window._) {
