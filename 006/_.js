@@ -249,8 +249,7 @@
          * @example _.isArray(['my', 'array']);
          */
         isArray: Array.isArray || function( obj ) {
-            return this.type(obj) === "array" ?
-                    true : false;
+            return this.type(obj) === "array" ? true : false;
         },
 
         /**
@@ -276,8 +275,7 @@
          * @example _.isFunction(function(){});
          */
         isFunction: function( obj ) {
-            return this.type(obj) === "function"
-                    ;
+            return this.type(obj) === "function";
         },
 
         /**
