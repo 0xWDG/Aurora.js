@@ -159,7 +159,7 @@
                         if (!jsArray[i].match(/\.js/g))
                             jsArray[i] = jsArray[i] + ".js";
 
-                        if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
+                        if (this.startsWith(jsArray[i], '_'))
                             jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase();
 
                         var script                      = document.createElement('script');
@@ -191,7 +191,7 @@
                     if (!jsArray.match(/\.js/g))
                         jsArray = jsArray + ".js";
 
-                    if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
+                    if (this.startsWith(jsArray, '_'))
                         jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase();
 
                     var script                      = document.createElement('script');

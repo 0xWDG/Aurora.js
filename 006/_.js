@@ -105,7 +105,7 @@
          *
          * @param object object
          * @param configKey config parameter
-         * @example _()._('version');
+         * @example _._('version');
          * @deprecated set SET WILL BE REMOVED.
          */
         _: function (configKey, set) {
@@ -123,7 +123,7 @@
          * emulate jQuery's $ script :D
          *
          * @param object object
-         * @example _().emulatejQuery();
+         * @example _.emulatejQuery();
          */
         emulatejQuery: function () {
             window.$       = window._;
@@ -140,7 +140,7 @@
          * Easter egg ;)
          *
          * @param object object
-         * @example _().$();
+         * @example _.$();
          */
         $: function () {
             alert('Hi');
@@ -153,6 +153,7 @@
 
             alert('Thanks for using \'_.js\'!\n' +
                   decodeURIComponent('%F0%9F%92%99'));
+            return;
         },
 
         /**
@@ -164,7 +165,7 @@
          * @param bool deep (optional)
          * @param object object
          * @param object object
-         * @example _().extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
+         * @example _.extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
          */
         extend: function () {
             // Thanks to jQuery for this one ;)
@@ -245,7 +246,7 @@
          *
          * @param object object
          * @param object object
-         * @example _().isArray(['my', 'array']);
+         * @example _.isArray(['my', 'array']);
          */
         isArray: Array.isArray || function( obj ) {
             return this.type(obj) === "array" ? true : false;
@@ -258,7 +259,7 @@
          *
          * @param object object
          * @param string message
-         * @example _().error('Message');
+         * @example _.error('Message');
          */
         error: function( msg ) {
             throw new Error( msg );
@@ -271,7 +272,7 @@
          *
          * @param object object
          * @param object object
-         * @example _().isFunction(function(){});
+         * @example _.isFunction(function(){});
          */
         isFunction: function( obj ) {
             return this.type(obj) === "function";
@@ -284,7 +285,7 @@
          *
          * @param object object
          * @param object object
-         * @example _().type(function(){});
+         * @example _.type(function(){});
          */
         type: function( obj ) {
             if ( obj == null ) {
@@ -301,7 +302,7 @@
          *
          * @param object object
          * @param object object
-         * @example _().isPlainObject(function(){});
+         * @example _.isPlainObject(function(){});
          */
         isPlainObject: function( obj ) {
             // Thanks to jQuery for this one ;)
@@ -343,7 +344,7 @@
          * DO not use _ as first character on own modules! (unless you do a pull request.)
          *
          * @param object object
-         * @example _().require(['a','r','ra','y'], function(){doSomeThing();});
+         * @example _.require(['a','r','ra','y'], function(){doSomeThing();});
          */
         require: function (jsArray, Callback, local) {
             //TODO: FALLBACK TO GITHUB, IF CAN'T LOAD.
@@ -425,7 +426,7 @@
          * Format sort of sprintf
          *
          * @param object object
-         * @example _().format('my %s', 'wesley');
+         * @example _.format('my %s', 'wesley');
          */
         format: function ( )
         {
@@ -512,7 +513,7 @@
          * If i'm in a frame, please break out of it
          *
          * @param object object
-         * @example _().framebreak();
+         * @example _.framebreak();
          */
         framebreak: function () {
             if (top.location != location)
@@ -644,10 +645,10 @@
         /**
          * noConflict
          *
-         * Enables noConflict mode, so _() can also be W()
+         * Enables noConflict mode, so _()/_ can also be W()
          *
          * @param object object
-         * @example var W = _().noConflict();
+         * @example var W = _.noConflict();
          */
         noConflict: function ()
         {
@@ -664,7 +665,7 @@
          *
          * @param object object
          * @return true/false
-         * @example _().isLocal();
+         * @example _.isLocal();
          */
         isLocal: function ()
         {
@@ -685,7 +686,7 @@
          * this make "SSL" / "HTTPS" required
          *
          * @param object object
-         * @example _().requireSSL();
+         * @example _.requireSSL();
          */
         requireSSL: function ()
         {
@@ -706,7 +707,7 @@
          * @deprecated 0.0.4
          * @removed 0.1.0
          * @param object object
-         * @example _().loadExtension(src, callback);
+         * @example _.loadExtension(src, callback);
          */
         loadExtension: function(src, callback)
         {
@@ -722,7 +723,7 @@
          * @param object object
          * @param object to test
          * @return true / false
-         * @example _().isUndefined(myObject);
+         * @example _.isUndefined(myObject);
          */
         isUndefined: function (thing)
         {
@@ -737,7 +738,7 @@
          * @param object object
          * @param object to test
          * @return true / false
-         * @example _().isEmpty(myObject);
+         * @example _.isEmpty(myObject);
          */
         isEmpty: function (check) {
             return check == '';
@@ -751,7 +752,7 @@
          * @param object object
          * @param object to test
          * @return true / false
-         * @example _().isBlank(myObject);
+         * @example _.isBlank(myObject);
          */
         isBlank: function ( check ) {
             return /^\s*$/.test(check);
@@ -829,7 +830,7 @@
          * @param object object
          * @param string string to escape
          * @return string
-         * @example _().escapeHTML(str);
+         * @example _.escapeHTML(str);
          */
         escapeHTML: function (str) {
             return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -843,7 +844,7 @@
          * @param object object
          * @param string string to escape
          * @return string
-         * @example _().unescapeHTML(str);
+         * @example _.unescapeHTML(str);
          */
         unescapeHTML: function (str) {
             return str.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
@@ -857,8 +858,8 @@
          * @param object object
          * @param string string/object to put in the array
          * @return array
-         * @example _().toArray(str);
-         * @example _().toArray({my:'super',object:'rocks!'});
+         * @example _.toArray(str);
+         * @example _.toArray({my:'super',object:'rocks!'});
          */
         toArray: function (str) {
             if (typeof str === 'string')
@@ -888,7 +889,7 @@
          * @param object testCase test case
          * @param object expectedResult expected Result
          * @return true/false
-         * @example _().runTest(_().someFunction(), 'haha');
+         * @example _.runTest(_().someFunction(), 'haha');
          */
         runTest: function (testCase, expectedResult) {
             if (typeof(testCase) != "function")
@@ -906,7 +907,7 @@
          * @param string str the string
          * @param string pattern the pattern
          * @return true/false
-         * @example _().includes('hi, i am wesley', 'hi');
+         * @example _.includes('hi, i am wesley', 'hi');
          */
         includes: function(str, pattern) {
           return str.indexOf(pattern) > -1;
@@ -921,7 +922,7 @@
          * @param string str the string
          * @param string pattern the pattern
          * @return true/false
-         * @example _().startsWith('hi, i am wesley', 'hi');
+         * @example _.startsWith('hi, i am wesley', 'hi');
          */
         startsWith: function(str, pattern) {
           return str.lastIndexOf(pattern, 0) === 0;
@@ -936,7 +937,7 @@
          * @param string str the string
          * @param string pattern the pattern
          * @return true/false
-         * @example _().endsWith('hi, i am wesley', 'wesley');
+         * @example _.endsWith('hi, i am wesley', 'wesley');
          */
         endsWith: function(str, pattern) {
           var d = str.length - pattern.length;
@@ -951,7 +952,7 @@
          * @param object object
          * @param string str the string
          * @return string
-         * @example _().capitalize('hi, i am wesley');
+         * @example _.capitalize('hi, i am wesley');
          */
         capitalize: function (str) {
             return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
@@ -965,7 +966,7 @@
          * @param object object
          * @param string str the string
          * @return string
-         * @example _().camelize('hi, i am wesley');
+         * @example _.camelize('hi, i am wesley');
          */
         camelize: function (str) {
             return str.replace(/-+(.)?/g, function(match, chr) {
@@ -1016,7 +1017,7 @@
          *
          * @param object object
          * @return true
-         * @example _().map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
+         * @example _.map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
          */
         map: function (arr, callback_int) {
             var __ret=[];
@@ -1053,8 +1054,8 @@
          *
          * @param object object
          * @return true
-         * @example _().each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
-         * @example _().each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
+         * @example _.each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
+         * @example _.each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
          */
         each: function (myArr, callback_int) {
             var arr   = [];
@@ -1087,7 +1088,7 @@
          * @param object obj1
          * @param object obj2
          * @return object
-         * @example _().merge(obj1, obj2);
+         * @example _.merge(obj1, obj2);
          */
         merge: function() 
         {
@@ -1119,7 +1120,7 @@
          * @param string length (default: 30)
          * @param string truncation after the truncate (default: ...)
          * @return true
-         * @example _('.wrapper').truncate(length, truncation);
+         * @example _('.wrapper').truncate(length[, truncation]);
          */
         truncate: function (length, truncation)
         {
@@ -1160,7 +1161,7 @@
         eval('_.' + copy + ' = tLib.' + copy + ';'); //_.copy=tLib.copy;
     }
     // Done.
-    
+
     // Assign our _ object to global window object.
     if(!window._) {
         window._ = _;
