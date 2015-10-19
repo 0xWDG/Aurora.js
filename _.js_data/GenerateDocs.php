@@ -112,7 +112,7 @@ for ($i=0; $i < sizeof($thitest[0])-1; $i++)
 	// 1 = DEF, 2 = VAL.
 
 	// those regex things cause shit.
-	if (!preg_match("/RX/", $thitest[1][$i]))
+	if (!preg_match("/RX/", $thitest[1][$i]) && !preg_match("/this\.(type|onerror|src)/", $thitest[1][$i]))
 	{
 		$replaceArray['glob'] .= "<li class=\"nav-chapter\"><a href=\"#def_".md5($thitest[1][$i])."\">{$thitest[1][$i]}</a></li>";
 		$replaceArray['text'] .= "<a name=\"def_".md5($thitest[1][$i])."\"></a><h3 style='font-size: 200%;'>this.{$thitest[1][$i]}</h3><div style='background: lightyellow;'><p>{$thitest[2][$i]}</p></div><br /><br /><br /><br /><br />";
