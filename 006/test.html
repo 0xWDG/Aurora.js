@@ -1,7 +1,7 @@
 <script type="text/javascript" src='_.js'></script>
 
 <script>
-	var EX = _().map(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], function(i, v) {
+	var EX = _().map(['a','b','c'], function(i, v) {
 		return [v, v.toUpperCase()];
 	});
 	console.log('map: ' + EX);
@@ -11,5 +11,33 @@
 
 	_().each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
     _().each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
+ 
+ console.log('IA: ' + _().isArray(['my', 'array']));
 
+// Merge object2 into object1
+var myRet1 = _().extend( {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100} );
+var myRet2 = _().extend( true, {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100});
+
+
+ if (JSON.stringify(myRet1) == '{"apple":0,"banana":{"price":200},"cherry":97,"durian":100}')
+ {
+ 	console.log('EXTEND 1: PASS!');
+ }
+ else
+ {
+ 	console.log('EXTEND 1: Fail!')
+ 	console.log('EXTEND 1: Want: {"apple":0,"banana":{"price":200},"cherry":97,"durian":100}');
+ 	console.log('EXTEND 1: Got.: ' + JSON.stringify(myRet1));
+ }
+
+ if (JSON.stringify(myRet2) == '{"apple":0,"banana":{"weight":52,"price":200},"cherry":97,"durian":100}')
+ {
+ 	console.log('EXTEND 2: PASS!');
+ }
+ else
+ {
+ 	console.log('EXTEND 2: Fail!')
+ 	console.log('EXTEND 2: Want: {"apple":0,"banana":{"weight":52,"price":200},"cherry":97,"durian":100}');
+ 	console.log('EXTEND 2: Got.: ' + JSON.stringify(myRet2));
+ }
 </script>

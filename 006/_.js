@@ -72,6 +72,19 @@
         // JSON RegeX
         this.JSONRX      = '/^\/\*-secure-([\s\S]*)\*\/\s*$/';
 
+        // Possible object classes
+        this.objectclass = {
+                                "[object Boolean]":  "boolean",
+                                "[object Number":    "number",
+                                "[object String":    "string",
+                                "[object Function]": "function",
+                                "[object Array]":    "array",
+                                "[object Date]":     "date",
+                                "[object RegExp]":   "regexp",
+                                "[object Object]":   "object",
+                                "[object Error]":    "error"
+                           };
+
         // Add selector to object for method chaining
         for(var i=0; i<this.length; i++)
         {
@@ -113,7 +126,11 @@
          * @example _().emulatejQuery();
          */
         emulatejQuery: function () {
-            window.$ = window._;
+            window.$       = window._;
+            window._$      = window._;
+            window.jQuery  = window._;
+            window._jQuery = window._;
+
             return window._;
         },
 
@@ -139,6 +156,184 @@
         },
 
         /**
+         * extend
+         *
+         * Merge the contents of two or more objects together into the first object.
+         *
+         * @param object object
+         * @param bool deep (optional)
+         * @param object object
+         * @param object object
+         * @example _().extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
+         */
+        extend: function () {
+            var src,
+                copyIsArray,
+                copy,
+                name,
+                options,
+                clone,
+                target = arguments[0] || {},
+                i = 1,
+                length = arguments.length,
+                deep = false;
+
+            // Handle a deep copy situation
+            if ( typeof target === "boolean" ) {
+                deep = target;
+
+                // skip the boolean and the target
+                target = arguments[ i ] || {};
+                i++;
+            }
+
+            // Handle case when target is a string or something (possible in deep copy)
+            if ( typeof target !== "object" && !this.isFunction(target) ) {
+                target = {};
+            }
+
+            // extend _.js itself if only one argument is passed
+            if ( i === length ) {
+                target = this;
+                i--;
+            }
+
+            for ( ; i < length; i++ ) {
+                // Only deal with non-null/undefined values
+                if ( (options = arguments[ i ]) != null ) {
+                    // Extend the base object
+                    for ( name in options ) {
+                        src = target[ name ];
+                        copy = options[ name ];
+
+                        // Prevent never-ending loop
+                        if ( target === copy ) {
+                            continue;
+                        }
+
+                        // Recurse if we're merging plain objects or arrays
+                        if ( deep && copy && ( this.isPlainObject(copy) || (copyIsArray = this.isArray(copy)) ) ) {
+                            if ( copyIsArray ) {
+                                copyIsArray = false;
+                                clone = src && this.isArray(src) ? src : [];
+                            } else {
+                                clone = src && this.isPlainObject(src) ? src : {};
+                            }
+
+                            // Never move original objects, clone them
+                            target[ name ] = this.extend( deep, clone, copy );
+
+                        // Don't bring in undefined values
+                        } else if ( copy !== undefined ) {
+                            target[ name ] = copy;
+                        }
+                    }
+                }
+            }
+
+            // Return the modified object
+            return target;
+
+        },
+
+        /**
+         * isArray
+         *
+         * Must be important enough that everyone need this!
+         *
+         * @param object object
+         * @param object object
+         * @example _().isArray(['my', 'array']);
+         */
+        isArray: Array.isArray || function( obj ) {
+            return this.type(obj) === "array" ? true : false;
+        },
+
+        /**
+         * error
+         *
+         * Throw a error (why would you ever do that?)
+         *
+         * @param object object
+         * @param string message
+         * @example _().error('Message');
+         */
+        error: function( msg ) {
+            throw new Error( msg );
+        },
+
+        /**
+         * isFunction
+         *
+         * Is it a fly? or a function?
+         *
+         * @param object object
+         * @param object object
+         * @example _().isFunction(function(){});
+         */
+        isFunction: function( obj ) {
+            return this.type(obj) === "function";
+        },
+
+        /**
+         * type
+         *
+         * What kind of object is parsed?
+         *
+         * @param object object
+         * @param object object
+         * @example _().type(function(){});
+         */
+        type: function( obj ) {
+            if ( obj == null ) {
+                return obj + "";
+            }
+            return typeof obj === "object" || typeof obj === "function" ?
+                this.objectclass[ Object.prototype.toString.call(obj) ] || "object" : typeof obj;
+        },
+
+        /**
+         * isPlainObject
+         *
+         * Check to see if an object is a plain object (created using "{}" or "new Object").
+         *
+         * @param object object
+         * @param object object
+         * @example _().isPlainObject(function(){});
+         */
+        isPlainObject: function( obj ) {
+            // Thanks to jQuery for this one ;)
+
+            var key,
+                hasOwn  = ({}).hasOwnProperty,
+                support = {};
+
+            if ( !obj || this.type(obj) !== "object" || obj.nodeType ) {
+                return false;
+            }
+
+            try {
+                if ( obj.constructor &&
+                    !hasOwn.call(obj, "constructor") &&
+                    !hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+                        return false;
+                }
+            } catch ( e ) {
+                return false;
+            }
+
+            if ( support.ownLast ) {
+                for ( key in obj ) {
+                    return hasOwn.call( obj, key );
+                }
+            }
+
+        for ( key in obj ) {}
+
+        return key === undefined || hasOwn.call( obj, key );
+    },
+
+        /**
          * require
          *
          * Load/Require a javascript file
@@ -148,7 +343,12 @@
          * @param object object
          * @example _().require(['a','r','ra','y'], function(){doSomeThing();});
          */
-        require: function (jsArray, Callback) {
+        require: function (jsArray, Callback, local) {
+            //TODO: FALLBACK TO GITHUB, IF CAN'T LOAD.
+
+            if(typeof local === "undefined")
+                local=false;
+
             if (typeof(jsArray) === "object")
             {
                 for (var i = jsArray.length - 1; i >= 0; i--) 
@@ -160,7 +360,7 @@
                         if (!jsArray[i].match(/\.js/g))
                             jsArray[i] = jsArray[i] + ".js";
 
-                        if (this.startsWith(jsArray[i], '_') && !this.isLocal() && this.isStable)
+                        if (this.startsWith(jsArray[i], '_') && !local)
                             jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase();
 
                         var script                      = document.createElement('script');
@@ -173,7 +373,8 @@
                             script.onload               = Callback;
                         
                         // catch loading error
-                            script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
+                            script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\', ' + Callback + ');';
+                            // script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
                     
                         document.head.appendChild(script);
                     }
@@ -192,7 +393,7 @@
                     if (!jsArray.match(/\.js/g))
                         jsArray = jsArray + ".js";
 
-                    if (this.startsWith(jsArray, '_') && !this.isLocal() && this.isStable)
+                    if (this.startsWith(jsArray, '_') && !local)
                         jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase();
 
                     var script                      = document.createElement('script');
@@ -201,7 +402,8 @@
                         script.onreadystatechange   = Callback;
                         script.onload               = Callback;
                         // catch loading error
-                        script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\';';
+                        script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\', ' + Callback + ');';
+                        // script.onerror              = 'this.onerror=null;this.src=\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\';';
 
                     document.head.appendChild(script);
                 }
@@ -500,11 +702,13 @@
          * loadExtension Tries to load a extension (module)
          *
          * @deprecated 0.0.4
+         * @removed 0.1.0
          * @param object object
          * @example _().loadExtension(src, callback);
          */
         loadExtension: function(src, callback)
         {
+            console.error('Please do not use _().loadExtension(...) anymore');
             return this.require(src, callback);
         },
 
@@ -821,6 +1025,9 @@
 
                 var temp = callback_int(i, arr[i]);
 
+                if (typeof temp == "undefined")
+                    _.error('ERROR WHILE MAPPING');
+
                 if (typeof temp[0] === 'string')
                 {
                     for (j=0; j<temp.length; j++)
@@ -930,14 +1137,23 @@
     };
     
     // We'll parse the errors for you!
-    window.onerror = function (msg, url, line, col, error) 
+    window.onerror = function (Emsg, Eurl, Eline, Ecol, Eerror) 
     {
-        var extra = !col ? '' : ' (col: ' + col + ')';
-           extra += !error ? '' : '\nerror: ' + error;
+        var extra = !Ecol ? '' : ' (col: ' + Ecol + ')';
+           extra += !Eerror ? '' : '\nerror: ' + Eerror;
 
-        console.error("[_.js INFORMATION]\nError: " + msg + "\nline: " + line + extra);
+        console.log("[_.js INFORMATION]\nError: " + Emsg + "\nline: " + Eline + extra);
         return true; //let browser continue.
     };
+
+    // Add some "Global" Objects (what does not need a wrapper)
+    // https://github.com/wesdegroot/_.js/issues/12
+    for (func in _.fn)
+    {
+        // Still the most terrible code, but working verry well!
+        eval('_.' + func + ' = _.fn.' + func + ';');
+    }
+
 
     // Assign our _ object to global window object.
     if(!window._) {
