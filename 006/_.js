@@ -167,6 +167,8 @@
          * @example _().extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
          */
         extend: function () {
+            // Thanks to jQuery for this one ;)
+            
             var src,
                 copyIsArray,
                 copy,
