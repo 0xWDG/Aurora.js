@@ -168,7 +168,7 @@
          */
         extend: function () {
             // Thanks to jQuery for this one ;)
-            
+
             var src,
                 copyIsArray,
                 copy,
@@ -1167,6 +1167,8 @@
         var old_js = window._;
         window._ = _;
     }
+
+    // And return
     return _;
 
 })();
