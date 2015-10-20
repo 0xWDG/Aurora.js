@@ -76,12 +76,14 @@ git push &>/dev/null
 
 echo "* Pushing _.js/wiki"
 cd _.js.wiki
+git pull &>/dev/null
 git add . &>/dev/null
 git commit -m "Auto-Pushing $version" &>/dev/null
 git push &>/dev/null
 
 echo "* Pushing _.js/www"
 cd ../_.js.www 
+git pull &>/dev/null
 mkdir $bs_Dir &>/dev/null
 cp ../index.html . &>/dev/null
 cp $my_Dir/index.html $bs_Dir/index.html &>/dev/null
