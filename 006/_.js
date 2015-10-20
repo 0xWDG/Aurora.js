@@ -276,6 +276,7 @@
             if (typeof callback === "function")
             {
                 var len = this.length;
+                
                 while (len--) {
                     this[len].addEventListener(myEvent, callback);
 
@@ -285,12 +286,14 @@
                                         myEvent, 
                                         callback
                                   ];
+
                     window._eventStore.push(tempArr);
                 }
             }
             else
             {
                 var len = this.length;
+
                 while (len--) {
                     var newArray=[];
 
