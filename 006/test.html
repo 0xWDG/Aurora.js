@@ -1,6 +1,18 @@
 <script type="text/javascript" src='_.js'></script>
 
+<div class='wrapper'>Wrapper:D</div>
+
 <script>
+_('.wrapper').html('x').on('click', function(){alert('clicked');});
+
+_('.wrapper').html('x').on('mousemove', function(){console.log('moved');}); // Remove.
+_('.wrapper').html('x').on('mousemove', true); // Remove.
+
+// _('.wrapper').html('x');
+// _('.wrapper').on('click', function(){alert('clicked');});
+
+/// DEI
+
 	var EX = _.map(['a','b','c'], function(i, v) {
 		return [v, v.toUpperCase()];
 	});

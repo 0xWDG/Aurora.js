@@ -22,8 +22,14 @@
 // _ function
 (function () {
 
+    // No object
+    window._lastObj    = null;
+
     // Wich modules are loaded?
-    window._modLoaded = [];
+    window._modLoaded  = [];
+
+    // Event store (On.....)
+    window._eventStore = [];
 
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
     var _ = function (params) {
@@ -40,14 +46,13 @@
         this.length      = selector.length;
 
         // We'll gonna set the version (including: 
-        // α = Alpha (alfa) [DO NOT USE]
-        // ß = Beta, [SEMI-Stable]
-        // s or nothing for stable!
+        // A = Alpha (alfa) [DO NOT USE]
+        // B = Beta, [SEMI-Stable]
         // )
-        this.version     = '0.0.6ß';
+        this.version     = '0.0.6B';
 
         // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r7';
+        this.revision    = 'r10';
 
         // We'll gonna mix the version & revision (full build string)
         this.fullversion = this.version + this.revision;
@@ -89,6 +94,7 @@
         for(var i=0; i<this.length; i++)
         {
             this[i] = selector[i];
+            window._lastObj = selector[i];
         }
         
         // Return as object
@@ -250,6 +256,64 @@
          */
         isArray: Array.isArray || function( obj ) {
             return this.type(obj) === "array" ? true : false;
+        },
+
+        /**
+         * on
+         *
+         * On ... event
+         *
+         * @param object object
+         * @param string event
+         * @param function|bool Function to use|remove
+         * @example _('.wrapper').html('x').on('mousemove', function(){console.log('moved');});
+         * @example _('.wrapper').html('x').on('mousemove', true); // Remove.
+         * @example _('.wrapper').on('mousemove', function(){console.log('moved');});
+         * @example _('.wrapper').on('mousemove', true); // Remove.
+         */
+        on: function (myEvent, callback, remove)
+        {
+            if (typeof callback === "function")
+            {
+                var len = this.length;
+                while (len--) {
+                    this[len].addEventListener(myEvent, callback);
+
+                    var tempArr = [
+                                        (window._eventStore.length+1), 
+                                        this[len], 
+                                        myEvent, 
+                                        callback
+                                  ];
+                    window._eventStore.push(tempArr);
+                }
+            }
+            else
+            {
+                var len = this.length;
+                while (len--) {
+                    var newArray=[];
+
+                    for (curEvent in window._eventStore)
+                    {
+                        curEvent = window._eventStore[curEvent];
+                        
+                        if (
+                                this[len] == curEvent[1] && //Is the "wrapper the same"
+                                myEvent   == curEvent[2]    //Is the event the same?
+                           )
+                        {
+                            curEvent[1].removeEventListener(curEvent[2], curEvent[3]);
+                        }
+                        else
+                        {
+                            newArray.push(curEvent);
+                        }
+                    }
+
+                    window._eventStore = newArray;
+                }
+            }
         },
 
         /**
@@ -463,6 +527,9 @@
         hide: function () {
             var len = this.length;
             while (len--) {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].style.display = 'none';
             }
              return this;
@@ -481,6 +548,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 if ( typeof(data) === "undefined" ) // Reading mode _().html()
                     return this[len].innerHTML;
                 else
@@ -500,6 +570,9 @@
         show: function () {
             var len = this.length;
             while (len--) {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].style.display = 'block';
             }
             return this;
@@ -535,6 +608,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 var xmlPhttp, change = this[len], url = form.action;
             
                 if (window.XMLHttpRequest)
@@ -604,6 +680,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 var xmlhttp, change = this[len];
 
                 if (window.XMLHttpRequest)
@@ -768,6 +847,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
             }
         },
@@ -784,6 +866,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '');
             }
         },
@@ -802,6 +887,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 if(this.isUndefined(write))
                 { //Read
                     return window.getComputedStyle(this[len]).getPropertyValue(read);
@@ -985,6 +1073,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].scrollTop = 0;
             }
             return true;
@@ -1003,6 +1094,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 this[len].scrollTop = this[len].scrollHeight;
             }
             return true;
@@ -1125,6 +1219,9 @@
             var len = this.length;
             while (len--) 
             {
+                // Set last Object
+                window._lastObj = this[len];
+
                 length = length || 30;
                 truncation = this.isUndefined(truncation) ? '...' : truncation;
     
