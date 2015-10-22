@@ -22,13 +22,31 @@
 // _ function
 (function () {
 
-    // No object
+    /**
+     * window._lastObj
+     *
+     * Last selected object
+     * 
+     * @var object _lastObj
+     */
     window._lastObj    = null;
 
-    // Wich modules are loaded?
+    /**
+     * window._modLoaded
+     *
+     * Wich modules are loaded?
+     * 
+     * @var array _modLoaded
+     */
     window._modLoaded  = [];
 
-    // Event store (On.....)
+    /**
+     * window._eventStore
+     *
+     * Event store (On.....)
+     * 
+     * @var array _eventStore
+     */
     window._eventStore = [];
 
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
@@ -39,45 +57,116 @@
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
 
-        // We'll gonna select
+        /**
+          * this.selector
+          *
+          * We'll gonna set the selector
+          * 
+          * @var object selector 
+          */
         var selector     = document.querySelectorAll(params);
 
-        // We gonna set the length
+        /**
+          * this.lenth
+          *
+          * We'll gonna load the length of the selector
+          * 
+          * @var int lenth 
+          */
         this.length      = selector.length;
 
-        // We'll gonna set the version (including: 
-        // A = Alpha (alfa) [DO NOT USE]
-        // B = Beta, [SEMI-Stable]
-        // )
-        this.version     = '0.0.6B';
+        /**
+          * this.version
+          *
+          * We'll gonna set the version
+          * 
+          * @var string version
+          */
+        this.version     = '0.0.6b';
 
-        // We'll gonna set the revision (prefix: r)
-        this.revision    = 'r10';
+        /**
+          * this.revision
+          *
+          * We'll gonna set the revision (prefix: r)
+          * 
+          * @var string revision
+          */
+        this.revision    = 'r15';
 
-        // We'll gonna mix the version & revision (full build string)
+        /**
+          * this.fullversion
+          *
+          * We'll gonna mix the version & revision (full build string)
+          * 
+          * @var string fullversion
+          */
         this.fullversion = this.version + this.revision;
 
-        // is this a beta?
-        this.isBeta      = (this.version.match(/ß/g) ) ? true : false;
+        /**
+          * this.isBeta
+          *
+          * Is product in Beta status
+          * 
+          * @var bool isBeta
+          */
+        this.isBeta      = (this.version.match(/b/g) ) ? true : false;
 
-        // is this a alpha?
-        this.isAlpha     = (this.version.match(/α/g) ) ? true : false;
+        /**
+          * this.isAlpha
+          *
+          * Is product in Aplha (alfa) status
+          * 
+          * @var bool isAlpha
+          * @deprecated v0.0.6
+          * @removed v0.1.0
+          **/
+        this.isAlpha     = (this.version.match(/a/g) ) ? true : false;
 
-        // is this a compiled version
-        // Please note that _.js is always uncompiled.
-        // Compiled version = _.min.js
+        /**
+          * this.isCompiled
+          *
+          * is this a compiled version
+          * Please note that _.js is always uncompiled.
+          * Compiled version = _.min.js
+          * 
+          * @var bool isCompiled
+          */
         this.isCompiled  = false;
 
-        // is this a stable version?
+        /**
+          * this.isStable
+          *
+          * is this a stable version
+          * 
+          * @var bool isStable
+          */
         this.isStable    = (!this.isBeta && !this.isAlpha) ? true : false;
         
-        // Script RegeX
+        /**
+          * this.scriptRX
+          *
+          * Regex for script tag
+          * 
+          * @var string scriptRX
+          */
         this.ScriptRX    = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>';
 
-        // JSON RegeX
+        /**
+          * this.JSONRX
+          *
+          * Regex for JSON
+          * 
+          * @var string JSONRX
+          */
         this.JSONRX      = '/^\/\*-secure-([\s\S]*)\*\/\s*$/';
 
-        // Possible object classes
+        /**
+          * this.objectclass
+          *
+          * Possible object classes
+          * 
+          * @var object objectclass
+          */
         this.objectclass = {
                                 "[object Boolean]":  "boolean",
                                 "[object Number":    "number",
@@ -109,8 +198,8 @@
          *
          * Display/Set config
          *
-         * @param object object
-         * @param configKey config parameter
+         * @param object [object] Wrapper
+         * @param string configKey config parameter
          * @example _._('version');
          * @deprecated set SET WILL BE REMOVED.
          */
@@ -128,7 +217,8 @@
          *
          * emulate jQuery's $ script :D
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @return this
          * @example _.emulatejQuery();
          */
         emulatejQuery: function () {
@@ -145,7 +235,8 @@
          *
          * Easter egg ;)
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @return this
          * @example _.$();
          */
         $: function () {
@@ -159,6 +250,7 @@
 
             alert('Thanks for using \'_.js\'!\n' +
                   decodeURIComponent('%F0%9F%92%99'));
+
             return;
         },
 
@@ -167,10 +259,11 @@
          *
          * Merge the contents of two or more objects together into the first object.
          *
-         * @param object object
-         * @param bool deep (optional)
-         * @param object object
-         * @param object object
+         * @param object object Wrapper
+         * @param bool [deep] Deep?
+         * @param object object Object1
+         * @param object object Object2
+         * @return object
          * @example _.extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
          */
         extend: function () {
@@ -183,9 +276,9 @@
                 options,
                 clone,
                 target = arguments[0] || {},
-                i = 1,
+                i      = 1,
                 length = arguments.length,
-                deep = false;
+                deep    = false;
 
             // Handle a deep copy situation
             if ( typeof target === "boolean" ) {
@@ -242,7 +335,6 @@
 
             // Return the modified object
             return target;
-
         },
 
         /**
@@ -250,8 +342,9 @@
          *
          * Must be important enough that everyone need this!
          *
-         * @param object object
-         * @param object object
+         * @param object [object] Wrapper
+         * @param object obj object to test
+         * @return bool
          * @example _.isArray(['my', 'array']);
          */
         isArray: Array.isArray || function( obj ) {
@@ -263,15 +356,15 @@
          *
          * On ... event
          *
-         * @param object object
-         * @param string event
-         * @param function|bool Function to use|remove
+         * @param object [object] Wrapper
+         * @param string myEvent event
+         * @param function|bool callback Function to use|remove
          * @example _('.wrapper').html('x').on('mousemove', function(){console.log('moved');});
          * @example _('.wrapper').html('x').on('mousemove', true); // Remove.
          * @example _('.wrapper').on('mousemove', function(){console.log('moved');});
          * @example _('.wrapper').on('mousemove', true); // Remove.
          */
-        on: function (myEvent, callback, remove)
+        on: function (myEvent, callback)
         {
             if (typeof callback === "function")
             {
@@ -295,7 +388,8 @@
                 var len = this.length;
 
                 while (len--) {
-                    var newArray=[];
+                    var newArray=[],
+                        curEvent;
 
                     for (curEvent in window._eventStore)
                     {
@@ -324,12 +418,14 @@
          *
          * Throw a error (why would you ever do that?)
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string message
+         * @return null
          * @example _.error('Message');
          */
         error: function( msg ) {
             throw new Error( msg );
+            return null;
         },
 
         /**
@@ -337,8 +433,9 @@
          *
          * Is it a fly? or a function?
          *
-         * @param object object
-         * @param object object
+         * @param object [object] Wrapper
+         * @param object obj object to test
+         * @return bool
          * @example _.isFunction(function(){});
          */
         isFunction: function( obj ) {
@@ -350,8 +447,9 @@
          *
          * What kind of object is parsed?
          *
-         * @param object object
-         * @param object object
+         * @param object [object] Wrapper
+         * @param object obj Object to test
+         * @return string
          * @example _.type(function(){});
          */
         type: function( obj ) {
@@ -367,8 +465,9 @@
          *
          * Check to see if an object is a plain object (created using "{}" or "new Object").
          *
-         * @param object object
-         * @param object object
+         * @param object [object] Wrapper
+         * @param object obj Object to test
+         * @return bool
          * @example _.isPlainObject(function(){});
          */
         isPlainObject: function( obj ) {
@@ -410,7 +509,11 @@
          * if a file is starting with _ then it is a _.js module
          * DO not use _ as first character on own modules! (unless you do a pull request.)
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @param string|array jsArray the array of files to load (or string)
+         * @param function Callback the Callback function
+         * @param [bool] [local] if set to true then load the local copy.
+         * @return null
          * @example _.require(['a','r','ra','y'], function(){doSomeThing();});
          */
         require: function (jsArray, Callback, local) {
@@ -483,6 +586,8 @@
             else {
                 console.error('Please use only a array, or a string.');
             }
+
+            return null;
         },
 
         /**
@@ -490,7 +595,10 @@
          *
          * Format sort of sprintf
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @param string str String
+         * @param string ... Options
+         * @return string
          * @example _.format('my %s', 'wesley');
          */
         format: function ( )
@@ -524,7 +632,8 @@
          *
          * Hide a object from the website
          *
-         * @param object object
+         * @param object object Wrapper
+         * @return this
          * @example _('.wrapper').hide();
          */
         hide: function () {
@@ -535,7 +644,8 @@
 
                 this[len].style.display = 'none';
             }
-             return this;
+            
+            return this;
         },
 
         /**
@@ -543,7 +653,9 @@
          *
          * place html in a object from the website
          *
-         * @param object object
+         * @param object object Wrapper
+         * @param string [data] HTML to write
+         * @return this
          * @example _('.wrapper').html('hi, i\'m new'); //Write
          * @example _('.wrapper').html(); //Read
          */
@@ -567,7 +679,8 @@
          *
          * show a object from the website
          *
-         * @param object object
+         * @param object object Wrapper
+         * @return this
          * @example _('.wrapper').show();
          */
         show: function () {
@@ -578,6 +691,7 @@
 
                 this[len].style.display = 'block';
             }
+
             return this;
         },
 
@@ -586,7 +700,8 @@
          *
          * If i'm in a frame, please break out of it
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @return false
          * @example _.framebreak();
          */
         framebreak: function () {
@@ -594,7 +709,8 @@
             {
                 top.location.href = document.location.href;
             }
-            return this;
+
+            return false;
         },
 
         /**
@@ -603,7 +719,10 @@
          * ajaxPost Posts a form, tru ajax.
          * Please not call this function yourself, unless you know what you are doing!
          *
-         * @param object object
+         * @param object object Wrapper
+         * @param string form Form to handle
+         * @param function callback callback to
+         * @return bool
          * @example _('.wrapper').ajaxPost(form);
          */
         ajaxPOST: function (form, callback) 
@@ -675,7 +794,10 @@
          *
          * Loads a page AJAX
          *
-         * @param object object
+         * @param object object Wrapper
+         * @param string url Url to get
+         * @param object options extra options
+         * @return bool
          * @example _('.wrapper').ajax(url, options);
          */
         ajax: function (url, options)
@@ -719,7 +841,7 @@
                 xmlhttp.open("GET",url,true);
                 xmlhttp.send();
             }
-            return this
+            return false;
         },
 
         /**
@@ -727,7 +849,8 @@
          *
          * Enables noConflict mode, so _()/_ can also be W()
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @return this
          * @example var W = _.noConflict();
          */
         noConflict: function ()
@@ -743,8 +866,8 @@
          *
          * Are we running local?
          *
-         * @param object object
-         * @return true/false
+         * @param object [object] Wrapper
+         * @return bool
          * @example _.isLocal();
          */
         isLocal: function ()
@@ -765,7 +888,8 @@
          *
          * this make "SSL" / "HTTPS" required
          *
-         * @param object object
+         * @param object [object] Wrapper
+         * @return this
          * @example _.requireSSL();
          */
         requireSSL: function ()
@@ -786,7 +910,8 @@
          *
          * @deprecated 0.0.4
          * @removed 0.1.0
-         * @param object object
+         * @param object [object] Wrapper
+         * @return bool
          * @example _.loadExtension(src, callback);
          */
         loadExtension: function(src, callback)
@@ -800,9 +925,9 @@
          *
          * isUndefined is a object undefined?
          *
-         * @param object object
-         * @param object to test
-         * @return true / false
+         * @param object [object] Wrapper
+         * @param object thing object to test
+         * @return bool
          * @example _.isUndefined(myObject);
          */
         isUndefined: function (thing)
@@ -815,9 +940,9 @@
          *
          * isEmpty is a object empty?
          *
-         * @param object object
-         * @param object to test
-         * @return true / false
+         * @param object [object] Wrapper
+         * @param object check object to test
+         * @return bool
          * @example _.isEmpty(myObject);
          */
         isEmpty: function (check) {
@@ -829,9 +954,9 @@
          *
          * isBlank is a object blank?
          *
-         * @param object object
-         * @param object to test
-         * @return true / false
+         * @param object [object] Wrapper
+         * @param object myObject object to test
+         * @return bool
          * @example _.isBlank(myObject);
          */
         isBlank: function ( check ) {
@@ -843,7 +968,8 @@
          *
          * stripTags strip HTML tags of a object
          *
-         * @param object object
+         * @param object object Wrapper
+         * @return null
          * @example _('.codeField').stripTags();
          */
         stripTags: function () {
@@ -855,6 +981,8 @@
 
                 this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
             }
+
+            return null;
         },
 
         /**
@@ -862,7 +990,8 @@
          *
          * stripScripts strip Scripts from a object
          *
-         * @param object object
+         * @param object object Wrapper
+         * @return null
          * @example _('.codeField').stripScripts();
          */
         stripScripts: function () {
@@ -874,6 +1003,8 @@
 
                 this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '');
             }
+
+            return null;
         },
 
         /**
@@ -881,9 +1012,9 @@
          *
          * css read, or write css
          *
-         * @param object object
+         * @param object object Wrapper
          * @param string read what to read
-         * @param string? write what to write
+         * @param string [write] what to write
          * @example _('.wrapper').css('width', '10px');
          */
         css: function (read, write) {
@@ -916,8 +1047,8 @@
          *
          * escape the HTML
          *
-         * @param object object
-         * @param string string to escape
+         * @param object [object] Wrapper
+         * @param string str string to escape
          * @return string
          * @example _.escapeHTML(str);
          */
@@ -930,8 +1061,8 @@
          *
          * unescape the HTML
          *
-         * @param object object
-         * @param string string to escape
+         * @param object [object] Wrapper
+         * @param string str string to escape
          * @return string
          * @example _.unescapeHTML(str);
          */
@@ -944,8 +1075,8 @@
          *
          * string to array
          *
-         * @param object object
-         * @param string string/object to put in the array
+         * @param object [object] Wrapper
+         * @param string|object str string/object to put in the array
          * @return array
          * @example _.toArray(str);
          * @example _.toArray({my:'super',object:'rocks!'});
@@ -974,10 +1105,10 @@
          *
          * runTest Run a test [internal, external use.]
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param object testCase test case
          * @param object expectedResult expected Result
-         * @return true/false
+         * @return bool
          * @example _.runTest(_().someFunction(), 'haha');
          */
         runTest: function (testCase, expectedResult) {
@@ -992,10 +1123,10 @@
          *
          * includes does a string includes the thing?
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string str the string
          * @param string pattern the pattern
-         * @return true/false
+         * @return bool
          * @example _.includes('hi, i am wesley', 'hi');
          */
         includes: function(str, pattern) {
@@ -1007,10 +1138,10 @@
          *
          * startsWith does a string starts With the thing?
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string str the string
          * @param string pattern the pattern
-         * @return true/false
+         * @return bool
          * @example _.startsWith('hi, i am wesley', 'hi');
          */
         startsWith: function(str, pattern) {
@@ -1022,10 +1153,10 @@
          *
          * endsWith does a string ends With the thing?
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string str the string
          * @param string pattern the pattern
-         * @return true/false
+         * @return bool
          * @example _.endsWith('hi, i am wesley', 'wesley');
          */
         endsWith: function(str, pattern) {
@@ -1038,7 +1169,7 @@
          *
          * capitalize a string
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string str the string
          * @return string
          * @example _.capitalize('hi, i am wesley');
@@ -1052,7 +1183,7 @@
          *
          * camelize a string
          *
-         * @param object object
+         * @param object [object] Wrapper
          * @param string str the string
          * @return string
          * @example _.camelize('hi, i am wesley');
@@ -1068,8 +1199,8 @@
          *
          * scroll To Bottom
          *
-         * @param object object
-         * @return true
+         * @param object object Wrapper
+         * @return bool
          * @example _('.wrapper').scrollToBottom();
          */
         scrollToBottom: function () {
@@ -1089,8 +1220,8 @@
          *
          * scroll To Bottom
          *
-         * @param object object
-         * @return true
+         * @param object object Wrapper
+         * @return bool
          * @example _('.wrapper').scrollToTop();
          */
         scrollToTop: function () {
@@ -1110,8 +1241,10 @@
          *
          * Walk trough the array, and perform a function
          *
-         * @param object object
-         * @return true
+         * @param object [object] Wrapper
+         * @param array arr Array to parse
+         * @param function callback_int Callback function to call
+         * @return array
          * @example _.map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
          */
         map: function (arr, callback_int) {
@@ -1147,8 +1280,10 @@
          *
          * Walk trough array and peform callback
          *
-         * @param object object
-         * @return true
+         * @param object [object] Wrapper
+         * @param array myArr Array to walk trough
+         * @param function callback_int Callback function to call
+         * @return array
          * @example _.each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);});
          * @example _.each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
          */
@@ -1179,9 +1314,9 @@
          *
          * merge objects to one
          *
-         * @param object object
-         * @param object obj1
-         * @param object obj2
+         * @param object [object] Wrapper
+         * @param object obj1 Object to merge
+         * @param object obj2 Object to merge
          * @return object
          * @example _.merge(obj1, obj2);
          */
@@ -1211,10 +1346,10 @@
          *
          * truncate is a object undefined?
          *
-         * @param object object
-         * @param string length (default: 30)
-         * @param string truncation after the truncate (default: ...)
-         * @return true
+         * @param object object Wrapper
+         * @param string length length (default: 30)
+         * @param string truncation truncation after the truncate (default: ...)
+         * @return bool
          * @example _('.wrapper').truncate(length[, truncation]);
          */
         truncate: function (length, truncation)
@@ -1236,23 +1371,17 @@
             return true;
         }
     };
-    
-    // We'll parse the errors for you!
-    window.onerror = function (Emsg, Eurl, Eline, Ecol, Eerror) 
-    {
-        var extra = !Ecol ? '' : ' (col: ' + Ecol + ')';
-           extra += !Eerror ? '' : '\nerror: ' + Eerror;
 
-        console.log("[_.js INFORMATION]\nError: " + Emsg + "\nline: " + Eline + extra);
-        return true; //let browser continue.
-    };
-
-
-    // Add some "Global" Objects (what does not need a wrapper)
-    // https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
-    // make a "temporary _.js"
+    /**
+     * tLib
+     *
+     * Add some "Global" Objects (what does not need a wrapper)
+     * https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
+     * make a "temporary _.js"
+     * 
+     * @var object tLib
+     */
     var tLib = new Library();
-    // Loop through it...
     for (copy in tLib)
     {
         // Still the most terrible code, but working verry well!
@@ -1260,7 +1389,14 @@
     }
     // Done.
 
-    // Assign our _ object to global window object.
+
+    /**
+     * window._
+     *
+     * Assign our _ object to global window object.
+     * 
+     * @var object _
+     */
     if(!window._) {
         window._ = _;
     }
