@@ -317,8 +317,8 @@
          * @return bool
          * @example _.isArray(['my', 'array']);
          */
-        isArray: Array.isArray || function( obj ) {
-            return this.type(obj) === "array" ? true : false;
+        isArray: function (obj) {
+            return obj.isArray || (this.type(obj) === "array" ? true : false);
         },
 
         /**
