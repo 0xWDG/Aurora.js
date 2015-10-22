@@ -22,31 +22,25 @@
 // _ function
 (function () {
 
-    /**!
-     * window._lastObj
-     *
-     * Last selected object
-     * 
-     * @var object _lastObj
-     */
+    //  * window._lastObj
+    //  *
+    //  * Last selected object
+    //  * 
+    //  * @var object _lastObj
     window._lastObj    = null;
 
-    /**!
-     * window._modLoaded
-     *
-     * Wich modules are loaded?
-     * 
-     * @var array _modLoaded
-     */
+    //  * window._modLoaded
+    //  *
+    //  * Wich modules are loaded?
+    //  * 
+    //  * @var array _modLoaded     
     window._modLoaded  = [];
 
-    /**!
-     * window._eventStore
-     *
-     * Event store (On.....)
-     * 
-     * @var array _eventStore
-     */
+    //  * window._eventStore
+    //  *
+    //  * Event store (On.....)
+    //  * 
+    //  * @var array _eventStore     
     window._eventStore = [];
 
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
@@ -57,116 +51,92 @@
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
 
-        /**!
-          * this.selector
-          *
-          * We'll gonna set the selector
-          * 
-          * @var object selector 
-          */
+        // * this.selector
+        // *
+        // * We'll gonna set the selector
+        // * 
+        // * @var object selector 
         var selector     = document.querySelectorAll(params);
 
-        /**!
-          * this.lenth
-          *
-          * We'll gonna load the length of the selector
-          * 
-          * @var int lenth 
-          */
+        // * this.lenth
+        // *
+        // * We'll gonna load the length of the selector
+        // * 
+        // * @var int lenth 
         this.length      = selector.length;
 
-        /**!
-          * this.version
-          *
-          * We'll gonna set the version
-          * 
-          * @var string version
-          */
+        // * this.version
+        // *
+        // * We'll gonna set the version
+        // * 
+        // * @var string version
         this.version     = '0.0.6b';
 
-        /**!
-          * this.revision
-          *
-          * We'll gonna set the revision (prefix: r)
-          * 
-          * @var string revision
-          */
+        // * this.revision
+        // *
+        // * We'll gonna set the revision (prefix: r)
+        // * 
+        // * @var string revision
         this.revision    = 'r15';
 
-        /**!
-          * this.fullversion
-          *
-          * We'll gonna mix the version & revision (full build string)
-          * 
-          * @var string fullversion
-          */
+        // * this.fullversion
+        // *
+        // * We'll gonna mix the version & revision (full build string)
+        // * 
+        // * @var string fullversion
         this.fullversion = this.version + this.revision;
 
-        /**!
-          * this.isBeta
-          *
-          * Is product in Beta status
-          * 
-          * @var bool isBeta
-          */
+        // * this.isBeta
+        // *
+        // * Is product in Beta status
+        // * 
+        // * @var bool isBeta
         this.isBeta      = (this.version.match(/b/g) ) ? true : false;
 
-        /**!
-          * this.isAlpha
-          *
-          * Is product in Aplha (alfa) status
-          * 
-          * @var bool isAlpha
-          * @deprecated v0.0.6
-          * @removed v0.1.0
-          **/
+        // * this.isAlpha
+        // *
+        // * Is product in Aplha (alfa) status
+        // * 
+        // * @var bool isAlpha
+        // * @deprecated v0.0.6
+        // * @removed v0.1.0
         this.isAlpha     = (this.version.match(/a/g) ) ? true : false;
 
-        /**!
-          * this.isCompiled
-          *
-          * is this a compiled version
-          * Please note that _.js is always uncompiled.
-          * Compiled version = _.min.js
-          * 
-          * @var bool isCompiled
-          */
+        // * this.isCompiled
+        // *
+        // * is this a compiled version
+        // * Please note that _.js is always uncompiled.
+        // * Compiled version = _.min.js
+        // * 
+        // * @var bool isCompiled
         this.isCompiled  = false;
 
-        /**!
-          * this.isStable
-          *
-          * is this a stable version
-          * 
-          * @var bool isStable
-          */
+        // * this.isStable
+        // *
+        // * is this a stable version
+        // * 
+        // * @var bool isStable
         this.isStable    = (!this.isBeta && !this.isAlpha) ? true : false;
         
-        /**!
-          * this.scriptRX
-          *
-          * Regex for script tag
-          * 
-          * @var string scriptRX
-          */
+        // * this.scriptRX
+        // *
+        // * Regex for script tag
+        // * 
+        // * @var string scriptRX
         this.ScriptRX    = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>';
 
-        /**!
-          * this.JSONRX
-          *
-          * Regex for JSON
-          * 
-          * @var string JSONRX
-          */
+        // * this.JSONRX
+        // *
+        // * Regex for JSON
+        // * 
+        // * @var string JSONRX
         this.JSONRX      = '/^\/\*-secure-([\s\S]*)\*\/\s*$/';
 
-        /**!
-          * this.objectclass
-          *
-          * Possible object classes
-          * 
-          * @var object objectclass
-          */
+        // * this.objectclass
+        // *
+        // * Possible object classes
+        // * 
+        // * @var object objectclass
         this.objectclass = {
                                 "[object Boolean]":  "boolean",
                                 "[object Number":    "number",
@@ -1373,15 +1343,13 @@
         }
     };
 
-    /**!
-     * tLib
-     *
-     * Add some "Global" Objects (what does not need a wrapper)
-     * https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
-     * make a "temporary _.js"
-     * 
-     * @var object tLib
-     */
+    // * tLib
+    // *
+    // * Add some "Global" Objects (what does not need a wrapper)
+    // * https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
+    // * make a "temporary _.js"
+    // * 
+    // * @var object tLib
     var tLib = new Library();
     for (copy in tLib)
     {
