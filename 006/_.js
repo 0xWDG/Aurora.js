@@ -22,7 +22,7 @@
 // _ function
 (function () {
 
-    /**
+    /**!
      * window._lastObj
      *
      * Last selected object
@@ -31,7 +31,7 @@
      */
     window._lastObj    = null;
 
-    /**
+    /**!
      * window._modLoaded
      *
      * Wich modules are loaded?
@@ -40,7 +40,7 @@
      */
     window._modLoaded  = [];
 
-    /**
+    /**!
      * window._eventStore
      *
      * Event store (On.....)
@@ -57,7 +57,7 @@
     // In our Library we get our selector with querySelectorAll
     var Library = function (params) {
 
-        /**
+        /**!
           * this.selector
           *
           * We'll gonna set the selector
@@ -66,7 +66,7 @@
           */
         var selector     = document.querySelectorAll(params);
 
-        /**
+        /**!
           * this.lenth
           *
           * We'll gonna load the length of the selector
@@ -75,7 +75,7 @@
           */
         this.length      = selector.length;
 
-        /**
+        /**!
           * this.version
           *
           * We'll gonna set the version
@@ -84,7 +84,7 @@
           */
         this.version     = '0.0.6b';
 
-        /**
+        /**!
           * this.revision
           *
           * We'll gonna set the revision (prefix: r)
@@ -93,7 +93,7 @@
           */
         this.revision    = 'r15';
 
-        /**
+        /**!
           * this.fullversion
           *
           * We'll gonna mix the version & revision (full build string)
@@ -102,7 +102,7 @@
           */
         this.fullversion = this.version + this.revision;
 
-        /**
+        /**!
           * this.isBeta
           *
           * Is product in Beta status
@@ -111,7 +111,7 @@
           */
         this.isBeta      = (this.version.match(/b/g) ) ? true : false;
 
-        /**
+        /**!
           * this.isAlpha
           *
           * Is product in Aplha (alfa) status
@@ -122,7 +122,7 @@
           **/
         this.isAlpha     = (this.version.match(/a/g) ) ? true : false;
 
-        /**
+        /**!
           * this.isCompiled
           *
           * is this a compiled version
@@ -133,7 +133,7 @@
           */
         this.isCompiled  = false;
 
-        /**
+        /**!
           * this.isStable
           *
           * is this a stable version
@@ -142,7 +142,7 @@
           */
         this.isStable    = (!this.isBeta && !this.isAlpha) ? true : false;
         
-        /**
+        /**!
           * this.scriptRX
           *
           * Regex for script tag
@@ -151,7 +151,7 @@
           */
         this.ScriptRX    = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>';
 
-        /**
+        /**!
           * this.JSONRX
           *
           * Regex for JSON
@@ -160,7 +160,7 @@
           */
         this.JSONRX      = '/^\/\*-secure-([\s\S]*)\*\/\s*$/';
 
-        /**
+        /**!
           * this.objectclass
           *
           * Possible object classes
@@ -1373,7 +1373,7 @@
         }
     };
 
-    /**
+    /**!
      * tLib
      *
      * Add some "Global" Objects (what does not need a wrapper)
@@ -1391,7 +1391,7 @@
     // Done.
 
 
-    /**
+    /**!
      * window._
      *
      * Assign our _ object to global window object.
