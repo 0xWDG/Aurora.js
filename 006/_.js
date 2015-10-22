@@ -359,6 +359,7 @@
          * @param object [object] Wrapper
          * @param string myEvent event
          * @param function|bool callback Function to use|remove
+         * @return null
          * @example _('.wrapper').html('x').on('mousemove', function(){console.log('moved');});
          * @example _('.wrapper').html('x').on('mousemove', true); // Remove.
          * @example _('.wrapper').on('mousemove', function(){console.log('moved');});
@@ -411,6 +412,7 @@
                     window._eventStore = newArray;
                 }
             }
+            return null;
         },
 
         /**
@@ -425,7 +427,6 @@
          */
         error: function( msg ) {
             throw new Error( msg );
-            return null;
         },
 
         /**
