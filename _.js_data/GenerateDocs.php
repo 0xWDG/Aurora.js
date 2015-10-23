@@ -133,7 +133,7 @@ foreach ($functions as $functionName => $functionValue)
 			$a_data = explode(" ", $functionValue['annotation'][$i]);
 
 			echo $a_data[0];
-			
+
 			if ($a_data[0] == "@deprecated")
 			{
 				$isDeprecated = true;
@@ -157,6 +157,8 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . $a_data[3] . "</td>" .
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
+
+								  echo "FOUND PARAM";
 			}
 
 			if ($a_data[0] == "@todo")
