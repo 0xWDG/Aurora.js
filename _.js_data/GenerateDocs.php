@@ -28,7 +28,12 @@ $version 	 = end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
 
 // WIKI WIKI!
-$LOGO        = "                	     _    _____ \r\n";
+if(isBeta())
+$LOGO        = "                         _          \r\n".
+			   "                        (_)         \r\n";
+else
+$LOGO        = ""."".""."".""."".""."".""."".""."".""."";
+$LOGO       .= "                	     _    _____ \r\n";
 $LOGO       .= "            	        | |  / ____|\r\n";
 $LOGO       .= "        	            | |  | (___ \r\n";
 $LOGO       .= "    	            _   | |  \\___  \\\r\n";
