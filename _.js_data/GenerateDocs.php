@@ -128,7 +128,7 @@ foreach ($functions as $functionName => $functionValue)
 		$toDO_data     = null;
 		$example       = null;
 		$removedIn     = 0;
-		$parameterlist = "\r\n# Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
+		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) { 
 			$a_data = explode(" ", $functionValue['annotation'][$i]);
 
@@ -197,15 +197,15 @@ foreach ($functions as $functionName => $functionValue)
 		 $extra                = null;
 		 $extra               .= $parameterlist;
 		 if ( $isDeprecated )
-		 	$extra            .= "\r\n##### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 	$extra            .= "\r\n#### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
 		 if ( $toDo )
-		 	$extra            .= "\r\n##### Todo:\r\n{$toDO_data}\r\n\r\n";
-		 $extra               .= "\r\n##### Example:\r\n{$example}\r\n\r\n";
-		 $extra               .= "\r\n##### Returns:\r\n{$returning}\r\n\r\n";
+		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n";
+		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n";
+		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n";
 
 		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n<br />" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n* "   .
-								    implode("\r\n* ", $functionValue['annotation']) . "\r\n" .
+								    //implode("\r\n* ", $functionValue['annotation']) . "\r\n" .
 								    $extra													 .
 								    "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n");
 }
