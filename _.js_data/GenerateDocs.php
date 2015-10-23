@@ -198,13 +198,13 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 $extra               .= $parameterlist;
-		 if ( $isDeprecated )
-		 	$extra            .= "##### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
-		 if ( $toDo )
-		 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
-		 $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
+		 // if ( $isDeprecated )
+		 // 	$extra            .= "##### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 // if ( $toDo )
+		 // 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
+		 // $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
 		 
-		 if(empty(extra))
+		 if(empty($extra))
 		 	exit('SHIT MISSING');
 
 		 echo "\r\n-------------------------------------------------------\r\n";
