@@ -158,7 +158,7 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
 
-								  echo "FOUND PARAM ($parameterlist)";
+								  echo "FOUND PARAM ($parameterlist)\r\n";
 			}
 
 			if ($a_data[0] == "@todo")
@@ -207,7 +207,9 @@ foreach ($functions as $functionName => $functionValue)
 		 if(empty(parameterlist))
 		 	exit('SHIT MISSING');
 
-		 print($extra);
+		 echo "-------------------------------------------------------\r\n";
+		 echo $extra;
+		 echo "-------------------------------------------------------\r\n";
 
 		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n<br />" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n* "   .
