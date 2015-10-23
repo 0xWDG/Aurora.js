@@ -1,12 +1,13 @@
 /*
-
+                         _
+                        (_)
                          _    _____ 
                         | |  / ____|
                         | |  | (___  
-                    _   | |  \___  \ 
+                    _   | |  \___  \
      ______    _   | |__| |  ____) |
-    |______|  (_)   \____/  |______/ 
-                              v0.0.6
+    |______|  (_)   \____/  |______/
+                         v0.0.7 Beta
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com
@@ -64,19 +65,26 @@
         // * @var int lenth 
         this.length      = selector.length;
 
+        // * this.param
+        // *
+        // * Wich param is sended?
+        // *
+        // * @var string param
+        this.param       = params;
+
         // * this.version
         // *
         // * We'll gonna set the version
         // * 
         // * @var string version
-        this.version     = '0.0.6';
+        this.version     = '0.0.7';
 
         // * this.revision
         // *
         // * We'll gonna set the revision (prefix: r)
         // * 
         // * @var string revision
-        this.revision    = 'r25';
+        this.revision    = 'r151023-2';
 
         // * this.fullversion
         // *
@@ -382,6 +390,20 @@
                 }
             }
             return null;
+        },
+
+        /**
+         * appendTo
+         *
+         * append element to...
+         *
+         * @todo MAKE
+         * @return null
+         * @example _.appendTo('Message');
+         */
+        appendTo: function ( )
+        {
+            //use: this.param
         },
 
         /**
