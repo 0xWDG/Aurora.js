@@ -40,9 +40,9 @@ $LOGO       .= "    	            _   | |  \\___  \\\r\n";
 $LOGO       .= "  	 ______    _   | |__| |  ____) |\r\n";
 $LOGO       .= " 	|______|  (_)   \\____/  |______/\r\n";
 if(isBeta())                               //v.0.0.0
-$LOGO       .= " 	                    " . $version . " Beta\r\n";
+$LOGO       .= " 	                     " . $version . " Beta\r\n";
 else
-$LOGO       .= " 	                   " . $version . " Final\r\n";
+$LOGO       .= " 	                    " . $version . " Final\r\n";
 
 $WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
