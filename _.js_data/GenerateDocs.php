@@ -132,6 +132,7 @@ for ($i=0; $i < sizeof($thitest[0])-1; $i++)
 foreach ($functions as $functionName => $functionValue) 
 {
 		# Terrible code... (did i say it before?)
+	    $needsWrapper  = true;
 		$isDeprecated  = false;
 		$toDo          = false;
 		$toDO_data     = null;
@@ -166,6 +167,9 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . fullText($a_data, 3) . "</td>" .
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
+
+				if($a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o" )
+					$needsWrapper = false;
 			}
 
 			if ($a_data[0] == "@todo")
@@ -212,9 +216,10 @@ foreach ($functions as $functionName => $functionValue)
 		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n";
 		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n";
 
-		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n<br />" .
+		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;
+
+		 writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   .
-								    //implode("\r\n* ", $functionValue['annotation']) . "\r\n" .
 								    $extra													 .
 								    "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n");
 }
