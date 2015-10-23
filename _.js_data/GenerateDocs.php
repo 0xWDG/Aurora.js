@@ -211,7 +211,7 @@ foreach ($functions as $functionName => $functionValue)
 		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
-		if($function_before=='' && $toDo) $function_before = '⚠️ ';
+		if($function_before=='' && $toDo) $function_before = '📝 ';
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
@@ -247,8 +247,9 @@ foreach ($functions as $functionName => $functionValue)
 		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;
 
 		 writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
-			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   .
-								    $extra													 .
+		 							($isDeprecated ? '##### 🚧 DO NOT USE ANYMORE!!!<br>' . "\r\n" : "") 									.
+			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   											.
+								    $extra													 										.
 								    (isBeta() 
 								    	? "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List%20(Beta))\r\n"
 								    	: "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n")
@@ -281,7 +282,12 @@ function writeToWiki($filename, $contents)
 	global $LOGO;
 
 	$write  = $LOGO;
-	$write .= "# Function {$filename}\r\n\r\n";
+	if ( preg_match("/⚠️/", $contents) )
+		$write .= "# ⚠️ Function {$filename}\r\n\r\n";
+	elseif ( preg_match("/🚧/", $contents))
+		$write .= "# 🚧 Function {$filename}\r\n\r\n";
+	else
+		$write .= "# Function {$filename}\r\n\r\n";
 	$write .= $contents;
 
 	// Update wiki! (Only if finial (final = one version behind.))
