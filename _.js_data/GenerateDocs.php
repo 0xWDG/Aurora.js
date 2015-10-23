@@ -199,9 +199,10 @@ foreach ($functions as $functionName => $functionValue)
 		 if ( $toDo )
 		 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
 		 $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
-		 if(!parameterlist)
-		 	exit('SHIT');
 		 
+		 if(empty(parameterlist))
+		 	exit('SHIT MISSING');
+
 		 print($extra);
 
 		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n<br />" .
