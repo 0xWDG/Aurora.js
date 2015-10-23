@@ -398,6 +398,7 @@
          * append element to...
          *
          * @todo MAKE
+         * @param object [object] Wrapper
          * @param ? ? TODO
          * @return null
          * @example _.appendTo(...);
