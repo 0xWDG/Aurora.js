@@ -207,7 +207,7 @@ foreach ($functions as $functionName => $functionValue)
 		 if(empty(parameterlist))
 		 	exit('SHIT MISSING');
 
-		 echo "-------------------------------------------------------\r\n";
+		 echo "\r\n-------------------------------------------------------\r\n";
 		 echo $extra;
 		 echo "-------------------------------------------------------\r\n";
 
