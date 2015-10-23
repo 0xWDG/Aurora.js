@@ -39,11 +39,10 @@ $LOGO       .= "        	            | |  | (___ \r\n";
 $LOGO       .= "    	            _   | |  \\___  \\\r\n";
 $LOGO       .= "  	 ______    _   | |__| |  ____) |\r\n";
 $LOGO       .= " 	|______|  (_)   \\____/  |______/\r\n";
-if(isBeta())
-$LOGO       .= " 	                     Pre Release\r\n";
+if(isBeta())                               //v.0.0.0
+$LOGO       .= " 	                    " . $version . " Beta\r\n";
 else
-$LOGO       .= " 	                   Final Release\r\n";
-$LOGO       .= " 	                          " . $version . "\r\n";
+$LOGO       .= " 	                   " . $version . " Final\r\n";
 
 $WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
