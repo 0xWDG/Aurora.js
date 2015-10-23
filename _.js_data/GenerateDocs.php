@@ -176,7 +176,7 @@ foreach ($functions as $functionName => $functionValue)
 
 			if ($a_data[0] == "@return")
 			{
-				$returning    = array($a_data[1], @$a_data[2]);
+				$returning    = $a_data[1];
 			}
 
 			if ($a_data[0] == "@param")
@@ -195,7 +195,13 @@ foreach ($functions as $functionName => $functionValue)
 			if ($a_data[0] == "@todo")
 			{
 				$toDo         = true;
-				$toDO_data    = $a_data[1];
+				$toDO_data    = fullText($a_data, 1);
+			}
+
+			if ($a_data[0] == "@warning")
+			{
+				$warning      = true;
+				$warning_data = fullText($a_data, 1);
 			}
 
 			if ($a_data[0] == "@example")
