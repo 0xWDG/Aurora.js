@@ -129,10 +129,10 @@ foreach ($functions as $functionName => $functionValue)
 		$example       = null;
 		$removedIn     = 0;
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
-		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) { 
-			$a_data = explode(" ", $functionValue['annotation'][$i]);
 
-			echo $a_data[0];
+		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
+		{ 
+			$a_data = explode(" ", $functionValue['annotation'][$i]);
 
 			if ($a_data[0] == "@deprecated")
 			{
@@ -204,7 +204,7 @@ foreach ($functions as $functionName => $functionValue)
 		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n";
 
 		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n<br />" .
-			       				    implode("<br />", $functionValue['text'])."<br>\r\n* "   .
+			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   .
 								    //implode("\r\n* ", $functionValue['annotation']) . "\r\n" .
 								    $extra													 .
 								    "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n");
