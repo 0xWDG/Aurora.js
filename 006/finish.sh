@@ -24,7 +24,7 @@ cp ../_.js_data/GenerateDocs.php GenerateDocs.php &>/dev/null
 
 # Generate index.html & generate wiki -> function list.
 echo "* Generating documentation"
-php GenerateDocs.php &>/dev/null
+php GenerateDocs.php
 
 mkdir m &> /dev/null
 echo "* Generating map files..."

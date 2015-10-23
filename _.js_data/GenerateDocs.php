@@ -123,6 +123,9 @@ for ($i=0; $i < sizeof($thitest[0])-1; $i++)
 foreach ($functions as $functionName => $functionValue) 
 {
 		# Terrible code... (did i say it before?)
+		$annotations           = $functionValue['annotation'];
+		print_r($functionValue['annotation']);
+		exit;
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$functionValue['function']}</a></li>";
