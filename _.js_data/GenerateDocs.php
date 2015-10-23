@@ -206,9 +206,11 @@ foreach ($functions as $functionName => $functionValue)
 
 		$parameterlist .= "</table>";
 
-		$function_before = ($isDeprecated) ? '<s>'  : '';
+		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
+		if($function_before=='' && $toDo) $function_before = '⚠️ ';
+		
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
