@@ -158,7 +158,7 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
 
-								  echo "FOUND PARAM";
+								  echo "FOUND PARAM ($parameterlist)";
 			}
 
 			if ($a_data[0] == "@todo")
