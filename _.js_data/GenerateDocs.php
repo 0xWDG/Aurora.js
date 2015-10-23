@@ -161,7 +161,7 @@ foreach ($functions as $functionName => $functionValue)
 
 			if ($a_data[0] == "@param")
 			{
-				$parameterlist = $parameterlist . "<tr>" . //Why .= replaces?!
+				$parameterlist .= "<tr>" . 
 									"<td>" . $a_data[1] . "</td>" .
 									"<td>" . $a_data[2] . "</td>" .
 									"<td>" . fullText($a_data, 3) . "</td>" .
@@ -193,8 +193,14 @@ foreach ($functions as $functionName => $functionValue)
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
-		$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
-
+		$ver = (end(explode("/",__dir__)))+1;
+		if (strlen($ver) == 1) $ver = "00".$ver;
+		if (strlen($ver) == 2) $ver = "0". $ver;
+		if ( file_exists ( '../' . $ver . '/_.js' ) )
+			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
+		else
+			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/flbeta_function_{$functionName}'>Wiki</a></td></tr>";
+		
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
 		$replaceArray['text'] .= "</a>";
@@ -243,6 +249,8 @@ if (strlen($ver) == 1) $ver = "00".$ver;
 if (strlen($ver) == 2) $ver = "0". $ver;
 if ( file_exists ( '../' . $ver . '/_.js' ) )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
+else
+	file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
 
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
@@ -261,5 +269,7 @@ function writeToWiki($filename, $contents)
 	if (strlen($ver) == 2) $ver = "0". $ver;
 	if ( file_exists ( '../' . $ver . '/_.js' ) )
 		file_put_contents("../_.js.wiki/functions/function_{$filename}.md", $write);
+	else
+		file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}.md", $write);
 }
 ?>
