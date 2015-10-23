@@ -210,14 +210,14 @@ foreach ($functions as $functionName => $functionValue)
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
 		if($function_before=='' && $toDo) $function_before = '⚠️ ';
-		
+
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
 		if ( !isBeta() )
-			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
 		else
-			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/flbeta_function_{$functionName}'>Wiki</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/flbeta_function_{$functionName}'>Wiki</a></td></tr>";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
