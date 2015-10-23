@@ -11,7 +11,7 @@ function fullText ( $fromArray, $start )
 	for ($i=$start; $i < sizeof($fromArray); $i++) { 
 		$myTemp .= " " . $fromArray[$i];
 	}
-	return substr($myTemp, 1, 0);
+	return substr($myTemp, 1);
 }
 
 // Get the version (name of dir, splitted into dots)
