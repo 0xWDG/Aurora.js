@@ -253,7 +253,7 @@ foreach ($functions as $functionName => $functionValue)
 		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;
 
 		 writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
-		 							($isDeprecated ? '##### 🚧 DO NOT USE ANYMORE!!!<br>' . "\r\n" : "") 									.
+		 							($isDeprecated ? "\r\n" . '##### 🚧 DO NOT USE ANYMORE!!!<br>' . "\r\n" : "") 									.
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   											.
 								    $extra													 										.
 								    (isBeta() 
@@ -292,6 +292,8 @@ function writeToWiki($filename, $contents)
 		$write .= "# ⚠️ Function {$filename}\r\n\r\n";
 	elseif ( preg_match("/🚧/", $contents))
 		$write .= "# 🚧 Function {$filename}\r\n\r\n";
+	elseif ( preg_match("/📝/", $contents))
+		$write .= "# 📝 Function {$filename}\r\n\r\n";
 	else
 		$write .= "# Function {$filename}\r\n\r\n";
 	$write .= $contents;
