@@ -402,6 +402,25 @@
         },
 
         /**
+         * supportTouch
+         *
+         * Does the client support touch (events)?
+         *
+         * @new v0.0.7
+         * @param object [object] Wrapper
+         * @return bool
+         * @example _.supportTouch();
+         */
+        supportTouch: function ( )
+        {
+            return (
+                    ('ontouchstart' in window) 
+                    || (navigator.maxTouchPoints > 0) 
+                    || (navigator.msMaxTouchPoints > 0)
+                   );
+        },
+
+        /**
          * appendTo
          *
          * append element to...
