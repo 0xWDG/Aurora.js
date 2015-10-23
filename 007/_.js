@@ -387,11 +387,27 @@
         },
 
         /**
+         * noop
+         *
+         * Function what don't do a thing...
+         *
+         * @new v0.0.7
+         * @param object [object] Wrapper
+         * @return null
+         * @example _.noop();
+         */
+        noop: function ( )
+        {
+            //use: this.param
+        },
+
+        /**
          * appendTo
          *
          * append element to...
          *
          * @todo MAKE
+         * @new v0.0.7
          * @param object [object] Wrapper
          * @param ? ? TODO
          * @return null

@@ -153,6 +153,7 @@ foreach ($functions as $functionName => $functionValue)
 	    $needsWrapper  = true;
 		$isDeprecated  = false;
 		$toDo          = false;
+		$isNew         = false;
 		$warning       = false;
 		$warning_data  = null;
 		$toDO_data     = null;
@@ -204,6 +205,18 @@ foreach ($functions as $functionName => $functionValue)
 				$warning_data = fullText($a_data, 1);
 			}
 
+			if ($a_data[0] == "@new" Or $a_data[0] == "announce")
+			{
+				$isNew        = true;
+				if ( isset ( $a_data[1] ) )
+				{
+					if ($version === $a_data[1]) //version_compare(substr($version, 1), substr($a_data[1], 1)) === 0
+						$isNew = true;
+					else
+						$isNew = false;
+				}
+			}
+
 			if ($a_data[0] == "@example")
 			{
 				$temp         = $functionValue['annotation'][$i];
@@ -217,7 +230,8 @@ foreach ($functions as $functionName => $functionValue)
 		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
-		if($function_before=='' && $toDo) $function_before = '📝 ';
+		if($function_before=='' && $toDo)  $function_before = '📝 ';
+		if($function_before=='' && $isNew) $function_before = '💡 ';
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
@@ -294,6 +308,8 @@ function writeToWiki($filename, $contents)
 		$write .= "# 🚧 Function {$filename}\r\n\r\n";
 	elseif ( preg_match("/📝/", $contents))
 		$write .= "# 📝 Function {$filename}\r\n\r\n";
+	elseif ( preg_match("/💡/", $contents))
+		$write .= "# 💡 Function {$filename}\r\n\r\n";
 	else
 		$write .= "# Function {$filename}\r\n\r\n";
 	$write .= $contents;
