@@ -325,7 +325,7 @@
          *
          * On ... event
          *
-         * @param object [object] Wrapper
+         * @param object object Wrapper
          * @param string myEvent event
          * @param function|bool callback Function to use|remove
          * @return null
@@ -482,7 +482,7 @@
          * @param object [object] Wrapper
          * @param string|array jsArray the array of files to load (or string)
          * @param function Callback the Callback function
-         * @param [bool] [local] if set to true then load the local copy.
+         * @param bool [local] if set to true then load the local copy.
          * @return null
          * @example _.require(['a','r','ra','y'], function(){doSomeThing();});
          */
