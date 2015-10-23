@@ -151,7 +151,7 @@ foreach ($functions as $functionName => $functionValue)
 
 			if ($a_data[0] == "@param")
 			{
-				$parameterlist .= "<tr>" .
+				$parameterlist = $parameterlist . "<tr>" . //Why .= replaces?!
 									"<td>" . $a_data[1] . "</td>" .
 									"<td>" . $a_data[2] . "</td>" .
 									"<td>" . $a_data[3] . "</td>" .
@@ -202,7 +202,7 @@ foreach ($functions as $functionName => $functionValue)
 		 	$extra            .= "##### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
 		 if ( $toDo )
 		 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
-		 // $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
+		 $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
 		 
 		 if(empty(extra))
 		 	exit('SHIT MISSING');
