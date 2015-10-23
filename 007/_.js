@@ -398,8 +398,9 @@
          * append element to...
          *
          * @todo MAKE
+         * @param ? ? TODO
          * @return null
-         * @example _.appendTo('Message');
+         * @example _.appendTo(...);
          */
         appendTo: function ( )
         {
