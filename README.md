@@ -17,4 +17,5 @@ Please report all your idea's in "[Issues](https://github.com/wesdegroot/_.js/is
 
 ---
 ### Thanks for using! 💙
+Made with 💙 in 🇳🇱
 ---

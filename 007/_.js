@@ -178,15 +178,9 @@
          * @param object [object] Wrapper
          * @param string configKey config parameter
          * @example _._('version');
-         * @deprecated set SET WILL BE REMOVED.
          */
-        _: function (configKey, set) {
-            if (!set)
-                return eval('this.' + configKey);
-            else
-            {
-                console.error('[_.js Error: NOT SUPPORTED]\nError, Failed to set \'' + configKey + '\' to \'' + set + '\'.');
-            }
+        _: function (configKey) {
+            return eval('this.' + configKey);
         },
 
         /**

@@ -153,9 +153,11 @@ foreach ($functions as $functionName => $functionValue)
 	    $needsWrapper  = true;
 		$isDeprecated  = false;
 		$toDo          = false;
+		$warning       = false;
+		$warning_data  = null;
 		$toDO_data     = null;
 		$example       = null;
-		$removedIn     = 0;
+		$removedIn     = end(explode("/",__dir__));
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
@@ -237,6 +239,8 @@ foreach ($functions as $functionName => $functionValue)
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
 		 if ( $toDo )
 		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n";
+		 if ( $warning )
+		 	$extra            .= "\r\n#### ⚠️\r\n{$warning_data}\r\n\r\n";
 		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n";
 		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n";
 
