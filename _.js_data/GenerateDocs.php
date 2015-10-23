@@ -123,12 +123,54 @@ for ($i=0; $i < sizeof($thitest[0])-1; $i++)
 foreach ($functions as $functionName => $functionValue) 
 {
 		# Terrible code... (did i say it before?)
-		$annotations           = $functionValue['annotation'];
-		print_r($functionValue['annotation']);
-		exit;
+		$isDeprecated  = false;
+		$removedIn     = 0;
+		$toDo          = false;
+		$toDO_data     = null;
+		$parameterlist = "# Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
+
+		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) { 
+			$a_data = explode(" ", $functionValue['annotation'][$i]);
+
+			if ($a_data[0] == "@deprecated")
+			{
+				$isDeprecated = true;
+			}
+
+			if ($a_data[0] == "@removed")
+			{
+				$removedIn    = $a_data[1];
+			}
+
+			if ($a_data[0] == "@return")
+			{
+				$return       = array($a_data[1], @$a_data[2]);
+			}
+
+			if ($a_data[0] == "@param")
+			{
+				$parameterlist .= "<tr>" .
+									"<td>" . $a_data[1] . "</td>" .
+									"<td>" . $a_data[2] . "</td>" .
+									"<td>" . $a_data[3] . "</td>" .
+									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
+								  "</tr>";
+			}
+
+			if ($a_data[0] == "@todo")
+			{
+				$toDo         = true;
+				$toDO_data    = $a_data[1];
+			}
+		}
+
+		$parameterlist = "</table>";
+
+		$function_before = ($isDeprecated) ? '<s>'  : '';
+		$function_after  = ($isDeprecated) ? '</s>' : '';
 
 		// Ok, the menu need some items (functions)
-		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$functionValue['function']}</a></li>";
+		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 		$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
 
 		// And a 'a name' to navigate to
@@ -136,16 +178,25 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "</a>";
 
 		// ok, this terrible code is for showing it on the page
-		$replaceArray['text'] .= "<h3 style='font-size: 200%;'>{$functionValue['function']}</h3><p>";
+		$replaceArray['text'] .= "<h3 style='font-size: 200%;'>{$function_before}{$functionValue['function']}{$function_after}</h3><p>";
 		$replaceArray['text'] .= implode("<br />", $functionValue['text']);
 		$replaceArray['text'] .= "<br /><br /><div style='background: lightyellow;'><p>";
 		$replaceArray['text'] .= implode("<br />", $functionValue['annotation']);
 		$replaceArray['text'] .= "</p></div><br /><br /></p>";
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
-		 writeToWiki($functionName, "##### `_('.wrapper').{$functionValue['function']}`\r\n" .
+		 $extra                = null;
+		 if ( $isDeprecated )
+		 	$extra            .= "##### Deprecated\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 if ( $toDo )
+		 	$extra            .= "##### Todo\r\n{$toDO_data}\r\n\r\n";
+		 $extra               .= $parameterlist;
+
+
+		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n* "   .
 								    implode("\r\n* ", $functionValue['annotation']) . "\r\n" .
+								    $extra													 .
 								    "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n");
 }
 
