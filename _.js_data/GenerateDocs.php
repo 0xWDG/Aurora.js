@@ -5,6 +5,15 @@
    Don't blame anyone for this file.
 */
 
+function fullText ( $fromArray, $start )
+{
+	$myTemp=null;
+	for ($i=$start; $i < sizeof($fromArray); $i++) { 
+		$myTemp .= " " . $fromArray[$i];
+	}
+	return substr($myTemp, 1, 0);
+}
+
 // Get the version (name of dir, splitted into dots)
 $version 	 = end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
@@ -154,7 +163,7 @@ foreach ($functions as $functionName => $functionValue)
 				$parameterlist = $parameterlist . "<tr>" . //Why .= replaces?!
 									"<td>" . $a_data[1] . "</td>" .
 									"<td>" . $a_data[2] . "</td>" .
-									"<td>" . $a_data[3] . "</td>" .
+									"<td>" . fullText($a_data, 3) . "</td>" .
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
 			}
