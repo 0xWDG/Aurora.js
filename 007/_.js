@@ -6,7 +6,7 @@
                     _   | |  \___  \ 
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/ 
-                              v0.0.6
+                              v0.0.7
                          PRE-Release
 
     https://www.github.com/wesdegroot/_.js/
@@ -70,14 +70,14 @@
         // * We'll gonna set the version
         // * 
         // * @var string version
-        this.version     = '0.0.6b';
+        this.version     = '0.0.7b';
 
         // * this.revision
         // *
         // * We'll gonna set the revision (prefix: r)
         // * 
         // * @var string revision
-        this.revision    = 'r15';
+        this.revision    = 'r25';
 
         // * this.fullversion
         // *

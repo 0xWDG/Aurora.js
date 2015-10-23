@@ -124,11 +124,11 @@ foreach ($functions as $functionName => $functionValue)
 {
 		# Terrible code... (did i say it before?)
 		$isDeprecated  = false;
-		$removedIn     = 0;
 		$toDo          = false;
 		$toDO_data     = null;
+		$example       = null;
+		$removedIn     = 0;
 		$parameterlist = "# Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
-
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) { 
 			$a_data = explode(" ", $functionValue['annotation'][$i]);
 
@@ -162,6 +162,15 @@ foreach ($functions as $functionName => $functionValue)
 				$toDo         = true;
 				$toDO_data    = $a_data[1];
 			}
+
+			if ($a_data[0] == "@example")
+			{
+				$temp         = $functionValue['annotation'][$i];
+				$temp         = preg_replace("/@example\s/",null, $temp);
+				$example     .= "`" . $temp . "`<br><br>";
+			}
+
+			print_r($a_data);
 		}
 
 		$parameterlist = "</table>";
@@ -187,11 +196,13 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 if ( $isDeprecated )
-		 	$extra            .= "##### Deprecated\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 	$extra            .= "##### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
 		 if ( $toDo )
-		 	$extra            .= "##### Todo\r\n{$toDO_data}\r\n\r\n";
+		 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
+		 $extra               .= "##### Example:\r\n{}";
 		 $extra               .= $parameterlist;
 
+		 print($extra);
 
 		 writeToWiki($functionName, "#### {$function_before}`_('.wrapper').{$functionValue['function']}`{$function_after}\r\n" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n* "   .
