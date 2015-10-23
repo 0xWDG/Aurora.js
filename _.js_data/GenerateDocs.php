@@ -14,6 +14,15 @@ function fullText ( $fromArray, $start )
 	return substr($myTemp, 1);
 }
 
+function isBeta ( )
+{
+	$ver = (end(explode("/",__dir__)))+1;
+	if (strlen($ver) == 1) $ver = "00".$ver;
+	if (strlen($ver) == 2) $ver = "0". $ver;
+
+	return !file_exists('../' . $ver . '/_.js'); // !exists = beta
+}
+
 // Get the version (name of dir, splitted into dots)
 $version 	 = end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
@@ -25,6 +34,8 @@ $LOGO       .= "        	            | |  | (___ \r\n";
 $LOGO       .= "    	            _   | |  \\___  \\\r\n";
 $LOGO       .= "  	 ______    _   | |__| |  ____) |\r\n";
 $LOGO       .= " 	|______|  (_)   \\____/  |______/\r\n";
+if(isBeta())
+$LOGO       .= " 	                     Pre-Release\r\n";
 
 $WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
@@ -193,14 +204,12 @@ foreach ($functions as $functionName => $functionValue)
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
-		$ver = (end(explode("/",__dir__)))+1;
-		if (strlen($ver) == 1) $ver = "00".$ver;
-		if (strlen($ver) == 2) $ver = "0". $ver;
-		if ( file_exists ( '../' . $ver . '/_.js' ) )
+
+		if ( !isBeta() )
 			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Wiki</a></td></tr>";
 		else
 			$WIKI				  .= "<tr><td>{$functionValue['function']}</td><td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td><td><a href='https://github.com/wesdegroot/_.js/wiki/flbeta_function_{$functionName}'>Wiki</a></td></tr>";
-		
+
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
 		$replaceArray['text'] .= "</a>";
@@ -227,7 +236,10 @@ foreach ($functions as $functionName => $functionValue)
 		 writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   .
 								    $extra													 .
-								    "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n");
+								    (isBeta() 
+								    	? "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List%20(Beta))\r\n"
+								    	: "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n")
+								    );
 }
 
 // Finally the end is coming, we'll putting it in the design
@@ -244,17 +256,13 @@ file_put_contents("index.html", $replace);
 $WIKI       .= "</table>\r\n";
 
 // Update wiki! (Only if finial (final = one version behind.))
-$ver = (end(explode("/",__dir__)))+1;
-if (strlen($ver) == 1) $ver = "00".$ver;
-if (strlen($ver) == 2) $ver = "0". $ver;
-if ( file_exists ( '../' . $ver . '/_.js' ) )
+if ( !isBeta() )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
 else
 	file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
 
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
-
 function writeToWiki($filename, $contents)
 {
 	global $LOGO;
@@ -264,10 +272,7 @@ function writeToWiki($filename, $contents)
 	$write .= $contents;
 
 	// Update wiki! (Only if finial (final = one version behind.))
-	$ver = (end(explode("/",__dir__)))+1;
-	if (strlen($ver) == 1) $ver = "00".$ver;
-	if (strlen($ver) == 2) $ver = "0". $ver;
-	if ( file_exists ( '../' . $ver . '/_.js' ) )
+	if ( !isBeta() )
 		file_put_contents("../_.js.wiki/functions/function_{$filename}.md", $write);
 	else
 		file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}.md", $write);
