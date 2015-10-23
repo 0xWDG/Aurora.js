@@ -204,7 +204,7 @@ foreach ($functions as $functionName => $functionValue)
 		 	$extra            .= "##### Todo:\r\n{$toDO_data}\r\n\r\n";
 		 $extra               .= "##### Example:\r\n{$example}\r\n\r\n";
 		 
-		 if(empty(parameterlist))
+		 if(empty(extra))
 		 	exit('SHIT MISSING');
 
 		 echo "\r\n-------------------------------------------------------\r\n";
