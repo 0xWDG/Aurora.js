@@ -206,7 +206,7 @@ foreach ($functions as $functionName => $functionValue)
 		 $extra                = null;
 		 $extra               .= $parameterlist;
 		 if ( $isDeprecated )
-		 	$extra            .= "\r\n#### Deprecated!\r\nWarning will be removed in [{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
 		 if ( $toDo )
 		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n";
 		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n";
