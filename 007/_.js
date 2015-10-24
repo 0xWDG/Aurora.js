@@ -433,7 +433,7 @@
          *
          * @new v0.0.7
          * @param object [object] Wrapper
-         * @return null
+         * @return nothing
          * @example _.noop();
          */
         noop: function ( ) { },
