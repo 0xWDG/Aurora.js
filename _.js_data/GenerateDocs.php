@@ -235,9 +235,9 @@ foreach ($functions as $functionName => $functionValue)
 		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
-		if($function_before=='' && $toDo)  $function_before = '📝 ';
-		if($function_before=='' && $isNew) $function_before = '💡 ';
-		if($isInternal)					   $function_before = '⛔️ '  . $function_before;
+		if($function_before=='' && $toDo)  $function_before = '📝 '; // Is under construction
+		if($function_before=='' && $isNew) $function_before = '💡 '; // Light bulb (new)
+		if($isInternal)					   $function_before = '⛔️ '; // Internal use, Overwrite all others
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
@@ -261,17 +261,17 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 if ( $isDeprecated )
-		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
 		 //⛔️
 		 if ( $isInternal )
-		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n";
-		 $extra               .= $parameterlist;
+		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
+		 $extra               .= $parameterlist . "<br>\r\n";
 		 if ( $toDo )
-		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n";
+		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n<br>\r\n";
 		 if ( $warning )
-		 	$extra            .= "\r\n#### ⚠️\r\n{$warning_data}\r\n\r\n";
-		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n";
-		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n";
+		 	$extra            .= "\r\n#### ⚠️\r\n{$warning_data}\r\n\r\n<br>\r\n";
+		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
+		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n<br>\r\n";
 
 		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;
 
