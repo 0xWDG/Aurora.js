@@ -22,25 +22,25 @@
 // _ function
 (function () {
 
-    //  * window._lastObj
-    //  *
-    //  * Last selected object
-    //  * 
-    //  * @var object _lastObj
+    // * window._lastObj
+    // *
+    // * Last selected object
+    // * 
+    // * @var object _lastObj
     window._lastObj    = null;
 
-    //  * window._modLoaded
-    //  *
-    //  * Wich modules are loaded?
-    //  * 
-    //  * @var array _modLoaded     
+    // * window._modLoaded
+    // *
+    // * Wich modules are loaded?
+    // * 
+    // * @var array _modLoaded     
     window._modLoaded  = [];
 
-    //  * window._eventStore
-    //  *
-    //  * Event store (On.....)
-    //  * 
-    //  * @var array _eventStore     
+    // * window._eventStore
+    // *
+    // * Event store (On.....)
+    // * 
+    // * @var array _eventStore     
     window._eventStore = [];
 
     // _ returns new Library object that hold our selector. Ex: _('.wrapper')
@@ -56,7 +56,7 @@
         // * We'll gonna set the selector
         // * 
         // * @var object selector 
-        var selector     = document.querySelectorAll(params);
+        var selector     =  typeof params === "undefined" ? [] : (params.indexOf(">") === -1) ? document.querySelectorAll(params) : [];
 
         // * this.lenth
         // *
@@ -77,7 +77,7 @@
         // * We'll gonna set the version
         // * 
         // * @var string version
-        this.version     = '0.0.7';
+        this.version     = '0.0.7b';
 
         // * this.revision
         // *
@@ -161,6 +161,7 @@
         // * Helper
         // * -> everyone lies (Especially Chrome), IE=Trident...
         // * 
+        // * @new v0.0.7
         // * @var string temp
         // * @internal
         var temp = navigator.userAgent.split(" ")[navigator.userAgent.split(" ").length-2].split("/")[0] == "Chrome" 
@@ -172,6 +173,7 @@
         // * Browser info
         // * ie, firefox, safari, opera, edge, chrome, userAgent, supportTouch...
         // * 
+        // * @new v0.0.7
         // * @var object browser
         this.browser     = {
                                 ie:             navigator.userAgent.indexOf("Trident"), // Always try to be funnny...
@@ -188,6 +190,7 @@
         // *
         // * Browser name
         // * 
+        // * @new v0.0.7
         // * @var string getBrowser
         this.getBrowser  = temp;
         
@@ -227,7 +230,7 @@
          * @return this
          * @example _.emulatejQuery();
          */
-        emulatejQuery: function () {
+        emulatejQuery: function ( ) {
             window.$       = window._;
             window._$      = window._;
             window.jQuery  = window._;
@@ -245,7 +248,7 @@
          * @return this
          * @example _.$();
          */
-        $: function () {
+        $: function ( ) {
             alert('Hi');
             var answer = confirm('Did you know that i\'m not jQuery?');
 
@@ -272,7 +275,7 @@
          * @return object
          * @example _.extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100});
          */
-        extend: function () {
+        extend: function ( ) {
             // Thanks to jQuery for this one ;)
 
             var src,
@@ -308,20 +311,23 @@
 
             for ( ; i < length; i++ ) {
                 // Only deal with non-null/undefined values
-                if ( (options = arguments[ i ]) != null ) {
+                if ( (options = arguments[ i ]) != null ) 
+                {
                     // Extend the base object
-                    for ( name in options ) {
+                    for ( name in options ) 
+                    {
                         src = target[ name ];
                         copy = options[ name ];
 
                         // Prevent never-ending loop
-                        if ( target === copy ) {
+                        if ( target === copy ) 
                             continue;
-                        }
 
                         // Recurse if we're merging plain objects or arrays
-                        if ( deep && copy && ( this.isPlainObject(copy) || (copyIsArray = this.isArray(copy)) ) ) {
-                            if ( copyIsArray ) {
+                        if ( deep && copy && ( this.isPlainObject(copy) || (copyIsArray = this.isArray(copy)) ) ) 
+                        {
+                            if ( copyIsArray ) 
+                            {
                                 copyIsArray = false;
                                 clone = src && this.isArray(src) ? src : [];
                             } else {
@@ -366,14 +372,14 @@
          * @param string myEvent event
          * @param function|bool callback Function to use|remove
          * @return null
-         * @example _('.wrapper').html('x').on('mousemove', function(){console.log('moved');});
+         * @example _('.wrapper').html('x').on('mousemove', function () { console.log('moved'); });
          * @example _('.wrapper').html('x').on('mousemove', true); // Remove.
-         * @example _('.wrapper').on('mousemove', function(){console.log('moved');});
+         * @example _('.wrapper').on('mousemove', function () { console.log('moved'); });
          * @example _('.wrapper').on('mousemove', true); // Remove.
          */
-        on: function (myEvent, callback)
+        on: function ( myEvent, callback )
         {
-            if (typeof callback === "function")
+            if ( typeof callback === "function" )
             {
                 var len = this.length;
                 
@@ -389,12 +395,11 @@
 
                     window._eventStore.push(tempArr);
                 }
-            }
-            else
-            {
+            } else {
                 var len = this.length;
 
-                while (len--) {
+                while ( len-- ) 
+                {
                     var newArray=[],
                         curEvent;
 
@@ -431,10 +436,7 @@
          * @return null
          * @example _.noop();
          */
-        noop: function ( )
-        {
-            //use: this.param
-        },
+        noop: function ( ) { },
 
         /**
          * supportTouch
@@ -446,8 +448,7 @@
          * @return bool
          * @example _.supportTouch();
          */
-        supportTouch: function ( )
-        {
+        supportTouch: function ( ) {
             return (
                     ('ontouchstart' in window) 
                     || (navigator.maxTouchPoints > 0) 
@@ -460,16 +461,58 @@
          *
          * append element to...
          *
-         * @todo MAKE
          * @new v0.0.7
          * @param object [object] Wrapper
-         * @param ? ? TODO
+         * @param string to Append to
          * @return null
-         * @example _.appendTo(...);
+         * @example _("<b>Hi!</b>").appendTo(".inner");
          */
-        appendTo: function ( )
+        appendTo: function ( to )
         {
-            //use: this.param
+            if ( to === "body")
+            {
+                document.body.innerHTML += this.param;
+            }
+            else if (to == "head")
+            {
+                document.head.innerHTML += this.param;
+            }
+            else if (to.substr(0, 1) === "." || to.substr(0, 1) === "#")
+            {
+                _(to).html(this.param, true);
+            }
+            else
+            {
+                this._error('appendTo');
+            }
+            return null;
+        },
+
+        /**
+         * _error
+         *
+         * Internal use for error.
+         *
+         * @new v0.0.7
+         * @param object [object] Wrapper
+         * @param string functionname Function name
+         * @param string [message] Error message
+         * @return null
+         * @example _.error('Functionname', 'Message');
+         */
+        _error: function (functionname, message)
+        {
+            if (typeof message === "undefined")
+                console.error('_.js Error: Invalid usage of function');
+            else
+                console.error('_.js Error: ' + message);
+
+            if ( !this.isBeta )
+                console.error('Please see: https://github.com/wesdegroot/_.js/wiki/function_' + functionname);
+            else
+                console.error('Please see: https://github.com/wesdegroot/_.js/wiki/flbeta_function_' + functionname);
+
+            return null;
         },
 
         /**
@@ -482,7 +525,7 @@
          * @return null
          * @example _.error('Message');
          */
-        error: function( msg ) {
+        error: function ( msg ) {
             throw new Error( msg );
         },
 
@@ -496,7 +539,7 @@
          * @return bool
          * @example _.isFunction(function(){});
          */
-        isFunction: function( obj ) {
+        isFunction: function ( obj ) {
             return this.type(obj) === "function";
         },
 
@@ -510,10 +553,10 @@
          * @return string
          * @example _.type(function(){});
          */
-        type: function( obj ) {
-            if ( obj == null ) {
+        type: function ( obj ) {
+            if ( obj == null )
                 return obj + "";
-            }
+
             return typeof obj === "object" || typeof obj === "function" ?
                 this.objectclass[ Object.prototype.toString.call(obj) ] || "object" : typeof obj;
         },
@@ -528,7 +571,7 @@
          * @return bool
          * @example _.isPlainObject(function(){});
          */
-        isPlainObject: function( obj ) {
+        isPlainObject: function ( obj ) {
             // Thanks to jQuery for this one ;)
 
             var key,
@@ -558,7 +601,7 @@
         for ( key in obj ) {}
 
         return key === undefined || hasOwn.call( obj, key );
-    },
+        },
 
         /**
          * require
@@ -575,8 +618,6 @@
          * @example _.require(['a','r','ra','y'], function(){doSomeThing();});
          */
         require: function (jsArray, Callback, local) {
-            //TODO: FALLBACK TO GITHUB, IF CAN'T LOAD.
-
             if(typeof local === "undefined")
                 local=false;
 
@@ -603,9 +644,6 @@
                         if (i == 1)
                             script.onload               = Callback;
                         
-                        // catch loading error
-                            script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase() +'\', ' + Callback + ');';
-                    
                         document.head.appendChild(script);
                     }
                     else
@@ -631,8 +669,6 @@
                         script.src                  = jsArray;
                         script.onreadystatechange   = Callback;
                         script.onload               = Callback;
-                        // catch loading error
-                        script.onerror              = '_().require(\'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase() +'\', ' + Callback + ');';
 
                     document.head.appendChild(script);
                 }
@@ -659,8 +695,7 @@
          * @return string
          * @example _.format('my %s', 'wesley');
          */
-        format: function ( )
-        {
+        format: function ( ) {
             var args = arguments,
               string = args[0],
                    i = 1;
@@ -694,7 +729,7 @@
          * @return this
          * @example _('.wrapper').hide();
          */
-        hide: function () {
+        hide: function ( ) {
             var len = this.length;
             while (len--) {
                 // Set last Object
@@ -715,20 +750,24 @@
          * @param string [data] HTML to write
          * @return this
          * @example _('.wrapper').html('hi, i\'m new'); //Write
+         * @example _('.wrapper').html('hi, i\'m new', true); //Append
          * @example _('.wrapper').html(); //Read
          */
-        html: function (data) {
+        html: function (data, append) {
             var len = this.length;
             while (len--) 
             {
                 // Set last Object
                 window._lastObj = this[len];
 
-                if ( typeof(data) === "undefined" ) // Reading mode _().html()
+                if ( typeof(data) === "undefined" )  // Reading mode _().html()
                     return this[len].innerHTML;
+                else if (typeof append === "undefined")
+                    this[len].innerHTML = data;      // Writing mode _().html('hi, i write!')
                 else
-                    this[len].innerHTML = data;     // Writing mode _().html('hi, i write!')
+                    this[len].innerHTML += data;     // Append mode _().html('hi, i write!', true)
             }
+
             return this;
         },
 
@@ -741,7 +780,7 @@
          * @return this
          * @example _('.wrapper').show();
          */
-        show: function () {
+        show: function ( ) {
             var len = this.length;
             while (len--) {
                 // Set last Object
@@ -762,7 +801,7 @@
          * @return false
          * @example _.framebreak();
          */
-        framebreak: function () {
+        framebreak: function ( ) {
             if (top.location != location)
             {
                 top.location.href = document.location.href;
@@ -783,9 +822,9 @@
          * @return bool
          * @example _('.wrapper').ajaxPost(form);
          */
-        ajaxPOST: function (form, callback) 
-        {
+        ajaxPOST: function (form, callback) {
             var len = this.length;
+
             while (len--) 
             {
                 // Set last Object
@@ -844,6 +883,7 @@
                 //All preperations are clear, send the request!
                 xmlPhttp.send(params);
             }
+
             return false;
         },
 
@@ -858,9 +898,9 @@
          * @return bool
          * @example _('.wrapper').ajax(url, options);
          */
-        ajax: function (url, options)
-        {
+        ajax: function (url, options) {
             var len = this.length;
+            
             while (len--) 
             {
                 // Set last Object
@@ -899,6 +939,7 @@
                 xmlhttp.open("GET",url,true);
                 xmlhttp.send();
             }
+
             return false;
         },
 
@@ -911,8 +952,7 @@
          * @return this
          * @example var W = _.noConflict();
          */
-        noConflict: function ()
-        {
+        noConflict: function ( ) {
             if (typeof old_js === 'object')
                 window._ = old_js;
 
@@ -928,8 +968,7 @@
          * @return bool
          * @example _.isLocal();
          */
-        isLocal: function ()
-        {
+        isLocal: function ( ) {
             if (window.location.protocol != 'file:')
             {
                 if ( !window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g) )
@@ -950,11 +989,9 @@
          * @return this
          * @example _.requireSSL();
          */
-        requireSSL: function ()
-        {
+        requireSSL: function ( ) {
             if (window.location.protocol != "https:" && window.location.protocol != 'file:')
             {
-                // if not on localhost (testing)
                 if ( !window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g) )
                     window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
             }
@@ -972,8 +1009,7 @@
          * @return bool
          * @example _.loadExtension(src, callback);
          */
-        loadExtension: function(src, callback)
-        {
+        loadExtension: function (src, callback) {
             console.error('Please do not use _().loadExtension(...) anymore');
             return this.require(src, callback);
         },
@@ -988,8 +1024,7 @@
          * @return bool
          * @example _.isUndefined(myObject);
          */
-        isUndefined: function (thing)
-        {
+        isUndefined: function (thing) {
             return (typeof(thing) == "undefined");
         },
 
@@ -1030,7 +1065,7 @@
          * @return null
          * @example _('.codeField').stripTags();
          */
-        stripTags: function () {
+        stripTags: function ( ) {
             var len = this.length;
             while (len--) 
             {
@@ -1052,7 +1087,7 @@
          * @return null
          * @example _('.codeField').stripScripts();
          */
-        stripScripts: function () {
+        stripScripts: function ( ) {
             var len = this.length;
             while (len--) 
             {
@@ -1187,8 +1222,8 @@
          * @return bool
          * @example _.includes('hi, i am wesley', 'hi');
          */
-        includes: function(str, pattern) {
-          return str.indexOf(pattern) > -1;
+        includes: function (str, pattern) {
+          return str.indexOf( pattern ) > -1;
         },
 
         /**
@@ -1202,7 +1237,7 @@
          * @return bool
          * @example _.startsWith('hi, i am wesley', 'hi');
          */
-        startsWith: function(str, pattern) {
+        startsWith: function (str, pattern) {
           return str.lastIndexOf(pattern, 0) === 0;
         },
 
@@ -1217,9 +1252,9 @@
          * @return bool
          * @example _.endsWith('hi, i am wesley', 'wesley');
          */
-        endsWith: function(str, pattern) {
+        endsWith: function (str, pattern) {
           var d = str.length - pattern.length;
-          return d >= 0 && str.indexOf(pattern, d) === d;
+          return d >= 0 && str.indexOf( pattern, d ) === d;
         },
 
         /**
@@ -1261,7 +1296,7 @@
          * @return bool
          * @example _('.wrapper').scrollToBottom();
          */
-        scrollToBottom: function () {
+        scrollToBottom: function ( ) {
             var len = this.length;
             while (len--) 
             {
@@ -1282,7 +1317,7 @@
          * @return bool
          * @example _('.wrapper').scrollToTop();
          */
-        scrollToTop: function () {
+        scrollToTop: function ( ) {
             var len = this.length;
             while (len--) 
             {
@@ -1306,7 +1341,7 @@
          * @example _.map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);});
          */
         map: function (arr, callback_int) {
-            var __ret=[];
+            var __ret = [];
 
             for (var i=0; i < arr.length; i++) 
             {
@@ -1346,8 +1381,8 @@
          * @example _.each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);});
          */
         each: function (myArr, callback_int) {
-            var arr   = [];
-            var count = 0;
+            var arr   = [],
+                count = 0;
 
             for(var i in myArr) 
             {
@@ -1378,7 +1413,7 @@
          * @return object
          * @example _.merge(obj1, obj2);
          */
-        merge: function() 
+        merge: function ( ) 
         {
             var obj={},
                   i=0,
@@ -1443,17 +1478,13 @@
         // Still the most terrible code, but working verry well!
         eval('_.' + copy + ' = tLib.' + copy + ';'); //_.copy=tLib.copy;
     }
-    // Done.
 
-
-    /**!
-     * window._
-     *
-     * Assign our _ object to global window object.
-     * 
-     * @var object _
-     */
-    if(!window._) {
+    // * window._
+    // *
+    // * Assign our _ object to global window object.
+    // * 
+    // * @var object _
+    if( !window._ ) {
         window._ = _;
     }
     else

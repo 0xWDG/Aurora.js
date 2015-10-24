@@ -1,6 +1,7 @@
 <script type="text/javascript" src='_.js'></script>
 
 <div class='wrapper'>Wrapper:D</div>
+<div class='inner'>Test Append</div>
 
 <script>
 _('.wrapper').html('x').on('click', function(){alert('clicked');});
@@ -52,4 +53,8 @@ var myRet2 = _.extend( true, {apple:0,banana:{weight:52,price:100},cherry:97}, {
  	console.log('EXTEND 2: Want: {"apple":0,"banana":{"weight":52,"price":200},"cherry":97,"durian":100}');
  	console.log('EXTEND 2: Got.: ' + JSON.stringify(myRet2));
  }
+
+_( "&nbsp;<b><font color=green>Pass!</font></b>" ).appendTo( ".inner" );
+//_('.inner').html('<p><b><font color=green>Pass!</font></b></p>', true);
+
 </script>
