@@ -154,6 +154,7 @@ foreach ($functions as $functionName => $functionValue)
 		$isDeprecated  = false;
 		$toDo          = false;
 		$isNew         = false;
+		$isInternal    = false;
 		$warning       = false;
 		$warning_data  = null;
 		$toDO_data     = null;
@@ -167,19 +168,23 @@ foreach ($functions as $functionName => $functionValue)
 
 			if ($a_data[0] == "@deprecated")
 			{
-				$isDeprecated = true;
+				$isDeprecated  = true;
 			}
 
 			if ($a_data[0] == "@removed")
 			{
-				$removedIn    = $a_data[1];
+				$removedIn     = $a_data[1];
 			}
 
 			if ($a_data[0] == "@return")
 			{
-				$returning    = $a_data[1];
+				$returning     = $a_data[1];
 			}
 
+			if ($a_data[0] == "@internal")
+			{
+				$isInternal     = true;
+			}
 			if ($a_data[0] == "@param")
 			{
 				$parameterlist .= "<tr>" . 
@@ -232,6 +237,7 @@ foreach ($functions as $functionName => $functionValue)
 
 		if($function_before=='' && $toDo)  $function_before = '📝 ';
 		if($function_before=='' && $isNew) $function_before = '💡 ';
+		if($isInternal)					   $function_before = '⛔️ '  . $function_before;
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
@@ -254,9 +260,12 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
 		 $extra                = null;
-		 $extra               .= $parameterlist;
 		 if ( $isDeprecated )
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n";
+		 //⛔️
+		 if ( $isInternal )
+		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n";
+		 $extra               .= $parameterlist;
 		 if ( $toDo )
 		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n";
 		 if ( $warning )

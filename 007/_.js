@@ -493,6 +493,7 @@
          *
          * Internal use for error.
          *
+         * @internal
          * @new v0.0.7
          * @param object [object] Wrapper
          * @param string functionname Function name
