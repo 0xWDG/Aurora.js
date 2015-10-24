@@ -156,6 +156,41 @@
                                 "[object Error]":    "error"
                            };
 
+        // * temp
+        // *
+        // * Helper
+        // * -> everyone lies (Especially Chrome), IE=Trident...
+        // * 
+        // * @var string temp
+        // * @internal
+        var temp = navigator.userAgent.split(" ")[navigator.userAgent.split(" ").length-2].split("/")[0] == "Chrome" 
+                            ? navigator.userAgent.split(" ")[navigator.userAgent.split(" ").length-2].split("/")[0]
+                            : navigator.userAgent.split(" ")[navigator.userAgent.split(" ").length-1].split("/")[0];
+
+        // * this.browser
+        // *
+        // * Browser info
+        // * ie, firefox, safari, opera, edge, chrome, userAgent, supportTouch...
+        // * 
+        // * @var object browser
+        this.browser     = {
+                                ie:             navigator.userAgent.indexOf("Trident"), // Always try to be funnny...
+                                firefox:        (temp == "Firefox"),
+                                safari:         (temp == "Safari"),
+                                opera:          (temp == "OPR"),
+                                edge:           (temp == "Edge"),
+                                chrome:         (temp == "Chrome"),
+                                userAgent:      navigator.userAgent,
+                                supportTouch:   (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))
+                           };
+
+        // * this.getBrowser
+        // *
+        // * Browser name
+        // * 
+        // * @var string getBrowser
+        this.getBrowser  = temp;
+        
         // Add selector to object for method chaining
         for(var i=0; i<this.length; i++)
         {
