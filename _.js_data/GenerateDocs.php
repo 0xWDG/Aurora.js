@@ -70,7 +70,7 @@ function isAnnotation ($s)
 {
 	$MyStar = explode("*", $s);
 	$MyStar = "*".$MyStar[1];
-	return (substr($s,0,3) == "* @");
+	return (substr($MyStar,0,3) == "* @");
 }
 
 // Ok, sorry this is dirty stuff, but it works. (feel free to make it better ;))
