@@ -85,7 +85,7 @@ preg_match_all("#(.*)\: function\s?\((.*)?\)#", $file, $rettest);
 echo print_r($rettest, true);
 if ( sizeof($rettest) == 0) exit('WTF? No functions?');
 
-for ($i=0; $i < sizeof($rettest[0]); $i++) 
+for ($i=0; $i < sizeof($rettest[2]); $i++) 
 {
 	// ok, re parsing function ;) 
 	// -> remove : function, and spaces ;)
@@ -96,6 +96,8 @@ for ($i=0; $i < sizeof($rettest[0]); $i++)
 	// Yeey! function!	
 	$functions[$rettest[1][$i]]['function'] = $rettest[0][$i];
 
+	echo print_r($functions);
+	
 	// Exploding, a array, again, yes it are the annotation
 	$ExplodeDataNow = explode("\n", $comtest[0][$i+1]);
 
