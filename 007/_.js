@@ -209,6 +209,7 @@
     _: function (configKey) {
       return this[configKey]
     },
+
     /**
      * emulatejQuery
      *
@@ -225,6 +226,7 @@
       window._jQuery = window._
       return window._
     },
+
     /**
      * $
      *
@@ -246,6 +248,7 @@
         decodeURIComponent('%F0%9F%92%99'))
       return
     },
+
     /**
      * extend
      *
@@ -315,6 +318,7 @@
       // Return the modified object
       return target
     },
+
     /**
      * isArray
      *
@@ -328,6 +332,7 @@
     isArray: function (obj) {
       return obj.isArray || (this.type(obj) === 'array')
     },
+
     /**
      * on
      *
@@ -367,6 +372,7 @@
       }
       return null
     },
+
     /**
      * noop
      *
@@ -378,6 +384,7 @@
      * @example _.noop()
      */
     noop: function () {},
+
     /**
      * supportTouch
      *
@@ -395,6 +402,7 @@
       (navigator.msMaxTouchPoints > 0)
       )
     },
+
     /**
      * appendTo
      *
@@ -418,6 +426,7 @@
       }
       return null
     },
+
     /**
      * _error
      *
@@ -444,6 +453,7 @@
       }
       return null
     },
+
     /**
      * error
      *
@@ -457,6 +467,7 @@
     error: function (msg) {
       throw new Error(msg)
     },
+
     /**
      * isFunction
      *
@@ -470,6 +481,7 @@
     isFunction: function (obj) {
       return this.type(obj) === 'function'
     },
+
     /**
      * type
      *
@@ -482,9 +494,10 @@
      */
     type: function (obj) {
       if (obj == null) return obj + ''
-      return typeof obj === 'object' || typeof obj === 'function' ?
-        this.objectclass[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
+      return typeof obj === 'object' || typeof obj === 'function'
+        ? this.objectclass[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
     },
+
     /**
      * isPlainObject
      *
@@ -520,6 +533,7 @@
       for (key in obj) {}
       return key === undefined || hasOwn.call(obj, key)
     },
+
     /**
      * require
      *
@@ -577,6 +591,7 @@
       }
       return null
     },
+
     /**
      * Format
      *
@@ -611,6 +626,7 @@
         return val
       })
     },
+
     /**
      * Hide
      *
@@ -628,6 +644,7 @@
       }
       return this
     },
+
     /**
      * html
      *
@@ -654,6 +671,7 @@
       }
       return this
     },
+
     /**
      * show
      *
@@ -671,6 +689,7 @@
       }
       return this
     },
+
     /**
      * Framebreak
      *
@@ -686,6 +705,7 @@
       }
       return false
     },
+
     /**
      * ajaxPost
      *
@@ -746,6 +766,7 @@
       }
       return false
     },
+
     /**
      * Ajax
      *
@@ -761,21 +782,26 @@
       var len = this.length
       while (len--) {
         window._lastObj = this[len]
+
         var xmlhttp
         var change = this[len]
+
         if (window.XMLHttpRequest) {
           xmlhttp = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
           xmlhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
+
         xmlhttp.onreadystatechange = function () {
           if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             change.innerHTML = xmlhttp.responseText
+
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
               eval(js[i].innerHTML)
             }
+
             // fix posts also (.ajax)
             var pst = change.getElementsByTagName('form')
             for (var ii = 0, jj = pst.length; ii < jj; ii++) {
@@ -785,11 +811,14 @@
             }
           }
         }
+
         xmlhttp.open('GET', url, true)
         xmlhttp.send()
       }
+
       return false
     },
+
     /**
      * noConflict
      *
@@ -803,8 +832,10 @@
       if (typeof old_js === 'object') {
         window._ = old_js
       }
+
       return _
     },
+
     /**
      * isLocal
      *
@@ -825,6 +856,7 @@
         return true
       }
     },
+
     /**
      * requireSSL
      *
@@ -842,6 +874,7 @@
       }
       return
     },
+
     /**
      * loadExtension
      *
@@ -857,6 +890,7 @@
       console.error('Please do not use _().loadExtension(...) anymore')
       return this.require(src, callback)
     },
+
     /**
      * isUndefined
      *
@@ -870,6 +904,7 @@
     isUndefined: function (thing) {
       return (typeof thing === 'undefined')
     },
+
     /**
      * isEmpty
      *
@@ -883,6 +918,7 @@
     isEmpty: function (check) {
       return check === ''
     },
+
     /**
      * isBlank
      *
@@ -896,6 +932,7 @@
     isBlank: function (check) {
       return /^\s*$/.test(check)
     },
+
     /**
      * stripTags
      *
@@ -913,6 +950,7 @@
       }
       return null
     },
+
     /**
      * stripScripts
      *
@@ -930,6 +968,7 @@
       }
       return null
     },
+
     /**
      * css
      *
@@ -956,6 +995,7 @@
         }
       }
     },
+
     /**
      * escapeHTML
      *
@@ -969,6 +1009,7 @@
     escapeHTML: function (str) {
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     },
+
     /**
      * unescapeHTML
      *
@@ -982,6 +1023,7 @@
     unescapeHTML: function (str) {
       return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
     },
+
     /**
      * toArray
      *
@@ -1006,6 +1048,7 @@
         return arr
       }
     },
+
     /**
      * runTest
      *
@@ -1024,6 +1067,7 @@
         return (testCase() === expectedResult) // Pass!
       }
     },
+
     /**
      * includes
      *
@@ -1038,6 +1082,7 @@
     includes: function (str, pattern) {
       return str.indexOf(pattern) > -1
     },
+
     /**
      * startsWith
      *
@@ -1052,6 +1097,7 @@
     startsWith: function (str, pattern) {
       return str.lastIndexOf(pattern, 0) === 0
     },
+
     /**
      * endsWith
      *
@@ -1067,6 +1113,7 @@
       var d = str.length - pattern.length
       return d >= 0 && str.indexOf(pattern, d) === d
     },
+
     /**
      * capitalize
      *
@@ -1080,6 +1127,7 @@
     capitalize: function (str) {
       return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase()
     },
+
     /**
      * camelize
      *
@@ -1095,6 +1143,7 @@
         return chr ? chr.toUpperCase() : ''
       })
     },
+
     /**
      * scrollToBottom
      *
@@ -1112,6 +1161,7 @@
       }
       return true
     },
+
     /**
      * scrollToTop
      *
@@ -1129,6 +1179,7 @@
       }
       return true
     },
+
     /**
      * map
      *
@@ -1158,6 +1209,7 @@
       }
       return __ret
     },
+
     /**
      * each
      *
@@ -1185,6 +1237,7 @@
       }
       return arr
     },
+
     /**
      * merge
      *

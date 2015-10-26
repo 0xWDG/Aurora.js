@@ -239,6 +239,8 @@ foreach ($functions as $functionName => $functionValue)
 		if($function_before=='' && $isNew) $function_before = '💡 '; // Light bulb (new)
 		if($isInternal)					   $function_before = '⛔️ '; // Internal use, Overwrite all others
 
+		exit(print_r($functionValue['annotation'], true));
+
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
@@ -253,9 +255,9 @@ foreach ($functions as $functionName => $functionValue)
 
 		// ok, this terrible code is for showing it on the page
 		$replaceArray['text'] .= "<h3 style='font-size: 200%;'>{$function_before}{$functionValue['function']}{$function_after}</h3><p>";
-		$replaceArray['text'] .= implode("<br />", $functionValue['text']);
+		$replaceArray['text'] .= @implode("<br />", @$functionValue['text']);
 		$replaceArray['text'] .= "<br /><br /><div style='background: lightyellow;'><p>";
-		$replaceArray['text'] .= implode("<br />", $functionValue['annotation']);
+		$replaceArray['text'] .= @implode("<br />", @$functionValue['annotation']);
 		$replaceArray['text'] .= "</p></div><br /><br /></p>";
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
