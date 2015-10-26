@@ -116,7 +116,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		echo "EDN: " . $MyStar.PHP_EOL;
 		$MyStar = explode("*", $ExplodeDataNow[$x]);
 		echo "EXPL: " . print_r($MyStar, true).PHP_EOL;
-		$MyStar = "* ".$MyStar[1];
+		$MyStar = "*".$MyStar[1];
 		echo "*: " . $MyStar.PHP_EOL;
 		$MyStar = (substr($s,0,3) == "* @");
 		echo "SUB: " . $MyStar.PHP_EOL;
