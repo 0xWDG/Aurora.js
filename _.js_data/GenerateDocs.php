@@ -117,7 +117,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
 			$functions[$rettest[1][$i]]['annotation'][] = $ExplodeDataNow[$x];
 
-			echo "ANO({$rettest[1][$i]}): " . $ExplodeDataNow[$x];
+			echo "ANO({$rettest[1][$i]}): " . $ExplodeDataNow[$x] . PHP_EOL;
 		}
 		else 
 		{ 
