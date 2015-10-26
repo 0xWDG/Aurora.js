@@ -68,6 +68,8 @@ function isBlank ($s)
 // oooh its a definition (annotation)
 function isAnnotation ($s)
 {
+	$MyStar = explode("*", $s);
+	$MyStar = "* ".$MyStar[1];
 	return (substr($s,0,3) == "* @");
 }
 
