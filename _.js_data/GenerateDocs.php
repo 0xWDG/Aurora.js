@@ -180,7 +180,7 @@ foreach ($functions as $functionName => $functionValue)
 		if ($debug) 
 		{
 			$ex = explode("(", $functionValue['function']);
-			echo('[{$ex[0]}] ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue) . PHP_EOL);
+			echo('[' . $ex[0] . '] ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue) . PHP_EOL);
 		}
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
