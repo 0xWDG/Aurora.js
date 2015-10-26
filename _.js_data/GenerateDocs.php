@@ -119,6 +119,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		$MyStar = "*".$MyStar[1];
 		echo "*: (" . $MyStar. ")" .PHP_EOL;
 		$MyStar = (substr($s,0,3) == "* @") ? 'Y' : 'N';
+		echo PHP_EOL.'GOT: ('.substr($s,0,3).') EXPECT (* @)' . PHP_EOL;
 		echo "SUB: " . $MyStar.PHP_EOL;
 		echo "--------------------------------------------------(".$MyStar.")-" . PHP_EOL;
 
