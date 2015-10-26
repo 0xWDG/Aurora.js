@@ -750,7 +750,9 @@
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
-              eval(js[i].innerHTML)
+              /*eslint-disable */
+              eval(js[i].innerHTML) // Since ESLint hates eval, but dont see the profits
+            /*eslint-enable */
             }
             // fix posts also (.ajax)
             var pst = change.getElementsByTagName('form')
@@ -799,7 +801,9 @@
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
-              eval(js[i].innerHTML)
+              /*eslint-disable */
+              eval(js[i].innerHTML) // Since ESLint hates eval, but dont see the profits
+            /*eslint-enable */
             }
 
             // fix posts also (.ajax)
@@ -1062,9 +1066,9 @@
      */
     runTest: function (testCase, expectedResult) {
       if (typeof testCase !== 'function') {
-        return (testCase === expectedResult) // Pass!
+        return (String(testCase) === String(expectedResult)) // Pass!
       } else {
-        return (testCase() === expectedResult) // Pass!
+        return (String(testCase()) === String(expectedResult)) // Pass!
       }
     },
 
@@ -1301,7 +1305,10 @@
   var tLib = new Library()
   var copy
   for (copy in tLib) {
-    eval('_.' + copy + ' = tLib.' + copy + ';') // _.copy = tLib.copy
+    /*eslint-disable */
+    eval('_.' + copy + ' = tLib.' + copy + ';') // Since ESLint hates eval, but dont see the profits
+  // _.copy = tLib.copy
+  /*eslint-enable */
   }
 
   // * window._
@@ -1319,4 +1326,7 @@
   // And return
   return _
 
+// Since ESLint can't handle this class.
+/*eslint-disable */
 })()
+/*eslint-enable */
