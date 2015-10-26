@@ -750,9 +750,7 @@
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
-              /*eslint-disable */
-              eval(js[i].innerHTML) // Since ESLint hates eval, but dont see the profits
-            /*eslint-enable */
+              eval(js[i].innerHTML) //eslint-disable-line
             }
             // fix posts also (.ajax)
             var pst = change.getElementsByTagName('form')
@@ -801,9 +799,7 @@
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
-              /*eslint-disable */
-              eval(js[i].innerHTML) // Since ESLint hates eval, but dont see the profits
-            /*eslint-enable */
+              eval(js[i].innerHTML) //eslint-disable-line
             }
 
             // fix posts also (.ajax)
@@ -1305,10 +1301,8 @@
   var tLib = new Library()
   var copy
   for (copy in tLib) {
-    /*eslint-disable */
-    eval('_.' + copy + ' = tLib.' + copy + ';') // Since ESLint hates eval, but dont see the profits
-  // _.copy = tLib.copy
-  /*eslint-enable */
+    eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
+    // _.copy = tLib.copy
   }
 
   // * window._
@@ -1326,7 +1320,4 @@
   // And return
   return _
 
-// Since ESLint can't handle this class.
-/*eslint-disable */
-})()
-/*eslint-enable */
+})() //eslint-disable-line
