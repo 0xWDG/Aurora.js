@@ -5,7 +5,7 @@
    Don't blame anyone for this file.
 */
 
-$debug=true;
+$debug=false;
 
 function fullText ( $fromArray, $start )
 {
@@ -165,6 +165,8 @@ for ($i=0; $i < sizeof($thitest[0])-1; $i++)
 // Put it in the layout (a sort of ;) )
 foreach ($functions as $functionName => $functionValue) 
 {
+		$functionValue['function'] = implode(", ", explode(",", $functionValue['function'])); //Preg fun :P
+		
 		# Terrible code... (did i say it before?)
 	    $needsWrapper  = true;
 		$isDeprecated  = false;

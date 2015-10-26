@@ -476,7 +476,7 @@
      * @param object [object] Wrapper
      * @param object obj object to test
      * @return bool
-     * @example _.isFunction(function(){})
+     * @example _.isFunction(function () {})
      */
     isFunction: function (obj) {
       return this.type(obj) === 'function'
@@ -506,7 +506,7 @@
      * @param object [object] Wrapper
      * @param object obj Object to test
      * @return bool
-     * @example _.isPlainObject(function(){})
+     * @example _.isPlainObject(function () {})
      */
     isPlainObject: function (obj) {
       // Thanks to jQuery for this one ;)
@@ -546,7 +546,7 @@
      * @param function Callback the Callback function
      * @param bool [local] if set to true then load the local copy.
      * @return null
-     * @example _.require(['a','r','ra','y'], function(){doSomeThing();})
+     * @example _.require(['a', 'r', 'ra', 'y'], function () { doSomeThing(); })
      */
     require: function (jsArray, Callback, local) {
       if (typeof local === 'undefined') local = false
