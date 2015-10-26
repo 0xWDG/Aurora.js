@@ -97,7 +97,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 	$functions[$rettest[1][$i]]['function'] = $rettest[0][$i];
 
 	echo print_r($functions);
-	
+
 	// Exploding, a array, again, yes it are the annotation
 	$ExplodeDataNow = explode("\n", $comtest[0][$i+1]);
 
@@ -113,6 +113,9 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 			/* IGNORE ;) */
 		}
 		// Ok!, we got some annotation cool! parse it.
+		echo "Anno?" . (isAnnotation($ExplodeDataNow[$x]) ? 'YES' : 'NO').PHP_EOL;
+		echo $ExplodeDataNow[$x].PHP_EOL;
+		echo "--------------------------------------------------------".PHP_EOL;
 		elseif ( isAnnotation($ExplodeDataNow[$x]) )
 		{
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
