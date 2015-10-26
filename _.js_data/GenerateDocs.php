@@ -69,7 +69,7 @@ function isBlank ($s)
 function isAnnotation ($s)
 {
 	$MyStar = explode("*", $s);
-	$MyStar = "* ".$MyStar[1];
+	$MyStar = "*".$MyStar[1];
 	return (substr($s,0,3) == "* @");
 }
 
@@ -118,7 +118,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		echo "EXPL: " . print_r($MyStar, true).PHP_EOL;
 		$MyStar = "*".$MyStar[1];
 		echo "*: (" . $MyStar. ")" .PHP_EOL;
-		$MyStar = (substr($s,0,3) == "* @");
+		$MyStar = (substr($s,0,3) == "* @") ? 'Y' : 'N';
 		echo "SUB: " . $MyStar.PHP_EOL;
 		echo "--------------------------------------------------(".$MyStar.")-" . PHP_EOL;
 
