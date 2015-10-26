@@ -116,11 +116,9 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		{
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
 			$functions[$rettest[1][$i]]['annotation'][] = $ExplodeDataNow[$x];
-			echo "ANNO: " . $ExplodeDataNow[$x] . PHP_EOL;
 		}
 		else 
 		{ 
-			echo "GOT: " . $ExplodeDataNow[$x] .PHP_EOL;
 			// Ok, this looks weird, but this parses:
 			// /**
 			// * I WILL BE PARSED
@@ -175,7 +173,7 @@ foreach ($functions as $functionName => $functionValue)
 		$removedIn     = end(explode("/",__dir__));
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
-		if (sizeof($functionValue['annotation']) === 0) exit('ERROR ANNOTATION FAIL');
+		// if (sizeof($functionValue['annotation']) == 0) exit('ERROR ANNOTATION FAIL');
 
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
