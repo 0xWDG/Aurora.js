@@ -82,6 +82,9 @@ preg_match_all("#/\*[^*]*\*+([^/][^*]*\*+)*/#", $file, $comtest);
 // Get the function definitions (_.js)
 preg_match_all("#(.*)\: function\s?\((.*)?\)#", $file, $rettest);
 
+echo print_r($rettest, true);
+if ( sizeof($rettest) == 0) exit('WTF? No functions?');
+
 for ($i=0; $i < sizeof($rettest[0]); $i++) 
 {
 	// ok, re parsing function ;) 
