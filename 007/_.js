@@ -259,7 +259,7 @@
      * @param object object Object1
      * @param object object Object2
      * @return object
-     * @example _.extend(true,{apple:0,chicken:{weight:52,price:100},cherry:97},{chicken:{price:200},durian:100})
+     * @example _.extend(true, {apple:0, chicken:{weight:52, price:100}, cherry:97},{chicken:{price:200}, durian:100})
      */
     extend: function () {
       // Thanks to jQuery for this one ;)
@@ -490,7 +490,7 @@
      * @param object [object] Wrapper
      * @param object obj Object to test
      * @return string
-     * @example _.type(function(){})
+     * @example _.type(function () { })
      */
     type: function (obj) {
       if (obj == null) return obj + ''
@@ -712,6 +712,7 @@
      * ajaxPost Posts a form, tru ajax.
      * Please not call this function yourself, unless you know what you are doing!
      *
+     * @internal
      * @param object object Wrapper
      * @param string form Form to handle
      * @param function callback callback to
@@ -1033,7 +1034,7 @@
      * @param string|object str string/object to put in the array
      * @return array
      * @example _.toArray(str)
-     * @example _.toArray({my:'super',object:'rocks!'})
+     * @example _.toArray({my:'super', object:'rocks!'})
      */
     toArray: function (str) {
       if (typeof str === 'string') {
@@ -1189,7 +1190,7 @@
      * @param array arr Array to parse
      * @param function callback_int Callback function to call
      * @return array
-     * @example _.map(['a','b','c'], function(i,v){alert('item '+i+', value: '+v);})
+     * @example _.map(['a', 'b', 'c'], function (i, v) { window.alert('item ' + i + ', value: ' + v);})
      */
     map: function (arr, callback_int) {
       var __ret = []
@@ -1219,8 +1220,8 @@
      * @param array myArr Array to walk trough
      * @param function callback_int Callback function to call
      * @return array
-     * @example _.each(['a','b','c'], function(i,v){alert('count '+i+', value: '+v);})
-     * @example _.each({a:'b',c:'d'}, function(i,v){alert('key '+i+', value: '+v);})
+     * @example _.each(['a', 'b', 'c'], function (i, v) { window.alert('count ' + i + ', value: ' + v); })
+     * @example _.each({a:'b', c:'d'}, function (i, v) { window.alert('key ' + i + ', value: ' + v); })
      */
     each: function (myArr, callback_int) {
       var arr = []
