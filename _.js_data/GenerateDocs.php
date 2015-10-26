@@ -125,10 +125,13 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 			// *
 			// * FUNCTION DEFINITION, TEXT BLA BLA
 
-			echo $ExplodeDataNow[$x] . PHP_EOL;
-			$ExplodeDataNow[$x] = preg_replace("/\*\s+/", null, $ExplodeDataNow[$x]);
-			echo $ExplodeDataNow[$x] . PHP_EOL;
+			// echo $ExplodeDataNow[$x] . PHP_EOL;
+			// $ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
+			// echo $ExplodeDataNow[$x] . PHP_EOL;
 
+			$ExplodeDataNow[$x] = explode("*", $ExplodeDataNow[$x]);
+			$ExplodeDataNow[$x] = $ExplodeDataNow[$x][1];
+			
 			if ( $x > 2) 
 				$functions[$rettest[1][$i]]['text'][] = $ExplodeDataNow[$x];
 		}
