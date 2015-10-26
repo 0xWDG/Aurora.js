@@ -133,6 +133,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 			// $ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
 			// echo $ExplodeDataNow[$x] . PHP_EOL;
 
+			if ($debug) echo "SOMETHING({$rettest[1][$i]}): " . $ExplodeDataNow[$x] . PHP_EOL;
 			$ExplodeDataNow[$x] = explode("*", $ExplodeDataNow[$x]);
 			$ExplodeDataNow[$x] = $ExplodeDataNow[$x][1];
 
@@ -180,7 +181,7 @@ foreach ($functions as $functionName => $functionValue)
 		if ($debug) 
 		{
 			$ex = explode("(", $functionValue['function']);
-			
+
 			if ( sizeof($functionValue['annotation']) == 0)
 				echo('[' . $ex[0] . '] ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue) . PHP_EOL);
 		}
