@@ -84,7 +84,6 @@ preg_match_all("#/\*[^*]*\*+([^/][^*]*\*+)*/#", $file, $comtest);
 // Get the function definitions (_.js)
 preg_match_all("#(.*)\: function\s?\((.*)?\)#", $file, $rettest);
 
-echo print_r($rettest, true);
 if ( sizeof($rettest) == 0) exit('WTF? No functions?');
 
 for ($i=0; $i < sizeof($rettest[2]); $i++) 
@@ -98,8 +97,6 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 	// Yeey! function!	
 	$functions[$rettest[1][$i]]['function'] = $rettest[0][$i];
 
-	echo print_r($functions);
-
 	// Exploding, a array, again, yes it are the annotation
 	$ExplodeDataNow = explode("\n", $comtest[0][$i+1]);
 
@@ -110,19 +107,6 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		$ExplodeDataNow[$x] = preg_replace("/\r/", 		  null, $ExplodeDataNow[$x]);
 
 		// Ok!, we got some annotation cool! parse it.
-		echo "Anno?" . (isAnnotation($ExplodeDataNow[$x]) ? 'YES' : 'NO').PHP_EOL;
-		echo $ExplodeDataNow[$x].PHP_EOL;
-		$MyStar = $ExplodeDataNow[$x];
-		echo "EDN: " . $MyStar.PHP_EOL;
-		$MyStar = explode("*", $ExplodeDataNow[$x]);
-		echo "EXPL: " . print_r($MyStar, true).PHP_EOL;
-		$MyStar = "*".$MyStar[1];
-		echo "*: (" . $MyStar. ")" .PHP_EOL;
-		$MyStar = (substr($MyStar,0,3) == "* @") ? 'Y' : 'N';
-		echo PHP_EOL.'GOT: ('.substr($MyStar,0,3).') EXPECT (* @)' . PHP_EOL;
-		echo "SUB: " . $MyStar.PHP_EOL;
-		echo "--------------------------------------------------(".$MyStar.")-" . PHP_EOL;
-
 		// Do nothing...
 		if ( isBlank($ExplodeDataNow[$x]) )
 		{
@@ -258,8 +242,6 @@ foreach ($functions as $functionName => $functionValue)
 		if($function_before=='' && $toDo)  $function_before = '📝 '; // Is under construction
 		if($function_before=='' && $isNew) $function_before = '💡 '; // Light bulb (new)
 		if($isInternal)					   $function_before = '⛔️ '; // Internal use, Overwrite all others
-
-		exit("Anno:" + print_r($functionValue['annotation'], true));
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
