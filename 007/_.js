@@ -47,8 +47,6 @@
     return new Library(params)
   }
 
-  if (_) { }
-
   // In our Library we get our selector with querySelectorAll
   var Library = function (params) {
     // * this.selector
