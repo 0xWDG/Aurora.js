@@ -107,15 +107,16 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		$ExplodeDataNow[$x] = preg_replace("/         /", null, $ExplodeDataNow[$x]);
 		$ExplodeDataNow[$x] = preg_replace("/\r/", 		  null, $ExplodeDataNow[$x]);
 
+		// Ok!, we got some annotation cool! parse it.
+		echo "Anno?" . (isAnnotation($ExplodeDataNow[$x]) ? 'YES' : 'NO').PHP_EOL;
+		echo $ExplodeDataNow[$x].PHP_EOL;
+		echo "--------------------------------------------------------" . PHP_EOL;
+		
 		// Do nothing...
 		if ( isBlank($ExplodeDataNow[$x]) )
 		{
 			/* IGNORE ;) */
-		}
-		// Ok!, we got some annotation cool! parse it.
-		echo "Anno?" . (isAnnotation($ExplodeDataNow[$x]) ? 'YES' : 'NO').PHP_EOL;
-		echo $ExplodeDataNow[$x].PHP_EOL;
-		echo "--------------------------------------------------------".PHP_EOL;
+		}		
 		elseif ( isAnnotation($ExplodeDataNow[$x]) )
 		{
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
