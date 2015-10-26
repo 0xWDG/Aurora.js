@@ -131,8 +131,8 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 
 			$ExplodeDataNow[$x] = explode("*", $ExplodeDataNow[$x]);
 			$ExplodeDataNow[$x] = $ExplodeDataNow[$x][1];
-			
-			if ( $x > 2) 
+
+			if ( $x > 1 && $ExplodeDataNow[$x][1] !== "/") 
 				$functions[$rettest[1][$i]]['text'][] = $ExplodeDataNow[$x];
 		}
 	}
