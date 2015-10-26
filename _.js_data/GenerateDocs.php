@@ -116,9 +116,11 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		{
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
 			$functions[$rettest[1][$i]]['annotation'][] = $ExplodeDataNow[$x];
+			echo "ANNO: " . $ExplodeDataNow[$x] . PHP_EOL;
 		}
 		else 
 		{ 
+			echo "GOT: " . $ExplodeDataNow[$x] .PHP_EOL;
 			// Ok, this looks weird, but this parses:
 			// /**
 			// * I WILL BE PARSED
