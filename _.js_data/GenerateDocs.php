@@ -171,7 +171,8 @@ foreach ($functions as $functionName => $functionValue)
 
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
-			$a_data = explode(" ", $functionValue['annotation'][$i]);
+			$a_data = explode("@", $functionValue['annotation'][$i]);
+			$a_data = "@".$a_data[1];
 
 			if ($a_data[0] == "@deprecated")
 			{
