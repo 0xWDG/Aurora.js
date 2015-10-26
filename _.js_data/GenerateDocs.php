@@ -166,6 +166,9 @@ foreach ($functions as $functionName => $functionValue)
 		$removedIn     = end(explode("/",__dir__));
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
+		echo $functionName . "=>" . print_r($functionValue['annotation']);
+		if (sizeof($functionValue['annotation']) === 0) exit('ERROR ANNOTATION FAIL');
+
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
 			$a_data = explode(" ", $functionValue['annotation'][$i]);
