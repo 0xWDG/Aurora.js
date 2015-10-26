@@ -112,7 +112,7 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 		// Ok!, we got some annotation cool! parse it.
 		echo "Anno?" . (isAnnotation($ExplodeDataNow[$x]) ? 'YES' : 'NO').PHP_EOL;
 		echo $ExplodeDataNow[$x].PHP_EOL;
-		$MyStar = explode("*", $s);
+		$MyStar = explode("*", $ExplodeDataNow[$x]);
 		$MyStar = "* ".$MyStar[1];
 		$MyStar = (substr($s,0,3) == "* @");
 		echo "--------------------------------------------------(".$MyStar.")-" . PHP_EOL;
