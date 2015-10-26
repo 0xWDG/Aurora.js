@@ -124,6 +124,9 @@ for ($i=0; $i < sizeof($rettest[2]); $i++)
 			// * I WILL BE PARSED
 			// *
 			// * FUNCTION DEFINITION, TEXT BLA BLA
+
+			echo $ExplodeDataNow[$x] . PHP_EOL;
+			
 			$ExplodeDataNow[$x] = preg_replace("/\*\s/", null, $ExplodeDataNow[$x]);
 			if ( $x > 2) 
 				$functions[$rettest[1][$i]]['text'][] = $ExplodeDataNow[$x];
@@ -171,12 +174,8 @@ foreach ($functions as $functionName => $functionValue)
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
 			$a_data = explode("@", $functionValue['annotation'][$i]);
-			$a_data = "@".$a_data[1];
-			echo $a_data . PHP_EOL;
-			
+			$a_data = "@".$a_data[1];			
 			$a_data = explode(" ", $a_data);
-			
-			echo $a_data . PHP_EOL;
 
 			if ($a_data[0] == "@deprecated")
 			{
