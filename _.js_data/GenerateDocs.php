@@ -173,7 +173,7 @@ foreach ($functions as $functionName => $functionValue)
 		$removedIn     = end(explode("/",__dir__));
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
-		if (sizeof($functionValue['annotation']) == 0) exit('ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue));
+		if (sizeof($functionValue['annotation']) == 0) echo('ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue) . PHP_EOL);
 
 		for ($i=0; $i < sizeof($functionValue['annotation']); $i++) 
 		{ 
