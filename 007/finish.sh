@@ -80,6 +80,30 @@ git pull &>/dev/null
 git add . &>/dev/null
 git commit -m "Auto-Pushing $version" &>/dev/null
 git push &>/dev/null
+cd ..
+
+echo "* Pushing _.js/data"
+cd _.js.data
+git pull &>/dev/null
+git add . &>/dev/null
+git commit -m "Auto-Pushing $version" &>/dev/null
+git push &>/dev/null
+cd ..
+
+echo "* Pushing _.js/archive"
+cd _.js.archive
+git pull &>/dev/null
+git add . &>/dev/null
+git commit -m "Auto-Pushing $version" &>/dev/null
+git push &>/dev/null
+cd ..
+
+echo "* Pushing _.js/wiki"
+cd _.js.wiki
+git pull &>/dev/null
+git add . &>/dev/null
+git commit -m "Auto-Pushing $version" &>/dev/null
+git push &>/dev/null
 
 echo "* Pushing _.js/www"
 cd ../_.js.www 
