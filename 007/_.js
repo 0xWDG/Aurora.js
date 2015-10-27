@@ -1294,7 +1294,7 @@
 
   // * tLib
   // *
-  // * Add some "Global" Objects (what does not need a wrapper)
+  // * Add some "Global" Objects (what does not need a wrapper) Bug: #12
   // * https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
   // * make a "temporary _.js"
   // *
