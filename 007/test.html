@@ -1,66 +1,18 @@
-<script type="text/javascript" src='_.js'></script>
+<!DOCTYPE html>
+<html>
+ <head>
+ 	<script type='text/javascript' src='_.js'></script>
+ </head>
+ <body>
+   <div class='wrapper'>Wrapper:D</div>
+   <div class='inner'>Test Append</div>
 
-<div class='wrapper'>Wrapper:D</div>
-<div class='inner'>Test Append</div>
+   <script type='text/javascript'>
+     window.addEventListener("_.jsLoaded", function() {
+       window.alert('_.js Loaded! (received)')
+     });
 
-<script>
-window.addEventListener("_.jsLoaded", function() {
-  window.alert("_.js Loaded! (received)")
-});
-
-_('.wrapper').html('x').on('click', function () {alert('clicked')});
-
-_('.wrapper').html('x').on('mousemove', function () {console.log('moved')}); // Remove.
-_('.wrapper').html('x').on('mousemove', true); // Remove.
-
-// _('.wrapper').html('x');
-// _('.wrapper').on('click', function () {alert('clicked')});
-
-/// DEI
-/*eslint-disable */
-var EX = _.map(['a','b','c'], function (i, v) { //eslint-disable-line
-  return [v, v.toUpperCase()] //eslint-disable-line
-}) //eslint-disable-line
-/*eslint-enable */
-
-console.log('map: ' + EX)
-
-var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
-var realArray = _.toArray(fakeArray);
-
-_.each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
-_.each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
- 
- console.log('IA: ' + _.isArray(['my', 'array']));
-
-// Merge object2 into object1
-var myRet1 = _.extend( {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100} );
-var myRet2 = _.extend( true, {apple:0,banana:{weight:52,price:100},cherry:97}, {banana:{price:200},durian:100});
-
-
- if (JSON.stringify(myRet1) == '{"apple":0,"banana":{"price":200},"cherry":97,"durian":100}')
- {
- 	console.log('EXTEND 1: PASS!');
- }
- else
- {
- 	console.log('EXTEND 1: Fail!')
- 	console.log('EXTEND 1: Want: {"apple":0,"banana":{"price":200},"cherry":97,"durian":100}');
- 	console.log('EXTEND 1: Got.: ' + JSON.stringify(myRet1));
- }
-
- if (JSON.stringify(myRet2) == '{"apple":0,"banana":{"weight":52,"price":200},"cherry":97,"durian":100}')
- {
- 	console.log('EXTEND 2: PASS!');
- }
- else
- {
- 	console.log('EXTEND 2: Fail!')
- 	console.log('EXTEND 2: Want: {"apple":0,"banana":{"weight":52,"price":200},"cherry":97,"durian":100}');
- 	console.log('EXTEND 2: Got.: ' + JSON.stringify(myRet2));
- }
-
-_( "&nbsp;<b><font color=green>Pass!</font></b>" ).appendTo( ".inner" );
-//_('.inner').html('<p><b><font color=green>Pass!</font></b></p>', true);
-
-</script>
+     _( '&nbsp;<b><font color="green">Pass!</font></b>' ).appendTo( '.inner' );
+  </script>
+ </body>
+</html>

@@ -8,7 +8,7 @@
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
 **                         v0.0.7 Beta
-**         JS Standard Code Style Beta (JSSCS).
+**              JS Standard Code Style
 **
 ** https://www.github.com/wesdegroot/_.js/
 ** or https://www.wdgwv.com
@@ -46,9 +46,6 @@
   var _ = function (params) {
     return new Library(params)
   }
-
-  // For later usage.
-  var _JSLoaded
 
   // In our Library we get our selector with querySelectorAll
   var Library = function (params) {
@@ -1325,6 +1322,8 @@
   return _
 
 })() //eslint-disable-line
+
+// Add Event!
 var _JSLoaded = document.createEvent('CustomEvent')
 _JSLoaded.initEvent('_.jsLoaded', !0, !0, {})
 window.dispatchEvent(_JSLoaded)
