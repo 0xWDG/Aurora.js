@@ -47,6 +47,9 @@
     return new Library(params)
   }
 
+  // For later usage.
+  var _JSLoaded
+
   // In our Library we get our selector with querySelectorAll
   var Library = function (params) {
     // * this.selector
@@ -1322,3 +1325,6 @@
   return _
 
 })() //eslint-disable-line
+var _JSLoaded = document.createEvent('CustomEvent')
+_JSLoaded.initEvent('_.jsLoaded', !0, !0, {})
+window.dispatchEvent(_JSLoaded)

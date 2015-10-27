@@ -4,26 +4,32 @@
 <div class='inner'>Test Append</div>
 
 <script>
-_('.wrapper').html('x').on('click', function(){alert('clicked');});
+window.addEventListener("_.jsLoaded", function() {
+  window.alert("_.js Loaded! (received)")
+});
 
-_('.wrapper').html('x').on('mousemove', function(){console.log('moved');}); // Remove.
+_('.wrapper').html('x').on('click', function () {alert('clicked')});
+
+_('.wrapper').html('x').on('mousemove', function () {console.log('moved')}); // Remove.
 _('.wrapper').html('x').on('mousemove', true); // Remove.
 
 // _('.wrapper').html('x');
-// _('.wrapper').on('click', function(){alert('clicked');});
+// _('.wrapper').on('click', function () {alert('clicked')});
 
 /// DEI
+/*eslint-disable */
+var EX = _.map(['a','b','c'], function (i, v) { //eslint-disable-line
+  return [v, v.toUpperCase()] //eslint-disable-line
+}) //eslint-disable-line
+/*eslint-enable */
 
-	var EX = _.map(['a','b','c'], function(i, v) {
-		return [v, v.toUpperCase()];
-	});
-	console.log('map: ' + EX);
+console.log('map: ' + EX)
 
-	var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
-	var realArray = _.toArray(fakeArray);
+var fakeArray = {my: 'supah', fake: 'array', thing: ':\'(', 0: 2, 4: 6, 8: 10};
+var realArray = _.toArray(fakeArray);
 
-	_.each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
-    _.each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
+_.each(['a','b','c'], function(i,v){console.log('count '+i+', value: '+v);});
+_.each({a:'b',c:'d'}, function(i,v){console.log('key '+i+', value: '+v);});
  
  console.log('IA: ' + _.isArray(['my', 'array']));
 
