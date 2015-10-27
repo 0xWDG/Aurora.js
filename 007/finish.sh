@@ -68,6 +68,7 @@ cd .. &>/dev/null
 rm GenerateDocs.php &>/dev/null
 
 /Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -appIcon "/Users/Wes/Cloud/WDGWV/Administatief/Logo's/logo.png" -contentImage "/Users/Wes/Cloud/Images/icons/-info.png" -title WDGWV -subtitle Success -message "Pushing _.js/wiki" &> /dev/null
+cd .. &>/dev/null
 echo "* Pushing _.js/wiki"
 cd _.js.wiki
 git pull &>/dev/null
@@ -96,7 +97,7 @@ cd ..
 
 /Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -appIcon "/Users/Wes/Cloud/WDGWV/Administatief/Logo's/logo.png" -contentImage "/Users/Wes/Cloud/Images/icons/-info.png" -title WDGWV -subtitle Success -message "Pushing _.js/www" &> /dev/null
 echo "* Pushing _.js/www"
-cd ../_.js.www 
+cd _.js.www 
 git pull &>/dev/null
 mkdir $bs_Dir &>/dev/null
 cp ../index.html . &>/dev/null
