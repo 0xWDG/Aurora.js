@@ -432,7 +432,7 @@
      *
      * Internal use for error.
      * Please do use if your plugin is for public domain and a pull request is done
-     * See [WIKI](https://github.com/wesdegroot/_.js/wiki/Developers) for more information.
+     * See [wiki](https://github.com/wesdegroot/_.js/wiki/Developers_Module) for more information.
      *
      * @internal
      * @new v0.0.7
