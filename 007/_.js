@@ -439,6 +439,7 @@
      * @param string [message] Error message
      * @return null
      * @example _.error('Functionname', 'Message')
+     * @example _.error('#MyModule#MyFunction', 'Message')
      */
     _error: function (functionname, message) {
       if (typeof message === 'undefined') {
@@ -446,11 +447,17 @@
       } else {
         console.error('_.js Error: ' + message)
       }
-      if (!this.isBeta) {
-        console.error('Please see: https://github.com/wesdegroot/_.js/wiki/function_' + functionname)
+
+      if (!this.startsWith(functionname, '#')) {
+        if (!this.isBeta) {
+          console.error('Please see: https://github.com/wesdegroot/_.js/wiki/function_' + functionname)
+        } else {
+          console.error('Please see: https://github.com/wesdegroot/_.js/wiki/flbeta_function_' + functionname)
+        }
       } else {
-        console.error('Please see: https://github.com/wesdegroot/_.js/wiki/flbeta_function_' + functionname)
+        console.error('Please see: https://github.com/wesdegroot/_.js/wiki/module_' + functionname.substr(1))
       }
+
       return null
     },
 
