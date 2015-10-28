@@ -431,6 +431,8 @@
      * _error
      *
      * Internal use for error.
+     * Please do use if your plugin is for public domain and a pull request is done
+     * See http:// for more information.
      *
      * @internal
      * @new v0.0.7
