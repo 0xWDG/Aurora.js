@@ -152,7 +152,7 @@
     // * Helper
     // * -> everyone lies (Especially Chrome), IE=Trident...
     // *
-    // * @new v0.0.7
+    // * @since v0.0.7
     // * @var string temp
     // * @internal
     var temp = navigator.userAgent.split(' ')[navigator.userAgent.split(' ').length - 2].split('/')[0] === 'Chrome'
@@ -164,7 +164,7 @@
     // * Browser info
     // * ie, firefox, safari, opera, edge, chrome, userAgent, supportTouch...
     // *
-    // * @new v0.0.7
+    // * @since v0.0.7
     // * @var object browser
     this.browser = {
       ie: navigator.userAgent.indexOf('Trident'), // Always try to be funnny...
@@ -181,7 +181,7 @@
     // *
     // * Browser name
     // *
-    // * @new v0.0.7
+    // * @since v0.0.7
     // * @var string getBrowser
     this.getBrowser = temp
 
@@ -378,7 +378,7 @@
      *
      * Function what don't do a thing...
      *
-     * @new v0.0.7
+     * @since v0.0.7
      * @param object [object] Wrapper
      * @return nothing
      * @example _.noop()
@@ -390,7 +390,7 @@
      *
      * Does the client support touch (events)?
      *
-     * @new v0.0.7
+     * @since v0.0.7
      * @param object [object] Wrapper
      * @return bool
      * @example _.supportTouch()
@@ -408,7 +408,7 @@
      *
      * append element to...
      *
-     * @new v0.0.7
+     * @since v0.0.7
      * @param object [object] Wrapper
      * @param string to Append to
      * @return null
@@ -435,7 +435,7 @@
      * See [wiki/Module Developers](https://github.com/wesdegroot/_.js/wiki/Developers_Module) for more information.
      *
      * @internal
-     * @new v0.0.7
+     * @since v0.0.7
      * @param object [object] Wrapper
      * @param string functionname Function name
      * @param string [message] Error message
@@ -1316,7 +1316,7 @@
      * Do not use, if know why this function exists.
      *
      * @internal
-     * @new v0.0.7
+     * @since v0.0.7
      * @param object [object] Wrapper
      * @return null
      * @example _._copy_js()

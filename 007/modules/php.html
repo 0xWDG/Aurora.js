@@ -3,9 +3,8 @@
 <script type="text/javascript" src='../_.js'></script>
 
 <script type="text/javascript">
-  _().require("_php", function(){ 
-    
-    var testResults = '';
+  _().require("_php", function () { 
+    var testResults = ''
     var functions   = [
                         'base64_encode', 
                         'base64_decode',
@@ -18,7 +17,7 @@
                         'strlen',
                         'strtolower',
                         'strtoupper'
-                      ];
+                      ]
     var params      = [
                         'x',
                         'eA==',
@@ -31,7 +30,7 @@
                         '_.js',
                         '_.JS Is SuPeR cOoL',
                         '_.JS Is SuPeR cOoL'
-                      ];
+                      ]
     var espect      = [
                         'eA==', 
                         'x',
@@ -44,23 +43,22 @@
                         '4',
                         '_.js is super cool',
                         '_.JS IS SUPER COOL'
-                      ];
+                      ]
 
     for (var i = 0; i < functions.length; i++) {
-      //if (typeof params[i] === )
-      console.log(typeof params[i] + ' = ' + params[i]);
+      console.log(typeof params[i] + ' = ' + params[i])
 
-      var myResult = eval('_().' + functions[i] + '(\'' + params[i] + '\');');
+      var myResult = eval('_().' + functions[i] + '(\'' + params[i] + '\');')
 
 
-      var result = _().runTest(myResult, espect[i]) ? '<font color=green>PASS</font>' : '<font color=red>FAIL</font>';
+      var result = _().runTest(myResult, espect[i]) ? '<font color=green>PASS</font>' : '<font color=red>FAIL</font>'
 
-      testResults += '<h4>' + '_().' + functions[i] + '(\'' + params[i] + '\');' + '</h4>';
-      testResults += '<table><tr><td>Espected:</td><td>' + espect[i] + '</td></tr>';
-      testResults += '<tr><td>Got:</td><td>' + myResult + '</td></tr>';
-      testResults += '<tr><td>Test:</td><td>' + result + '</td></tr></table>';
-    };
+      testResults += '<h4>' + '_().' + functions[i] + '(\'' + params[i] + '\');' + '</h4>'
+      testResults += '<table><tr><td>Espected:</td><td>' + espect[i] + '</td></tr>'
+      testResults += '<tr><td>Got:</td><td>' + myResult + '</td></tr>'
+      testResults += '<tr><td>Test:</td><td>' + result + '</td></tr></table>'
+    }
 
-    _('.testResults').html(testResults);
+    _('.testResults').html(testResults)
   });
 </script>

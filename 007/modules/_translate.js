@@ -28,9 +28,19 @@ if (!window._) {
    *
    * @param object [object] Wrapper
    * @see https://github.com/wesdegroot/_.js/wiki/module_translate
-   * @example _().translate.init()
+   * @since v0.0.7
    */
   window._.fn.translate = TranslateJS.prototype = {
+    /**
+     * init
+     *
+     * init translator
+     *
+     * @param object object Wrapper
+     * @param object data dataparser
+     * @see https://github.com/wesdegroot/_.js/wiki/module_translate#init
+     * @example _.translate.init()
+     */
     init: function (data) {
       // DEBUG THINGS
       console.log('Data=')
