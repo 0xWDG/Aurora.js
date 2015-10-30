@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"./m/_translate.js",
+"lineCount":1,
+"mappings":"AAmBA,GAAKA,MAAAC,EAAL,CAEO,CACL,IAAIC,YAAcA,QAAS,CAACC,CAAD,CAAS,EAUpCH,OAAAC,EAAAG,GAAAC,UAAA,CAAwBH,WAAAI,UAAxB,CAAgD,CAW9CC,KAAMA,QAAS,CAACC,CAAD,CAAO,CAEpBC,OAAAC,IAAA,CAAY,OAAZ,CACAD,QAAAC,IAAA,CAAYF,CAAZ,CACAC,QAAAC,IAAA,CAAY,MAAOF,EAAnB,CAEA,IAAoB,QAApB,GAAI,MAAOA,EAAX,CAEE,IADIG,CACJ,CADU,IAAAC,OACV,CAAOD,CAAA,EAAP,CAAA,EAFF,IAMEX,OAAAC,EAAAY,OAAA,CAAgB,iBAAhB,CAZkB,CAXwB,CAX3C,CAFP,IACEb,OAAAc,MAAA,CAAa,kCAAb;",
+"sources":["./_translate.js"],
+"names":["window","_","TranslateJS","params","fn","translate","prototype","init","data","console","log","len","length","_error","alert"]
+}

@@ -1,0 +1,3 @@
+https://alertifyjs.org/#usage
+http://blueimp.github.io/jQuery-File-Upload/index.html
+http://amsul.ca/pickadate.js/
