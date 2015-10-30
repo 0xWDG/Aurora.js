@@ -145,7 +145,7 @@
     this.objectclass = { '[object Boolean]': 'boolean', '[object Number': 'number',
       '[object String': 'string', '[object Function]': 'function',
       '[object Array]': 'array', '[object Date]': 'date', '[object RegExp]': 'regexp',
-    '[object Object]': 'object', '[object Error]': 'error' }
+      '[object Object]': 'object', '[object Error]': 'error' }
 
     // * temp
     // *
@@ -997,11 +997,10 @@
           return window.getComputedStyle(this[len]).getPropertyValue(read)
         } else { // Write
           var _read = read
-          _read = _read.replace(/-/g, '')
+          _read = _read.replace(/-/g, '') 
           // this[len].style._read = write; // does edit the dom.
-          // this[len].setAttribute(_read, write); // does add... but not working
-          this[len].setAttribute('style', read + ':' + write + ';') // does edit the dom!
-          return this // this.css(read)
+          this[len].setAttribute('style', read + ':' + write + ';')
+          return this
         }
       }
     },
