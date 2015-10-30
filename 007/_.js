@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.0.7 Beta
+**                       v0.0.7 Stable
 **              JS Standard Code Style
 **
 ** https://www.github.com/wesdegroot/_.js/
