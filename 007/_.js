@@ -572,10 +572,16 @@
             var script = document.createElement('script')
             script.type = 'text/javascript'
             script.src = jsArray[i]
-            if (i === 1) script.onreadystatechange = Callback
-            if (i === 1) script.onload = Callback
+            if (i === 1) {
+              scriptOne.onreadystatechange = ''
+              scriptOne.onload = setTimeout(function (Callback) {
+                _._copy_js()
+                Callback()
+              }, 10, Callback)
+            }
             document.head.appendChild(script)
           } else {
+            _._copy_js()
             Callback()
           }
         }
@@ -589,10 +595,14 @@
           var scriptOne = document.createElement('script')
           scriptOne.type = 'text/javascript'
           scriptOne.src = jsArray
-          scriptOne.onreadystatechange = Callback
-          scriptOne.onload = Callback
+          scriptOne.onreadystatechange = ''
+          scriptOne.onload = setTimeout(function (Callback) {
+            _._copy_js()
+            Callback()
+          }, 10, Callback)
           document.head.appendChild(scriptOne)
         } else {
+          _._copy_js()
           Callback()
         }
       } else {
@@ -997,7 +1007,7 @@
           return window.getComputedStyle(this[len]).getPropertyValue(read)
         } else { // Write
           var _read = read
-          _read = _read.replace(/-/g, '') 
+          _read = _read.replace(/-/g, '')
           // this[len].style._read = write; // does edit the dom.
           this[len].setAttribute('style', read + ':' + write + ';')
           return this
@@ -1297,6 +1307,28 @@
       }
 
       return true
+    },
+
+    /**
+     * _copy_js
+     *
+     * Internal use for loading plugin.
+     * Do not use, if know why this function exists.
+     *
+     * @internal
+     * @new v0.0.7
+     * @param object [object] Wrapper
+     * @return null
+     * @example _._copy_js()
+     */
+    _copy_js: function () {
+      var tLib = new Library()
+      var copy
+      for (copy in tLib) {
+        eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
+        // _.copy = tLib.copy
+      }
+      return null
     }
   }
 
