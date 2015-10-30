@@ -440,8 +440,8 @@
      * @param string functionname Function name
      * @param string [message] Error message
      * @return null
-     * @example _.error('Functionname'[, 'Message'])
-     * @example _.error('#MyModule#MyFunction'[, 'Message'])
+     * @example _.error('Functionname', 'Message')
+     * @example _.error('#MyModule#MyFunction', 'Message')
      */
     _error: function (functionname, message) {
       if (typeof message === 'undefined') {
