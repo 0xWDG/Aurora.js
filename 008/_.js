@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.0.7 Beta
+**                         v0.0.8 Beta
 **              JS Standard Code Style
 **
 ** https://www.github.com/wesdegroot/_.js/
@@ -75,14 +75,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.7b'
+    this.version = '0.0.8b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r151023-2'
+    this.revision = 'r151030-2'
 
     // * this.fullversion
     // *

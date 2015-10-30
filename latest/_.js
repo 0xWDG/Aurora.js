@@ -75,14 +75,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.7b'
+    this.version = '0.0.7'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r151023-2'
+    this.revision = 'r151030-2'
 
     // * this.fullversion
     // *
