@@ -71,6 +71,7 @@ rm GenerateDocs.php &>/dev/null
 cd .. &>/dev/null
 echo "* Pushing _.js/wiki"
 cd _.js.wiki
+php getHistory.php &>/dev/null
 git pull &>/dev/null
 git add . &>/dev/null
 git commit -m "Auto-Pushing $version" &>/dev/null
