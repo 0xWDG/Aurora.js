@@ -1,5 +1,7 @@
 # _.js
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wesdegroot/_.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+
 I'd like making websites, but... underscore is good in data parsing, jQuery for html elements (but unreadable source code)...
 So, i want to combine those two in `_.js`
 
