@@ -270,9 +270,9 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
 		if ( !isBeta() )
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wesdegroot/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
 		else
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wesdegroot.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wesdegroot/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
@@ -288,7 +288,7 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 if ( $isDeprecated )
-		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wesdegroot/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
+		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
 		 //⛔️
 		 if ( $isInternal )
 		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
@@ -307,8 +307,8 @@ foreach ($functions as $functionName => $functionValue)
 			       				    implode("<br />", $functionValue['text'])."<br>\r\n"   											.
 								    $extra													 										.
 								    (isBeta() 
-								    	? "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List%20(Beta))\r\n"
-								    	: "<br><br>[Back to function list](https://github.com/wesdegroot/_.js/wiki/Function%20List)\r\n")
+								    	? "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
+								    	: "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
 								    );
 }
 

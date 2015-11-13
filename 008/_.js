@@ -10,13 +10,13 @@
 **                         v0.0.8 Beta
 **              JS Standard Code Style
 **
-** https://www.github.com/wesdegroot/_.js/
+** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
 **
-** Git....: https://github.com/wesdegroot/_.js
-** Todo...: https://github.com/wesdegroot/_.js/issues
-** Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md (CC BY 4.0)
-** Latest.: https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
+** Git....: https://github.com/wdg/_.js
+** Todo...: https://github.com/wdg/_.js/issues
+** Licence: https://github.com/wdg/_.js/blob/master/LICENCE.md (CC BY 4.0)
+** Latest.: https://raw.githubusercontent.com/wdg/_.js/master/latest/_.js
 */
 
 // _ function
@@ -432,7 +432,7 @@
      *
      * Internal use for error.
      * Please do use if your plugin is for public domain and a pull request is done
-     * See [wiki/Module Developers](https://github.com/wesdegroot/_.js/wiki/Developers_Module) for more information.
+     * See [wiki/Module Developers](https://github.com/wdg/_.js/wiki/Developers_Module) for more information.
      *
      * @internal
      * @since v0.0.7
@@ -452,12 +452,12 @@
 
       if (!this.startsWith(functionname, '#')) {
         if (!this.isBeta) {
-          console.error('Please see: https://github.com/wesdegroot/_.js/wiki/function_' + functionname)
+          console.error('Please see: https://github.com/wdg/_.js/wiki/function_' + functionname)
         } else {
-          console.error('Please see: https://github.com/wesdegroot/_.js/wiki/flbeta_function_' + functionname)
+          console.error('Please see: https://github.com/wdg/_.js/wiki/flbeta_function_' + functionname)
         }
       } else {
-        console.error('Please see: https://github.com/wesdegroot/_.js/wiki/module_' + functionname.substr(1))
+        console.error('Please see: https://github.com/wdg/_.js/wiki/module_' + functionname.substr(1))
       }
 
       return null
@@ -567,7 +567,7 @@
               jsArray[i] = jsArray[i] + '.js'
             }
             if (this.startsWith(jsArray[i], '_') && !local) {
-              jsArray[i] = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+              jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
             }
             var script = document.createElement('script')
             script.type = 'text/javascript'
@@ -590,7 +590,7 @@
           window._modLoaded.push(jsArray)
           if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
           if (this.startsWith(jsArray, '_') && !local) {
-            jsArray = 'https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/modules/' + jsArray.toLowerCase()
+            jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
           }
           var scriptOne = document.createElement('script')
           scriptOne.type = 'text/javascript'
@@ -1335,7 +1335,7 @@
   // * tLib
   // *
   // * Add some "Global" Objects (what does not need a wrapper) Bug: #12
-  // * https://github.com/wesdegroot/_.js/issues/12 (Closed 19-OCT-2015)
+  // * https://github.com/wdg/_.js/issues/12 (Closed 19-OCT-2015)
   // * make a "temporary _.js"
   // *
   // * @var object tLib
