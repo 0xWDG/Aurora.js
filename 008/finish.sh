@@ -9,9 +9,9 @@ export uname=`whoami`
 export discuss=`cat discuss`
 
 if [ -z "$1" ]; then
-	export message="_.js Auto Commit [$version r$revision] @$uname $discuss"
+	export message="_.js Auto Commit [$version r$revision] $discuss"
 else
-	export message="$1 [$version r$revision] @$uname $discuss"
+	export message="$1 [$version r$revision] $discuss"
 fi
 
 
@@ -50,6 +50,7 @@ done
 echo "* Fixing map files"
 # Add: //# sourceMappingURL=/path/to/file.js.map
 for i in *.js;
+	# WARNING will only work with mac os x version of sed
 	do sed -i -e '1i\'$'\n''//# sourceMappingURL='${i}'.map'$'\n' m/${i} &>/dev/null;
 done
 
@@ -65,6 +66,7 @@ done
 echo "* Fixing map files (Modules)"
 # Add: //# sourceMappingURL=/path/to/file.js.map
 for i in *.js;
+	# WARNING will only work with mac os x version of sed
 	do sed -i -e '1i\'$'\n''//# sourceMappingURL='${i}'.map'$'\n' m/${i} &>/dev/null;
 done
 cd m
