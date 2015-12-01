@@ -4,6 +4,15 @@
 export my_Dir=$(pwd)
 export bs_Dir=`basename $my_Dir`
 export version="v${bs_Dir:0:1}.${bs_Dir:1:1}.${bs_Dir:2:1}"
+export revision=`php -r "\\\$x=file_get_contents('_.js');\\\$x=explode('this.revision = \\\\'',\\\$x);\\\$x=explode('\\\\'', \\\$x[1]);echo(substr(\\\$x[0], 1));"`
+export uname=`whoami`
+
+if [ -z "$1" ]; then
+	export message="_.js Auto Commit [$version r$revision] @$uname"
+else
+	export message="$1 [$version r$revision] @$uname"
+fi
+
 
 # YEEY!
 echo "                       _    _____ "
@@ -13,8 +22,10 @@ echo "                  _   | |  \\___  \\"
 echo "   ______    _   | |__| |  ____) |"
 echo "  |______|  (_)   \____/  |______/"
 echo "                                  "
-echo "                   Pushing:       "
-echo "                            $version"
+echo "                 Pushing:         "
+echo "                  $version r$revision"
+echo "Message:                          "
+echo "- $message"
 
 # if exists remove old files
 rm GenerateDocs.php &>/dev/null
@@ -74,7 +85,7 @@ cd _.js.wiki
 php getHistory.php &>/dev/null
 git pull &>/dev/null
 git add . &>/dev/null
-git commit -m "Auto-Pushing $version" &>/dev/null
+git commit -m "$message" &>/dev/null
 git push &>/dev/null
 cd ..
 
@@ -83,7 +94,7 @@ echo "* Pushing _.js/data"
 cd _.js.data
 git pull &>/dev/null
 git add . &>/dev/null
-git commit -m "Auto-Pushing $version" &>/dev/null
+git commit -m "$message" &>/dev/null
 git push &>/dev/null
 cd ..
 
@@ -92,7 +103,7 @@ echo "* Pushing _.js/archive"
 cd _.js.archive
 git pull &>/dev/null
 git add . &>/dev/null
-git commit -m "Auto-Pushing $version" &>/dev/null
+git commit -m "$message" &>/dev/null
 git push &>/dev/null
 cd ..
 
@@ -105,7 +116,7 @@ cp ../index.html . &>/dev/null
 cp $my_Dir/index.html $bs_Dir/index.html &>/dev/null
 php fix.php
 git add . &>/dev/null
-git commit -m "Auto-Pushing $version" &>/dev/null
+git commit -m "$message" &>/dev/null
 git push &>/dev/null
 
 #move to master
@@ -113,7 +124,7 @@ git push &>/dev/null
 echo "* Pushing _.js/master"
 cd ..
 git add . &>/dev/null
-git commit -m "Auto-Pushing $version" &>/dev/null
+git commit -m "$message" &>/dev/null
 git push &>/dev/null
 
 echo "* DONE"
