@@ -6,11 +6,12 @@ export bs_Dir=`basename $my_Dir`
 export version="v${bs_Dir:0:1}.${bs_Dir:1:1}.${bs_Dir:2:1}"
 export revision=`php -r "\\\$x=file_get_contents('_.js');\\\$x=explode('this.revision = \\\\'',\\\$x);\\\$x=explode('\\\\'', \\\$x[1]);echo(substr(\\\$x[0], 1));"`
 export uname=`whoami`
+export discuss=`cat discuss`
 
 if [ -z "$1" ]; then
-	export message="_.js Auto Commit [$version r$revision] @$uname"
+	export message="_.js Auto Commit [$version r$revision] @$uname $discuss"
 else
-	export message="$1 [$version r$revision] @$uname"
+	export message="$1 [$version r$revision] @$uname $discuss"
 fi
 
 
