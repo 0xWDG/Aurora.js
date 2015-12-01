@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r151030-3'
+    this.revision = 'r151201-1'
 
     // * this.fullversion
     // *
@@ -137,15 +137,37 @@
     // * @var string JSONRX
     this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/'
 
+    // * this.emoij
+    // *
+    // * Super cool emoij list
+    // *
+    // * @since v0.0.8
+    // * @var object emoij
+    // * @example _.emoij.nerd
+    this.emoij = {
+      nerd: '\uD83E\uDD13',
+      smilie: '\ud83d\ude03',
+      dsmilie: '\ud83d\ude00',
+      heart: '\u2764\ufe0f',
+      brokenheart: '\ud83d\udc94'
+    }
+
     // * this.objectclass
     // *
     // * Possible object classes
     // *
     // * @var object objectclass
-    this.objectclass = { '[object Boolean]': 'boolean', '[object Number': 'number',
-      '[object String': 'string', '[object Function]': 'function',
-      '[object Array]': 'array', '[object Date]': 'date', '[object RegExp]': 'regexp',
-      '[object Object]': 'object', '[object Error]': 'error' }
+    this.objectclass = {
+      '[object Boolean]': 'boolean',
+      '[object Number': 'number',
+      '[object String': 'string',
+      '[object Function]': 'function',
+      '[object Array]': 'array',
+      '[object Date]': 'date',
+      '[object RegExp]': 'regexp',
+      '[object Object]': 'object',
+      '[object Error]': 'error'
+    }
 
     // * temp
     // *
@@ -220,10 +242,13 @@
      * @example _.emulatejQuery()
      */
     emulatejQuery: function () {
+      // jQuery uses a lot of window elements.
+      // $, _$, jQuery and _jQuery!
       window.$ = window._
       window._$ = window._
       window.jQuery = window._
       window._jQuery = window._
+      // After setting, just return
       return window._
     },
 
@@ -237,13 +262,16 @@
      * @example _.$()
      */
     $: function () {
+      // Sometimes we'll also need FUN
       window.alert('Hi')
-      var answer = window.confirm("Did you know that i'm not jQuery?")
-      if (answer) {
+
+      if (window.confirm("Did you know that i'm not jQuery?")) {
         window.alert('Why did you even try this?')
       } else {
         window.alert("Nope, i'm not jQuery")
       }
+
+      // Super (decodeURIComponent will be lost!)
       window.alert("Thanks for using '_.js'!\n" +
         decodeURIComponent('%F0%9F%92%99'))
       return
@@ -505,6 +533,22 @@
       if (obj == null) return obj + ''
       return typeof obj === 'object' || typeof obj === 'function'
         ? this.objectclass[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
+    },
+
+    /**
+     * escapeForRegex
+     *
+     * Escape a string for safe regex use!
+     *
+     * @since v0.0.8
+     * @param object [object] Wrapper
+     * @param string str the string to escape
+     * @return string
+     * @example _.escapeForRegex('myPotensialRegexUnSafeString')
+     */
+    escapeForRegex: function (str) {
+      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
+                .replace(/\x08/g, '\\x08')
     },
 
     /**
