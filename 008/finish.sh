@@ -5,15 +5,51 @@ export my_Dir=$(pwd)
 export bs_Dir=`basename $my_Dir`
 export version="v${bs_Dir:0:1}.${bs_Dir:1:1}.${bs_Dir:2:1}"
 export revision=`php -r "\\\$x=file_get_contents('_.js');\\\$x=explode('this.revision = \\\\'',\\\$x);\\\$x=explode('\\\\'', \\\$x[1]);echo(substr(\\\$x[0], 1));"`
+export revisionS=`php -r "\\\$x=file_get_contents('_.js');\\\$x=explode('this.revision = \\\\'',\\\$x);\\\$x=explode('\\\\'', \\\$x[1]);echo(substr(\\\$x[0], 0, 7));"`
+export today=`php -r "echo 'r' . @date('ymd');"`
 export uname=`whoami`
 export discuss=`cat discuss`
 
-if [ -z "$1" ]; then
-	export message="_.js Auto Commit [$version r$revision] $discuss"
+if [ ${#revisionS} -ge 8 ]; then
+	export message="_.js Cancelled Commit!"
 else
-	export message="$1 [$version r$revision] $discuss"
+	if [ -z "$1" ]; then
+		export message="_.js Auto Commit [$version r$revision] $discuss"
+	else
+		export message="$1 [$version r$revision] $discuss"
+	fi
 fi
 
+if [ "$revisionS" != "$today" ]; then #ex: r151201 (7)
+	if [ ${#revisionS} -ge 8 ]; then
+		echo "_.js is corrupted!!!"
+		echo "(trying) to restore from backup"
+		cp _.ar _.js
+
+		$0
+	fi
+
+	#echo "PLEASE UPDATE REVISION FIRST!"
+	echo "read: ${revisionS}"
+	echo "expected: ${today}"
+	#open _.js
+
+	#php -r "\\\$x=file_get_contents('_.js');\\\n\\\$x=preg_replace(\"/r$revision/\",\"$today\",\\\$x);\\\nfile_write_contents('_autofix.js',\\\$x);"
+	#echo "php -r \"\\\$x=file_get_contents('_.js');\\\$x=preg_replace(\"/r$revision/\",\"$today\",\\\$x);file_write_contents('_autofix.js',\\\$x);\""
+
+	cp _.js _.ar
+	echo "Created backup _.ar"
+	echo "Patching _.js"
+	sed -e "s/r$revision/${today}/g" _.js > _.x.js
+	rm _.js
+	mv _.x.js _.js
+
+	echo "Reloading script."
+
+	$0
+
+	exit
+fi
 
 # YEEY!
 echo "                       _    _____ "
