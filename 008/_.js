@@ -1369,8 +1369,9 @@
       var tLib = new Library()
       var copy
       for (copy in tLib) {
-        eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
-        // _.copy = tLib.copy
+        // eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
+        // Fix by Sijmen Mulder (https://www.sjmulder.nl | https://github.com/sjmulder)
+        _[copy] = tLib[copy]
       }
       return null
     }
@@ -1386,8 +1387,9 @@
   var tLib = new Library()
   var copy
   for (copy in tLib) {
-    eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
-    // _.copy = tLib.copy
+    // eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
+    // Fix by Sijmen Mulder (https://www.sjmulder.nl | https://github.com/sjmulder)
+    _[copy] = tLib[copy]
   }
 
   // * window._
