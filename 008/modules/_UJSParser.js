@@ -82,10 +82,24 @@ if (!window._) {
      * @internal
      * @since v0.0.7
      */
-    extend: function (data) {
-      console.log('SJSP: Extending with:')
-      console.log(data)
-      console.log('SJSP: End of extending')
+    extend: function (e) {
+      if (window.SJSParserDebug) {
+        console.log('SJSP: Extending with:')
+      }
+
+      if (typeof e === 'object') {
+        for (var k in e) {
+          this[k] = e[k]
+
+          if (typeof this[k] !== 'function') {
+            console.error('FAILED TO EXTEND WITH "' + k + '"!')
+          }
+        }
+      }
+
+      if (window.SJSParserDebug) {
+        console.log('SJSP: End of extending')
+      }
     },
 
     /**
