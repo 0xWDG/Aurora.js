@@ -1600,3 +1600,8 @@ window.dispatchEvent(_JSLoaded)
 // Please. please.
 // Somethimes we'll need to use eslint-disable-line
 // because eslint does not know what we're doing with the code.
+//
+// Thanks,
+// For reading the full source code.
+// if you have questions, please go to:
+// -> https://github.com/wdg/_.js/issues
