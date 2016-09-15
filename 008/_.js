@@ -406,7 +406,7 @@
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
-    setCookie: function (name, value/* , expires, path, domain, secure */) {
+    setCookie: function (name, value) { // , expires, path, domain, secure
       if (!domain) {
         var tdomain = window.location.hostname
         tdomain = domain.split('.')
@@ -455,7 +455,7 @@
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
-    deleteCookie: function (name/* , path, domain */) {
+    deleteCookie: function (name) { // , path, domain
       if (this.getCookie(name)) {
         if (!domain) {
           var tdomain = window.location.hostname
