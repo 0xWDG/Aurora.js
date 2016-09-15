@@ -483,7 +483,7 @@
      * Toggle between hidden, and opaque
      *
      * @since v0.0.8
-     * @param object [object] Wrapper
+     * @param object object Wrapper
      * @return null
      * @example _('.hideOrShowMe').toggle()
      */
