@@ -24,7 +24,7 @@ if [ "$revisionS" != "$today" ]; then #ex: r151201 (7)
 	if [ ${#revisionS} -ge 8 ]; then
 		echo "_.js is corrupted!!!"
 		echo "(trying) to restore from backup"
-		cp _.ar _.js
+		cp ar.js _.js
 
 		$0
 	fi
@@ -37,8 +37,8 @@ if [ "$revisionS" != "$today" ]; then #ex: r151201 (7)
 	#php -r "\\\$x=file_get_contents('_.js');\\\n\\\$x=preg_replace(\"/r$revision/\",\"$today\",\\\$x);\\\nfile_write_contents('_autofix.js',\\\$x);"
 	#echo "php -r \"\\\$x=file_get_contents('_.js');\\\$x=preg_replace(\"/r$revision/\",\"$today\",\\\$x);file_write_contents('_autofix.js',\\\$x);\""
 
-	cp _.js _.ar
-	echo "Created backup _.ar"
+	cp _.js ar.js
+	echo "Created backup ar.js"
 	echo "Patching _.js"
 	sed -e "s/r$revision/${today}/g" _.js > _.x.js
 	rm _.js
