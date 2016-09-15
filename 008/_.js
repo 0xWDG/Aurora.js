@@ -398,9 +398,9 @@
      *
      * @param string name cookies name
      * @param string value cookies value
-     * @param [string] path path (default: /)
-     * @param [string] domain domain (default .domainname.extension)
-     * @param [bool] secure secure cookie? (default: false) [JS Can't read secure cookies!]
+     * @param string [path] path (default: /)
+     * @param string [domain] domain (default .domainname.extension)
+     * @param bool [secure] secure cookie? (default: false) [JS Can't read secure cookies!]
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
@@ -447,8 +447,8 @@
      * Delete cookie data
      *
      * @param string name cookies name
-     * @param [string] path path (default: /)
-     * @param [string] domain domain (default .domainname.extension)
+     * @param string [path] path (default: /)
+     * @param string [domain] domain (default .domainname.extension)
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
