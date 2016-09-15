@@ -366,6 +366,7 @@
      *
      * Get cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
      * @return string/bool
      * @example _.getCookie('Cookiemonster')
@@ -396,6 +397,7 @@
      *
      * Set cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
      * @param string value cookies value
      * @param string [path] path (default: /)
@@ -446,6 +448,7 @@
      *
      * Delete cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
      * @param string [path] path (default: /)
      * @param string [domain] domain (default .domainname.extension)
@@ -479,6 +482,7 @@
      *
      * Toggle between hidden, and opaque
      *
+     * @since v0.0.8
      * @return null
      * @example _('.hideOrShowMe').toggle()
      */
@@ -1136,6 +1140,7 @@
      *
      * Get the filesize of a file
      *
+     * @since v0.0.8
      * @param string fileURL file url
      * @param object onSize return to function
      * @return null
