@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r160705'
+    this.revision = 'r160915'
 
     // * this.fullversion
     // *
@@ -366,6 +366,7 @@
      *
      * Get cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
      * @return string/bool
      * @example _.getCookie('Cookiemonster')
@@ -396,15 +397,16 @@
      *
      * Set cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
      * @param string value cookies value
-     * @param [string] path path (default: /)
-     * @param [string] domain domain (default .domainname.extension)
-     * @param [bool] secure secure cookie? (default: false) [JS Can't read secure cookies!]
+     * @param string [path] path (default: /)
+     * @param string [domain] domain (default .domainname.extension)
+     * @param bool [secure] secure cookie? (default: false) [JS Can't read secure cookies!]
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
-    setCookie: function (name, value/* , expires, path, domain, secure */) {
+    setCookie: function (name, value) { // , expires, path, domain, secure
       if (!domain) {
         var tdomain = window.location.hostname
         tdomain = domain.split('.')
@@ -446,13 +448,14 @@
      *
      * Delete cookie data
      *
+     * @since v0.0.8
      * @param string name cookies name
-     * @param [string] path path (default: /)
-     * @param [string] domain domain (default .domainname.extension)
+     * @param string [path] path (default: /)
+     * @param string [domain] domain (default .domainname.extension)
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
-    deleteCookie: function (name/* , path, domain */) {
+    deleteCookie: function (name) { // , path, domain
       if (this.getCookie(name)) {
         if (!domain) {
           var tdomain = window.location.hostname
@@ -479,6 +482,8 @@
      *
      * Toggle between hidden, and opaque
      *
+     * @since v0.0.8
+     * @param object object Wrapper
      * @return null
      * @example _('.hideOrShowMe').toggle()
      */
@@ -1136,6 +1141,7 @@
      *
      * Get the filesize of a file
      *
+     * @since v0.0.8
      * @param string fileURL file url
      * @param object onSize return to function
      * @return null
@@ -1595,3 +1601,8 @@ window.dispatchEvent(_JSLoaded)
 // Please. please.
 // Somethimes we'll need to use eslint-disable-line
 // because eslint does not know what we're doing with the code.
+//
+// Thanks,
+// For reading the full source code.
+// if you have questions, please go to:
+// -> https://github.com/wdg/_.js/issues
