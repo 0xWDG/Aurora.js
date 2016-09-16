@@ -26,7 +26,7 @@ if [ "$revisionS" != "$today" ]; then #ex: r151201 (7)
 		echo "(trying) to restore from backup"
 		cp ar.js _.js
 
-		$0
+		$0 $1 $2 $3 $4 $5
 	fi
 
 	#echo "PLEASE UPDATE REVISION FIRST!"
