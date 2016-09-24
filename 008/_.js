@@ -945,7 +945,7 @@
 
         xmlPhttp.open('POST', form.action, true)
         // xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
-        xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded') // WTF?!
 
         xmlPhttp.onload = function (e) {
           console.log(e)
