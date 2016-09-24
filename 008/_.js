@@ -945,9 +945,8 @@
             // formData.append(name, value)
           } else if (elem[i].type === 'file') {
             formData.append('upload', elem[i].files[0])
+            formData.append(elem[i].name, elem[i].files[0])
             console.log(elem[i].files[0])
-            console.log(elem[i])
-            console.log(elem[i].files)
           } else {
             value = elem[i].value
             formData.append(elem[i].name, elem[i].value)
