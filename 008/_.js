@@ -934,8 +934,12 @@
         }
         console.log('Element = ' + this[len])
         console.log('Form = ' + form)
+        var elem = form.elements
+        for (var i = 0; i < elem.length; i++) {
+          console.log('El #' + i + ' = ' + elem)
+        }
 
-        var formData = new FormData(form)
+        var formData = new FormData(form.elements)
         // var elem = form.elements
         var url = form.action
         // var params = ''
