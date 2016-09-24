@@ -961,6 +961,7 @@
 
         xmlPhttp.onreadystatechange = function () {
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
+            window.alert('done')
             change.innerHTML = xmlPhttp.responseText
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
