@@ -966,6 +966,8 @@
         xmlPhttp.onreadystatechange = function () {
           console.log('ReasyState = ' + xmlPhttp.readyState)
           console.log('Status = ' + xmlPhttp.status)
+          console.log('RT = ' + xmlPhttp.responseText)
+          console.log('X = ' + xmlPhttp)
 
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
             window.alert('done')
