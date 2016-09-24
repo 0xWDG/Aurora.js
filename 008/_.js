@@ -942,22 +942,22 @@
           if (elem[i].tagName.toLowerCase() === 'select') {
             value = elem[i].options[elem[i].selectedIndex].value
             formData.append(elem[i].name, elem[i].options[elem[i].selectedIndex].value)
-            // formData.append(name, value);
+            // formData.append(name, value)
           } else if (elem[i].type === 'file') {
             formData.append('upload', elem[i].files[0])
             console.log(elem[i].files[0])
             console.log(elem[i])
             console.log(elem[i].files)
           } else {
-            // value = elem[i].value
+            value = elem[i].value
             formData.append(elem[i].name, elem[i].value)
           }
-          // if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
+          if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
         }
         params += 'AJAXby=' + encodeURIComponent('_.js')
         xmlPhttp.open('POST', url, true)
         // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        xmlPhttp.setRequestHeader("Content-Type", "multipart/form-data");
+        xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
 
         xmlPhttp.onreadystatechange = function () {
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
@@ -978,7 +978,7 @@
         }
         // All preperations are clear, send the request!
         // xmlPhttp.send(params)
-        xhr.send(formData)
+        xmlPhttp.send(formData)
       }
       return false
     },
