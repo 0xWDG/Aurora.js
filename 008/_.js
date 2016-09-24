@@ -943,8 +943,15 @@
         }
 
         var formData = new FormData(form.elements)
+        console.log('Dumping Data!')
+        var c = 0
         for (var pair of formData.entries()) {
           console.log(pair[0]+ ', ' + pair[1])
+          c++
+        }
+        console.log('EOF Dumping Data!')
+        if (c === 0) {
+          console.error('GOT NO VALUES')
         }
 
         // var elem = form.elements
