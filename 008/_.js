@@ -939,7 +939,7 @@
         var elem = form.elements
         for (var i = 0; i < elem.length; i++) {
           console.log('El #' + i)
-          console.log(elem)
+          console.log(elem[i])
         }
 
         var formData = new FormData(form.elements)
