@@ -926,30 +926,20 @@
       while (len--) {
         window._lastObj = this[len]
         var xmlPhttp
-        var c
         var change = this[len]
         if (window.XMLHttpRequest) {
-          xmlPhttp = new window.XMLHttpRequest // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlPhttp = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
 
-        var formData = new FormData(form)
-        for (var pair of formData.entries()) {
-          console.log(pair[0] + ', ' + pair[1])
-          c++
-        }
-        if (c === 0) {
-          console.error('GOT NO VALUES')
-        }
+        // Add form to FormData
+        var formData = new FormData(form) //eslint-disable-line
 
+        // Open
         xmlPhttp.open('POST', form.action, true)
-        // xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
-        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded') // WTF?!
 
-        xmlPhttp.onload = function (e) {
-          console.log(e)
-        }
+        // Progress (we do not use it (yet))
         xmlPhttp.upload.onprogress = function (e) {
           if (e.lengthComputable) {
             var progress = (e.loaded / e.total) * 100
@@ -957,12 +947,8 @@
           }
         }
 
+        // Readystate Change(d)
         xmlPhttp.onreadystatechange = function () {
-          console.log('ReasyState = ' + xmlPhttp.readyState)
-          console.log('Status = ' + xmlPhttp.status)
-          console.log('RT = ' + xmlPhttp.responseText)
-          console.log('X = ' + xmlPhttp)
-
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
             window.alert('done')
             change.innerHTML = xmlPhttp.responseText
@@ -980,12 +966,8 @@
             }
           }
         }
-        // All preperations are clear, send the request!
-        // xmlPhttp.send(params)
-        for (var [key, value] of formData.entries()) {
-          console.log(key, value)
-        }
 
+        // Send our FormData
         xmlPhttp.send(formData)
       }
       return false
