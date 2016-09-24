@@ -933,15 +933,7 @@
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
-        console.log('Element')
-        console.log(this[len])
-        console.log('Form')
-        console.log(form)
-        var elem = form.elements
-        for (var i = 0; i < elem.length; i++) {
-          console.log('El #' + i)
-          console.log(elem[i])
-        }
+
         var formData = new FormData(form)
         for (var pair of formData.entries()) {
           console.log(pair[0] + ', ' + pair[1])
@@ -951,30 +943,6 @@
           console.error('GOT NO VALUES')
         }
 
-        // var elem = form.elements
-        // var url = form.action
-        // var params = ''
-        // var value
-        // for (var i = 0; i < elem.length; i++) {
-        //   if (elem[i].tagName.toLowerCase() === 'select') {
-        //     value = elem[i].options[elem[i].selectedIndex].value
-        //     formData.append(elem[i].name, elem[i].options[elem[i].selectedIndex].value)
-        //     // formData.append(name, value)
-        //   } else if (elem[i].type === 'file') {
-        //     formData.append('upload', elem[i].files[0])
-        //     formData.append(elem[i].name, elem[i].files[0])
-        //     console.log(elem[i].files[0])
-        //   } else {
-        //     value = elem[i].value
-        //     formData.append(elem[i].name, elem[i].value)
-        //   }
-        //   if (value) {
-        //     params += elem[i].name + '=' + encodeURIComponent(value) + '&'
-        //   }
-        // }
-        // params += 'AJAXby=' + encodeURIComponent('_.js')
-        // if (params) { }
-        
         xmlPhttp.open('POST', form.action, true)
         // xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
         xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
@@ -1014,9 +982,9 @@
         }
         // All preperations are clear, send the request!
         // xmlPhttp.send(params)
-        // for (var [key, value] of formData.entries()) {
-          // console.log(key, value)
-        // }
+        for (var [key, value] of formData.entries()) {
+          console.log(key, value)
+        }
 
         xmlPhttp.send(formData)
       }
