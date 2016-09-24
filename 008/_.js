@@ -932,7 +932,8 @@
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
-
+        console.log(this[len])
+        
         var formData = new FormData(this[len])
         // var elem = form.elements
         var url = form.action
