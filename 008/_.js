@@ -950,7 +950,7 @@
             console.log(elem[i].files)
           } else {
             // value = elem[i].value
-            formData.append(elem[i].name, elem[i].options[elem[i].selectedIndex].value)
+            formData.append(elem[i].name, elem[i].value)
           }
           // if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
         }
