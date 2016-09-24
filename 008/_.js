@@ -952,14 +952,21 @@
             value = elem[i].value
             formData.append(elem[i].name, elem[i].value)
           }
-          if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
+          if (value) {
+            params += elem[i].name + '=' + encodeURIComponent(value) + '&'
+          }
         }
         params += 'AJAXby=' + encodeURIComponent('_.js')
+        if (params) { }
+
         xmlPhttp.open('POST', url, true)
         // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
 
         xmlPhttp.onreadystatechange = function () {
+          console.log('ReasyState = ' + xmlPhttp.readyState)
+          console.log('Status = ' + xmlPhttp.status)
+
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
             window.alert('done')
             change.innerHTML = xmlPhttp.responseText
