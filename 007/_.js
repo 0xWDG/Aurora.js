@@ -749,24 +749,26 @@
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
-        var elem = form.elements
-        var url = form.action
-        var params = ''
-        var value
-        for (var i = 0; i < elem.length; i++) {
-          if (elem[i].tagName.toLowerCase() === 'select') {
-            value = elem[i].options[elem[i].selectedIndex].value
-          } else {
-            value = elem[i].value
+
+        // Add form to FormData
+        var formData = new FormData(form) //eslint-disable-line
+
+        // Open
+        xmlPhttp.open('POST', form.action, true)
+
+        // Progress (we do not use it (yet))
+        xmlPhttp.upload.onprogress = function (e) {
+          if (e.lengthComputable) {
+            var progress = (e.loaded / e.total) * 100
+            console.log('Progress = ' + progress + '%')
           }
-          if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
         }
-        params += 'AJAXby=' + encodeURIComponent('_.js')
-        xmlPhttp.open('POST', url, true)
-        xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+
+        // Readystate Change(d)
         xmlPhttp.onreadystatechange = function () {
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
             change.innerHTML = xmlPhttp.responseText
+
             // JavaScript Fix!
             var js = change.getElementsByTagName('script')
             for (var i = 0, j = js.length; i < j; i++) {
@@ -781,8 +783,9 @@
             }
           }
         }
-        // All preperations are clear, send the request!
-        xmlPhttp.send(params)
+
+        // Send our FormData
+        xmlPhttp.send(formData)
       }
       return false
     },
