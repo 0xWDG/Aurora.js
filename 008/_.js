@@ -943,6 +943,10 @@
         }
 
         var formData = new FormData(form.elements)
+        for (var pair of formData.entries()) {
+          console.log(pair[0]+ ', ' + pair[1])
+        }
+
         // var elem = form.elements
         var url = form.action
         // var params = ''
