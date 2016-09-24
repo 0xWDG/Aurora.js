@@ -926,9 +926,10 @@
       while (len--) {
         window._lastObj = this[len]
         var xmlPhttp
+        var c
         var change = this[len]
         if (window.XMLHttpRequest) {
-          xmlPhttp = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlPhttp = new window.XMLHttpRequest // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
@@ -941,21 +942,17 @@
           console.log('El #' + i)
           console.log(elem[i])
         }
-//?
         var formData = new FormData(form)
-        console.log('Dumping Data!')
-        var c = 0
         for (var pair of formData.entries()) {
-          console.log(pair[0]+ ', ' + pair[1])
+          console.log(pair[0] + ', ' + pair[1])
           c++
         }
-        console.log('EOF Dumping Data!')
         if (c === 0) {
           console.error('GOT NO VALUES')
         }
 
         // var elem = form.elements
-        var url = form.action
+        // var url = form.action
         // var params = ''
         // var value
         // for (var i = 0; i < elem.length; i++) {
@@ -977,10 +974,9 @@
         // }
         // params += 'AJAXby=' + encodeURIComponent('_.js')
         // if (params) { }
-
-        xmlPhttp.open('POST', url, true)
-        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
+        xmlPhttp.open('POST', form.action, true)
+        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
         xmlPhttp.onload = function (e) {
           console.log(e)
