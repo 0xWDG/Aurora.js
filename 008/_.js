@@ -932,11 +932,14 @@
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
-        console.log('Element = ' + this[len])
-        console.log('Form = ' + form)
+        console.log('Element')
+        console.log(this[len])
+        console.log('Form')
+        console.log(form)
         var elem = form.elements
         for (var i = 0; i < elem.length; i++) {
-          console.log('El #' + i + ' = ' + elem)
+          console.log('El #' + i)
+          console.log(elem)
         }
 
         var formData = new FormData(form.elements)
