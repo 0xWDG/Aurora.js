@@ -974,9 +974,10 @@
         // }
         // params += 'AJAXby=' + encodeURIComponent('_.js')
         // if (params) { }
-        xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
+        
         xmlPhttp.open('POST', form.action, true)
-        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        // xmlPhttp.setRequestHeader('Content-Type', 'multipart/form-data')
+        xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
         xmlPhttp.onload = function (e) {
           console.log(e)
