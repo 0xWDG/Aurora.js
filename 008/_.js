@@ -941,8 +941,12 @@
         for (var i = 0; i < elem.length; i++) {
           if (elem[i].tagName.toLowerCase() === 'select') {
             value = elem[i].options[elem[i].selectedIndex].value
+            //formData.append(name, value);
           } else if (elem[i].type === 'file') {
             formData.append('upload', elem[i].files[0])
+            console.log(elem[i].files[0])
+            console.log(elem[i])
+            console.log(elem[i].files)
           } else {
             value = elem[i].value
           }
@@ -950,7 +954,9 @@
         }
         params += 'AJAXby=' + encodeURIComponent('_.js')
         xmlPhttp.open('POST', url, true)
-        xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        // xmlPhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xmlPhttp.setRequestHeader("Content-Type", "multipart/form-data");
+
         xmlPhttp.onreadystatechange = function () {
           if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
             change.innerHTML = xmlPhttp.responseText
