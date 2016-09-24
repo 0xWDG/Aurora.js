@@ -997,9 +997,9 @@
         }
         // All preperations are clear, send the request!
         // xmlPhttp.send(params)
-        for (var [key, value] of formData.entries()) {
-          console.log(key, value)
-        }
+        // for (var [key, value] of formData.entries()) {
+          // console.log(key, value)
+        // }
 
         xmlPhttp.send(formData)
       }
