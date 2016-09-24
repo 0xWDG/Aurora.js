@@ -932,6 +932,8 @@
         } else {
           xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
+
+        var formData = new FormData()
         var elem = form.elements
         var url = form.action
         var params = ''
@@ -939,6 +941,8 @@
         for (var i = 0; i < elem.length; i++) {
           if (elem[i].tagName.toLowerCase() === 'select') {
             value = elem[i].options[elem[i].selectedIndex].value
+          } else if (elem[i].type === 'file') {
+            formData.append('upload', elem[i].files[0])
           } else {
             value = elem[i].value
           }
