@@ -941,16 +941,18 @@
         for (var i = 0; i < elem.length; i++) {
           if (elem[i].tagName.toLowerCase() === 'select') {
             value = elem[i].options[elem[i].selectedIndex].value
-            //formData.append(name, value);
+            formData.append(elem[i].name, elem[i].options[elem[i].selectedIndex].value)
+            // formData.append(name, value);
           } else if (elem[i].type === 'file') {
             formData.append('upload', elem[i].files[0])
             console.log(elem[i].files[0])
             console.log(elem[i])
             console.log(elem[i].files)
           } else {
-            value = elem[i].value
+            // value = elem[i].value
+            formData.append(elem[i].name, elem[i].options[elem[i].selectedIndex].value)
           }
-          if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
+          // if (value) params += elem[i].name + '=' + encodeURIComponent(value) + '&'
         }
         params += 'AJAXby=' + encodeURIComponent('_.js')
         xmlPhttp.open('POST', url, true)
@@ -975,7 +977,8 @@
           }
         }
         // All preperations are clear, send the request!
-        xmlPhttp.send(params)
+        // xmlPhttp.send(params)
+        xhr.send(formData)
       }
       return false
     },
