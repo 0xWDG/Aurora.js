@@ -1235,7 +1235,7 @@
      * @param string fileURL file url
      * @param object onSize return to function
      * @return null
-     * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {self.alert(size)})
+     * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {window.alert(size)})
      */
     getFileSize: function (fileURL, onSize) {
       var len = this.length
@@ -1525,7 +1525,7 @@
      * @param array arr Array to parse
      * @param function callbackInt Callback function to call
      * @return array
-     * @example _.map(['a', 'b', 'c'], function (i, v) { self.alert('item ' + i + ', value: ' + v);})
+     * @example _.map(['a', 'b', 'c'], function (i, v) { window.alert('item ' + i + ', value: ' + v);})
      */
     map: function (arr, callbackInt) {
       var __ret = []
@@ -1555,8 +1555,8 @@
      * @param array myArr Array to walk trough
      * @param function callbackInt Callback function to call
      * @return array
-     * @example _.each(['a', 'b', 'c'], function (i, v) { self.alert('count ' + i + ', value: ' + v); })
-     * @example _.each({a:'b', c:'d'}, function (i, v) { self.alert('key ' + i + ', value: ' + v); })
+     * @example _.each(['a', 'b', 'c'], function (i, v) { window.alert('count ' + i + ', value: ' + v); })
+     * @example _.each({a:'b', c:'d'}, function (i, v) { window.alert('key ' + i + ', value: ' + v); })
      */
     each: function (myArr, callbackInt) {
       var arr = []
@@ -1642,7 +1642,6 @@
       var tLib = new Library()
       var copy
       for (copy in tLib) {
-        // eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
         // Fix by Sijmen Mulder (https://www.sjmulder.nl | https://github.com/sjmulder)
         _[copy] = tLib[copy]
       }
@@ -1660,7 +1659,6 @@
   var tLib = new Library()
   var copy
   for (copy in tLib) {
-    // eval('_.' + copy + ' = tLib.' + copy + ';') //eslint-disable-line
     // Fix by Sijmen Mulder (https://www.sjmulder.nl | https://github.com/sjmulder)
     _[copy] = tLib[copy]
   }
@@ -1672,10 +1670,12 @@
   // * @var object _
   if (self._ === undefined) {
     self._ = _
+    self._s = _
   } else {
     console.log('[_.JS Warning] We have overwritten self._!')
     var oldJs = self._
     self._ = _
+    self._s = _
   }
 
   // node.js support
