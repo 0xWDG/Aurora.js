@@ -20,27 +20,27 @@
 */
 
 // _ function
-;(function () {
-  // * window._lastObj
+;(function (self) {
+  // * self._lastObj
   // *
   // * Last selected object
   // *
   // * @var object _lastObj
-  window._lastObj = null
+  self._lastObj = null
 
-  // * window._modLoaded
+  // * self._modLoaded
   // *
   // * Wich modules are loaded?
   // *
   // * @var array _modLoaded
-  window._modLoaded = []
+  self._modLoaded = []
 
-  // * window._eventStore
+  // * self._eventStore
   // *
   // * Event store (On.....)
   // *
   // * @var array _eventStore
-  window._eventStore = []
+  self._eventStore = []
 
   // _ returns new Library object that hold our selector. Ex: _('.wrapper')
   var _ = function (params) {
@@ -169,6 +169,93 @@
       '[object Error]': 'error'
     }
 
+    // * this.cconsole
+    // *
+    // * [CLI] Change console colors
+    // *
+    // * @cli
+    // * @since v0.0.8
+    // * @var object console
+    // * @example _.emoij.color.red
+    this.cconsole = {
+      reset: {
+        start: '\u001b[0m',
+        stop: '\u001b[0m'
+      },
+
+      bold: {
+        start: '\u001b[1m',
+        stop: '\u001b[22m' // or 21
+      },
+
+      dim: {
+        start: '\u001b[2m',
+        stop: '\u001b[22m'
+      },
+
+      italic: {
+        start: '\u001b[3m',
+        stop: '\u001b[23m'
+      },
+
+      underline: {
+        start: '\u001b[4m',
+        stop: '\u001b[24m'
+      },
+
+      inverse: {
+        start: '\u001b[7m',
+        stop: '\u001b[27m'
+      },
+
+      hidden: {
+        start: '\u001b[8m',
+        stop: '\u001b[28m'
+      },
+
+      strikethrough: {
+        start: '\u001b[9m',
+        stop: '\u001b[29m'
+      },
+
+      color: {
+        default: '\u001b[39m',
+        standard: '\u001b[39m',
+        black: '\u001b[30m',
+        red: '\u001b[31m',
+        green: '\u001b[32m',
+        yellow: '\u001b[33m',
+        blue: '\u001b[34m',
+        magenta: '\u001b[35m',
+        cyan: '\u001b[36m',
+        white: '\u001b[37m',
+        gray: '\u001b[90m'
+      },
+
+      background: {
+        default: '\u001b[49m',
+        standard: '\u001b[49m',
+        black: '\u001b[40m',
+        red: '\u001b[41m',
+        green: '\u001b[42m',
+        yellow: '\u001b[43m',
+        blue: '\u001b[44m',
+        magenta: '\u001b[45m',
+        cyan: '\u001b[46m',
+        white: '\u001b[47m'
+      }
+    }
+
+    // * _._nav
+    // *
+    // * Browser info
+    // * If present
+    // *
+    // * @since v0.0.8
+    // * @var object _nav
+    // * @internal
+    var _nav = typeof navigator !== 'undefined' ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
+
     // * temp
     // *
     // * Helper
@@ -177,9 +264,9 @@
     // * @since v0.0.7
     // * @var string temp
     // * @internal
-    var temp = navigator.userAgent.split(' ')[navigator.userAgent.split(' ').length - 2].split('/')[0] === 'Chrome'
-      ? navigator.userAgent.split(' ')[navigator.userAgent.split(' ').length - 2].split('/')[0]
-      : navigator.userAgent.split(' ')[navigator.userAgent.split(' ').length - 1].split('/')[0]
+    var temp = _nav.userAgent.split(' ')[_nav.userAgent.split(' ').length - 2].split('/')[0] === 'Chrome'
+      ? _nav.userAgent.split(' ')[_nav.userAgent.split(' ').length - 2].split('/')[0]
+      : _nav.userAgent.split(' ')[_nav.userAgent.split(' ').length - 1].split('/')[0]
 
     // * this.browser
     // *
@@ -189,14 +276,14 @@
     // * @since v0.0.7
     // * @var object browser
     this.browser = {
-      ie: navigator.userAgent.indexOf('Trident'), // Always try to be funnny...
+      ie: _nav.userAgent.indexOf('Trident'), // Always try to be funnny...
       firefox: (temp === 'Firefox'),
       safari: (temp === 'Safari'),
       opera: (temp === 'OPR'),
       edge: (temp === 'Edge'),
       chrome: (temp === 'Chrome'),
-      userAgent: navigator.userAgent,
-      supportTouch: ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)
+      userAgent: _nav.userAgent,
+      supportTouch: ('ontouchstart' in self) || (_nav.maxTouchPoints > 0) || (_nav.msMaxTouchPoints > 0)
     }
 
     // * this.getBrowser
@@ -210,7 +297,7 @@
     // Add selector to object for method chaining
     for (var i = 0; i < this.length; i++) {
       this[i] = selector[i]
-      window._lastObj = selector[i]
+      self._lastObj = selector[i]
     }
 
     // Return as object
@@ -244,12 +331,12 @@
     emulatejQuery: function () {
       // jQuery uses a lot of window elements.
       // $, _$, jQuery and _jQuery!
-      window.$ = window._
-      window._$ = window._
-      window.jQuery = window._
-      window._jQuery = window._
+      self.$ = self._
+      self._$ = self._
+      self.jQuery = self._
+      self._jQuery = self._
       // After setting, just return
-      return window._
+      return self._
     },
 
     /**
@@ -263,16 +350,16 @@
      */
     $: function () {
       // Sometimes we'll also need FUN
-      window.alert('Hi')
+      self.alert('Hi')
 
-      if (window.confirm("Did you know that i'm not jQuery?")) {
-        window.alert('Why did you even try this?')
+      if (self.confirm("Did you know that i'm not jQuery?")) {
+        self.alert('Why did you even try this?')
       } else {
-        window.alert("Nope, i'm not jQuery")
+        self.alert("Nope, i'm not jQuery")
       }
 
       // Super (decodeURIComponent will be lost!)
-      window.alert("Thanks for using '_.js'!\n" +
+      self.alert("Thanks for using '_.js'!\n" +
         decodeURIComponent('%F0%9F%92%99'))
       return
     },
@@ -408,7 +495,7 @@
      */
     setCookie: function (name, value) { // , expires, path, domain, secure
       if (!domain) {
-        var tdomain = window.location.hostname
+        var tdomain = self.location.hostname
         tdomain = domain.split('.')
         var domain = '.'
 
@@ -458,7 +545,7 @@
     deleteCookie: function (name) { // , path, domain
       if (this.getCookie(name)) {
         if (!domain) {
-          var tdomain = window.location.hostname
+          var tdomain = self.location.hostname
           tdomain = domain.split('.')
           var domain = '.'
 
@@ -519,22 +606,22 @@
       if (typeof callback === 'function') {
         while (len--) {
           this[len].addEventListener(myEvent, callback)
-          var tempArr = [(window._eventStore.length + 1), this[len], myEvent, callback]
-          window._eventStore.push(tempArr)
+          var tempArr = [(self._eventStore.length + 1), this[len], myEvent, callback]
+          self._eventStore.push(tempArr)
         }
       } else {
         while (len--) {
           var newArray = []
           var curEvent
-          for (curEvent in window._eventStore) {
-            curEvent = window._eventStore[curEvent]
+          for (curEvent in self._eventStore) {
+            curEvent = self._eventStore[curEvent]
             if (this[len] === curEvent[1] && myEvent === curEvent[2]) {
               curEvent[1].removeEventListener(curEvent[2], curEvent[3])
             } else {
               newArray.push(curEvent)
             }
           }
-          window._eventStore = newArray
+          self._eventStore = newArray
         }
       }
       return null
@@ -744,8 +831,8 @@
       if (typeof local === 'undefined') local = false
       if (typeof jsArray === 'object') {
         for (var i = jsArray.length - 1; i >= 0; i--) {
-          if (window._modLoaded.indexOf(jsArray[i]) === -1) {
-            window._modLoaded.push(jsArray[i])
+          if (self._modLoaded.indexOf(jsArray[i]) === -1) {
+            self._modLoaded.push(jsArray[i])
             if (!jsArray[i].match(/\.js/g)) {
               jsArray[i] = jsArray[i] + '.js'
             }
@@ -769,8 +856,8 @@
           }
         }
       } else if (typeof (jsArray) === 'string') {
-        if (window._modLoaded.indexOf(jsArray) === -1) {
-          window._modLoaded.push(jsArray)
+        if (self._modLoaded.indexOf(jsArray) === -1) {
+          self._modLoaded.push(jsArray)
           if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
           if (this.startsWith(jsArray, '_') && !local) {
             jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
@@ -841,7 +928,7 @@
     hide: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].style.display = 'none'
       }
       return this
@@ -862,7 +949,7 @@
     html: function (data, append) {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         if (typeof data === 'undefined') {
           return this[len].innerHTML
         } else if (typeof append === 'undefined') {
@@ -886,7 +973,7 @@
     show: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].style.display = 'block'
       }
       return this
@@ -902,8 +989,8 @@
      * @example _.framebreak()
      */
     framebreak: function () {
-      if (window.top.location !== window.location) {
-        window.top.location.href = document.location.href
+      if (self.top.location !== self.location) {
+        self.top.location.href = document.location.href
       }
       return false
     },
@@ -924,13 +1011,13 @@
     ajaxPOST: function (form, callback) {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         var xmlPhttp
         var change = this[len]
-        if (window.XMLHttpRequest) {
-          xmlPhttp = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+        if (self.XMLHttpRequest) {
+          xmlPhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
-          xmlPhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
+          xmlPhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
 
         // Add form to FormData
@@ -987,15 +1074,15 @@
     ajax: function (url, options) {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
 
         var xmlhttp
         var change = this[len]
 
-        if (window.XMLHttpRequest) {
-          xmlhttp = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+        if (self.XMLHttpRequest) {
+          xmlhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
-          xmlhttp = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
+          xmlhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
 
         xmlhttp.onreadystatechange = function () {
@@ -1036,7 +1123,7 @@
      */
     noConflict: function () {
       if (typeof oldJs === 'object') {
-        window._ = oldJs
+        self._ = oldJs
       }
 
       return _
@@ -1052,8 +1139,8 @@
      * @example _.isLocal()
      */
     isLocal: function () {
-      if (window.location.protocol !== 'file:') {
-        if (!window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
+      if (self.location.protocol !== 'file:') {
+        if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
           return false
         } else {
           return true
@@ -1073,9 +1160,9 @@
      * @example _.requireSSL()
      */
     requireSSL: function () {
-      if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:') {
-        if (!window.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-          window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
+      if (self.location.protocol !== 'https:' && self.location.protocol !== 'file:') {
+        if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
+          self.location.href = 'https:' + self.location.href.substring(self.location.protocol.length)
         }
       }
       return
@@ -1148,16 +1235,16 @@
      * @param string fileURL file url
      * @param object onSize return to function
      * @return null
-     * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {window.alert(size)})
+     * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {self.alert(size)})
      */
     getFileSize: function (fileURL, onSize) {
       var len = this.length
       while (len--) {
         var xhr
-        if (window.XMLHttpRequest) {
-          xhr = new window.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+        if (self.XMLHttpRequest) {
+          xhr = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
         } else {
-          xhr = new window.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
+          xhr = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
         }
         xhr.open('HEAD', fileURL, true)
         xhr.onreadystatechange = function () {
@@ -1195,7 +1282,7 @@
     stripTags: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '')
       }
       return null
@@ -1213,7 +1300,7 @@
     stripScripts: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '')
       }
       return null
@@ -1232,9 +1319,9 @@
     css: function (read, write) {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         if (this.isUndefined(write)) { // Read
-          return window.getComputedStyle(this[len]).getPropertyValue(read)
+          return self.getComputedStyle(this[len]).getPropertyValue(read)
         } else { // Write
           var _read = read
           _read = _read.replace(/-/g, '')
@@ -1405,7 +1492,7 @@
     scrollToBottom: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].scrollTop = this[len].scrollHeight
       }
       return true
@@ -1423,7 +1510,7 @@
     scrollToTop: function () {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
         this[len].scrollTop = 0
       }
       return true
@@ -1438,7 +1525,7 @@
      * @param array arr Array to parse
      * @param function callbackInt Callback function to call
      * @return array
-     * @example _.map(['a', 'b', 'c'], function (i, v) { window.alert('item ' + i + ', value: ' + v);})
+     * @example _.map(['a', 'b', 'c'], function (i, v) { self.alert('item ' + i + ', value: ' + v);})
      */
     map: function (arr, callbackInt) {
       var __ret = []
@@ -1468,8 +1555,8 @@
      * @param array myArr Array to walk trough
      * @param function callbackInt Callback function to call
      * @return array
-     * @example _.each(['a', 'b', 'c'], function (i, v) { window.alert('count ' + i + ', value: ' + v); })
-     * @example _.each({a:'b', c:'d'}, function (i, v) { window.alert('key ' + i + ', value: ' + v); })
+     * @example _.each(['a', 'b', 'c'], function (i, v) { self.alert('count ' + i + ', value: ' + v); })
+     * @example _.each({a:'b', c:'d'}, function (i, v) { self.alert('key ' + i + ', value: ' + v); })
      */
     each: function (myArr, callbackInt) {
       var arr = []
@@ -1525,7 +1612,7 @@
     truncate: function (length, truncation) {
       var len = this.length
       while (len--) {
-        window._lastObj = this[len]
+        self._lastObj = this[len]
 
         length = length || 30
 
@@ -1578,28 +1665,34 @@
     _[copy] = tLib[copy]
   }
 
-  // * window._
+  // * self._
   // *
   // * Assign our _ object to global window object.
   // *
   // * @var object _
-  if (window._ === undefined) {
-    window._ = _
+  if (self._ === undefined) {
+    self._ = _
   } else {
-    console.log('[_.JS Warning] We have overwritten window._!')
-    var oldJs = window._
-    window._ = _
+    console.log('[_.JS Warning] We have overwritten self._!')
+    var oldJs = self._
+    self._ = _
+  }
+
+  // node.js support
+  if (typeof exports !== 'undefined') {
+    module.exports = _
   }
 
   // And return
   return _
+})(typeof exports === 'undefined' ? window : module.exports)
 
-})() //eslint-disable-line
-
-// Add Event!
-var _JSLoaded = document.createEvent('CustomEvent')
-_JSLoaded.initEvent('_.jsLoaded', !0, !0, {})
-window.dispatchEvent(_JSLoaded)
+// Add Event! (if not using via Node.js)
+if (typeof exports === 'undefined') {
+  var _JSLoaded = document.createEvent('CustomEvent')
+  _JSLoaded.initEvent('_.jsLoaded', !0, !0, { })
+  window.dispatchEvent(_JSLoaded)
+}
 
 // Please. please.
 // Somethimes we'll need to use eslint-disable-line
