@@ -169,6 +169,7 @@ foreach ($functions as $functionName => $functionValue)
 		
 		# Terrible code... (did i say it before?)
 	    $needsWrapper  = true;
+	    $isCLIOnly     = false;
 		$isDeprecated  = false;
 		$toDo          = false;
 		$isNew         = false;
@@ -192,6 +193,11 @@ foreach ($functions as $functionName => $functionValue)
 			$a_data = explode("@", $functionValue['annotation'][$i]);
 			$a_data = "@".$a_data[1];			
 			$a_data = explode(" ", $a_data);
+
+			if ($a_data[0] == "@cli")
+			{
+				$isCLIOnly  = true;
+			}
 
 			if ($a_data[0] == "@deprecated")
 			{
@@ -287,6 +293,8 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
 		 $extra                = null;
+		 if ( $isCLIOnly )
+		 	$extra            .= "\r\n#### CLI Only\r\nThis function is only for the Command Line Interface!\r\n\r\n<br>\r\n";
 		 if ( $isDeprecated )
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
 		 //⛔️

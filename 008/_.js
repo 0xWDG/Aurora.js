@@ -54,7 +54,7 @@
     // * We'll gonna set the selector
     // *
     // * @var object selector
-    var selector = typeof params === 'undefined' ? [] : (params.indexOf('>') === -1) ? document.querySelectorAll(params) : []
+    var selector = typeof exports !== 'undefined' || typeof params === 'undefined' ? [] : (params.indexOf('>') === -1) ? document.querySelectorAll(params) : []
 
     // * this.lenth
     // *
@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r160916'
+    this.revision = 'r161101'
 
     // * this.fullversion
     // *
@@ -136,6 +136,15 @@
     // *
     // * @var string JSONRX
     this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/' //eslint-disable-line
+
+    // * this.nodeJS
+    // *
+    // * Do we run in nodeJS?
+    // *
+    // * @since v0.0.8
+    // * @var object nodeJS
+    // * @example _.nodeJS
+    this.nodeJS = (typeof exports !== 'undefined')
 
     // * this.emoij
     // *
@@ -219,7 +228,6 @@
       },
 
       color: {
-        default: '\u001b[39m',
         standard: '\u001b[39m',
         black: '\u001b[30m',
         red: '\u001b[31m',
@@ -233,7 +241,6 @@
       },
 
       background: {
-        default: '\u001b[49m',
         standard: '\u001b[49m',
         black: '\u001b[40m',
         red: '\u001b[41m',
@@ -254,7 +261,7 @@
     // * @since v0.0.8
     // * @var object _nav
     // * @internal
-    var _nav = typeof navigator !== 'undefined' ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
+    var _nav = !this.nodeJS ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
 
     // * temp
     // *
@@ -276,7 +283,7 @@
     // * @since v0.0.7
     // * @var object browser
     this.browser = {
-      ie: _nav.userAgent.indexOf('Trident'), // Always try to be funnny...
+      ie: (_nav.userAgent.indexOf('Trident') !== -1), // Always try to be funnny...
       firefox: (temp === 'Firefox'),
       safari: (temp === 'Safari'),
       opera: (temp === 'OPR'),
@@ -348,19 +355,26 @@
      * @return this
      * @example _.$()
      */
-    $: function () {
+    $: function (x) {
       // Sometimes we'll also need FUN
-      self.alert('Hi')
+      if (!this.nodeJS) {
+        self.alert('Hi')
 
-      if (self.confirm("Did you know that i'm not jQuery?")) {
-        self.alert('Why did you even try this?')
+        if (self.confirm("Did you know that i'm not jQuery?")) {
+          self.alert('Why did you even try this?')
+        } else {
+          self.alert("Nope, i'm not jQuery")
+        }
+
+        // Super (decodeURIComponent will be lost!)
+        self.alert("Thanks for using '_.js'!\n" +
+          decodeURIComponent('%F0%9F%92%99'))
       } else {
-        self.alert("Nope, i'm not jQuery")
+        if (x !== 'TEST') {
+          console.log("Thanks for using '_.js'!\n" +
+            decodeURIComponent('%F0%9F%92%99'))
+        }
       }
-
-      // Super (decodeURIComponent will be lost!)
-      self.alert("Thanks for using '_.js'!\n" +
-        decodeURIComponent('%F0%9F%92%99'))
       return
     },
 
@@ -445,7 +459,8 @@
      * @example _.isArray(['my', 'array'])
      */
     isArray: function (obj) {
-      return obj.isArray || (this.type(obj) === 'array')
+      // Since node.js cannot handle isArray if a item is NOT an array
+      return (!this.nodeJS ? obj.isArray : false) || (this.type(obj) === 'array')
     },
 
     /**
@@ -459,24 +474,28 @@
      * @example _.getCookie('Cookiemonster')
      */
     getCookie: function (name) {
-      var start = document.cookie.indexOf(name + '=')
-      var len = start + name.length + 1
+      if (!this.nodeJS) {
+        var start = document.cookie.indexOf(name + '=')
+        var len = start + name.length + 1
 
-      if ((!start) && (name !== document.cookie.substring(0, name.length))) {
-        return null
+        if ((!start) && (name !== document.cookie.substring(0, name.length))) {
+          return null
+        }
+
+        if (start === -1) {
+          return null
+        }
+
+        var end = document.cookie.indexOf(';', len)
+
+        if (end === -1) {
+          end = document.cookie.length
+        }
+
+        return unescape(document.cookie.substring(len, end))
+      } else {
+        return false
       }
-
-      if (start === -1) {
-        return null
-      }
-
-      var end = document.cookie.indexOf(';', len)
-
-      if (end === -1) {
-        end = document.cookie.length
-      }
-
-      return unescape(document.cookie.substring(len, end))
     },
 
     /**
@@ -494,40 +513,48 @@
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
     setCookie: function (name, value) { // , expires, path, domain, secure
-      if (!domain) {
-        var tdomain = self.location.hostname
-        tdomain = domain.split('.')
-        var domain = '.'
+      if (!this.nodeJS) {
+        if (!domain) {
+          var tdomain = self.location.hostname
+          tdomain = domain.split('.')
+          var domain = '.'
 
-        for (var i = 1; i < tdomain.lenth; i++) {
-          domain += tdomain[i]
+          for (var i = 1; i < tdomain.lenth; i++) {
+            domain += tdomain[i]
+          }
         }
-      }
 
-      var today = new Date()
-      today.setTime(today.getTime())
-      if (typeof expires !== typeof 'String') {
-        var expires = 1
-      }
-      if (typeof path !== typeof 'String') {
-        var path = '/'
-      }
-      if (typeof secure !== typeof false) {
-        var secure = false
-      }
-      if (expires) {
-        expires = expires * 1000 * 60 * 60 * 24
-      }
+        var today = new Date()
+        today.setTime(today.getTime())
 
-      var expiresDate = new Date(today.getTime() + expires)
+        if (typeof expires !== typeof 'String') {
+          var expires = 1
+        }
 
-      document.cookie = name + '=' + escape(value) +
-        ((expires) ? ';expires=' + expiresDate.toGMTString() : '') + // expires.toGMTString()
-        ((path) ? ';path=' + path : '') +
-        ((domain) ? ';domain=' + domain : '') +
-        ((secure) ? ';secure' : '')
+        if (typeof path !== typeof 'String') {
+          var path = '/'
+        }
 
-      return null
+        if (typeof secure !== typeof false) {
+          var secure = false
+        }
+
+        if (expires) {
+          expires = expires * 1000 * 60 * 60 * 24
+        }
+
+        var expiresDate = new Date(today.getTime() + expires)
+
+        document.cookie = name + '=' + escape(value) +
+          ((expires) ? ';expires=' + expiresDate.toGMTString() : '') + // expires.toGMTString()
+          ((path) ? ';path=' + path : '') +
+          ((domain) ? ';domain=' + domain : '') +
+          ((secure) ? ';secure' : '')
+
+        return null
+      } else {
+        return false
+      }
     },
 
     /**
@@ -543,22 +570,26 @@
      * @example _.getCookie('Cookiemonster')
      */
     deleteCookie: function (name) { // , path, domain
-      if (this.getCookie(name)) {
-        if (!domain) {
-          var tdomain = self.location.hostname
-          tdomain = domain.split('.')
-          var domain = '.'
+      if (!this.nodeJS) {
+        if (this.getCookie(name)) {
+          if (!domain) {
+            var tdomain = self.location.hostname
+            tdomain = domain.split('.')
+            var domain = '.'
 
-          for (var i = 1; i < tdomain.lenth; i++) {
-            domain += tdomain[i]
+            for (var i = 1; i < tdomain.lenth; i++) {
+              domain += tdomain[i]
+            }
           }
-        }
 
-        document.cookie = name + '=' +
-          // ((path) ? ';path=' + path : '') +
-          // ((domain) ? ';domain=' + domain : '') +
-          ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
-        return true
+          document.cookie = name + '=' +
+            // ((path) ? ';path=' + path : '') +
+            // ((domain) ? ';domain=' + domain : '') +
+            ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
+          return true
+        } else {
+          return false
+        }
       } else {
         return false
       }
@@ -575,16 +606,20 @@
      * @example _('.hideOrShowMe').toggle()
      */
     toggle: function () {
-      var len = this.length
-      while (len--) {
-        if (this[len].style.display !== 'none') {
-          this[len].style.display = 'none'
-        } else {
-          this[len].style.display = ''
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          if (this[len].style.display !== 'none') {
+            this[len].style.display = 'none'
+          } else {
+            this[len].style.display = ''
+          }
         }
-      }
 
-      return null
+        return null
+      } else {
+        return false
+      }
     },
 
     /**
@@ -602,29 +637,33 @@
      * @example _('.wrapper').on('mousemove', true); // Remove.
      */
     on: function (myEvent, callback) {
-      var len = this.length
-      if (typeof callback === 'function') {
-        while (len--) {
-          this[len].addEventListener(myEvent, callback)
-          var tempArr = [(self._eventStore.length + 1), this[len], myEvent, callback]
-          self._eventStore.push(tempArr)
-        }
-      } else {
-        while (len--) {
-          var newArray = []
-          var curEvent
-          for (curEvent in self._eventStore) {
-            curEvent = self._eventStore[curEvent]
-            if (this[len] === curEvent[1] && myEvent === curEvent[2]) {
-              curEvent[1].removeEventListener(curEvent[2], curEvent[3])
-            } else {
-              newArray.push(curEvent)
-            }
+      if (!this.nodeJS) {
+        var len = this.length
+        if (typeof callback === 'function') {
+          while (len--) {
+            this[len].addEventListener(myEvent, callback)
+            var tempArr = [(self._eventStore.length + 1), this[len], myEvent, callback]
+            self._eventStore.push(tempArr)
           }
-          self._eventStore = newArray
+        } else {
+          while (len--) {
+            var newArray = []
+            var curEvent
+            for (curEvent in self._eventStore) {
+              curEvent = self._eventStore[curEvent]
+              if (this[len] === curEvent[1] && myEvent === curEvent[2]) {
+                curEvent[1].removeEventListener(curEvent[2], curEvent[3])
+              } else {
+                newArray.push(curEvent)
+              }
+            }
+            self._eventStore = newArray
+          }
         }
+        return null
+      } else {
+        return false
       }
-      return null
     },
 
     /**
@@ -650,10 +689,10 @@
      * @example _.supportTouch()
      */
     supportTouch: function () {
-      return (
-      ('ontouchstart' in window) ||
-      (navigator.maxTouchPoints > 0) ||
-      (navigator.msMaxTouchPoints > 0)
+      return this.nodeJS ? false : (
+        ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0)
       )
     },
 
@@ -669,16 +708,21 @@
      * @example _("<b>Hi!</b>").appendTo(".inner")
      */
     appendTo: function (to) {
-      if (to === 'body') {
-        document.body.innerHTML += this.param
-      } else if (to === 'head') {
-        document.head.innerHTML += this.param
-      } else if (to.substr(0, 1) === '.' || to.substr(0, 1) === '#') {
-        _(to).html(this.param, true)
+      if (!this.nodeJS) {
+        if (to === 'body') {
+          document.body.innerHTML += this.param
+        } else if (to === 'head') {
+          document.head.innerHTML += this.param
+        } else if (to.substr(0, 1) === '.' || to.substr(0, 1) === '#') {
+          _(to).html(this.param, true)
+        } else {
+          this._error('appendTo')
+        }
+
+        return null
       } else {
-        this._error('appendTo')
+        return false
       }
-      return null
     },
 
     /**
@@ -698,20 +742,22 @@
      * @example _.error('#MyModule#MyFunction', 'Message')
      */
     _error: function (functionname, message) {
-      if (typeof message === 'undefined') {
-        console.error('_.js Error: Invalid usage of function')
-      } else {
-        console.error('_.js Error: ' + message)
-      }
-
-      if (!this.startsWith(functionname, '#')) {
-        if (!this.isBeta) {
-          console.error('Please see: https://github.com/wdg/_.js/wiki/function_' + functionname)
+      if (functionname !== '#IGNORE#ME') {
+        if (typeof message === 'undefined') {
+          console.error('_.js Error: Invalid usage of function')
         } else {
-          console.error('Please see: https://github.com/wdg/_.js/wiki/flbeta_function_' + functionname)
+          console.error('_.js Error: ' + message)
         }
-      } else {
-        console.error('Please see: https://github.com/wdg/_.js/wiki/module_' + functionname.substr(1))
+
+        if (!this.startsWith(functionname, '#')) {
+          if (!this.isBeta) {
+            console.error('Please see: https://github.com/wdg/_.js/wiki/function_' + functionname)
+          } else {
+            console.error('Please see: https://github.com/wdg/_.js/wiki/flbeta_function_' + functionname)
+          }
+        } else {
+          console.error('Please see: https://github.com/wdg/_.js/wiki/module_' + functionname.substr(1))
+        }
       }
 
       return null
@@ -828,55 +874,60 @@
      * @example _.require(['a', 'r', 'ra', 'y'], function () { doSomeThing(); })
      */
     require: function (jsArray, Callback, local) {
-      if (typeof local === 'undefined') local = false
-      if (typeof jsArray === 'object') {
-        for (var i = jsArray.length - 1; i >= 0; i--) {
-          if (self._modLoaded.indexOf(jsArray[i]) === -1) {
-            self._modLoaded.push(jsArray[i])
-            if (!jsArray[i].match(/\.js/g)) {
-              jsArray[i] = jsArray[i] + '.js'
+      if (!this.nodeJS) {
+        if (typeof local === 'undefined') local = false
+        if (typeof jsArray === 'object') {
+          for (var i = jsArray.length - 1; i >= 0; i--) {
+            if (self._modLoaded.indexOf(jsArray[i]) === -1) {
+              self._modLoaded.push(jsArray[i])
+              if (!jsArray[i].match(/\.js/g)) {
+                jsArray[i] = jsArray[i] + '.js'
+              }
+              if (this.startsWith(jsArray[i], '_') && !local) {
+                jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+              }
+              var script = document.createElement('script')
+              script.type = 'text/javascript'
+              script.src = jsArray[i]
+              if (i === 1) {
+                scriptOne.onreadystatechange = ''
+                scriptOne.onload = setTimeout(function (Callback) {
+                  _._copy_js()
+                  Callback()
+                }, 10, Callback)
+              }
+              document.head.appendChild(script)
+            } else {
+              _._copy_js()
+              Callback()
             }
-            if (this.startsWith(jsArray[i], '_') && !local) {
-              jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+          }
+        } else if (typeof (jsArray) === 'string') {
+          if (self._modLoaded.indexOf(jsArray) === -1) {
+            self._modLoaded.push(jsArray)
+            if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
+            if (this.startsWith(jsArray, '_') && !local) {
+              jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
             }
-            var script = document.createElement('script')
-            script.type = 'text/javascript'
-            script.src = jsArray[i]
-            if (i === 1) {
-              scriptOne.onreadystatechange = ''
-              scriptOne.onload = setTimeout(function (Callback) {
-                _._copy_js()
-                Callback()
-              }, 10, Callback)
-            }
-            document.head.appendChild(script)
+            var scriptOne = document.createElement('script')
+            scriptOne.type = 'text/javascript'
+            scriptOne.src = jsArray
+            scriptOne.onreadystatechange = ''
+            scriptOne.onload = setTimeout(function (Callback) {
+              _._copy_js()
+              Callback()
+            }, 10, Callback)
+            document.head.appendChild(scriptOne)
           } else {
             _._copy_js()
             Callback()
           }
-        }
-      } else if (typeof (jsArray) === 'string') {
-        if (self._modLoaded.indexOf(jsArray) === -1) {
-          self._modLoaded.push(jsArray)
-          if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-          if (this.startsWith(jsArray, '_') && !local) {
-            jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
-          }
-          var scriptOne = document.createElement('script')
-          scriptOne.type = 'text/javascript'
-          scriptOne.src = jsArray
-          scriptOne.onreadystatechange = ''
-          scriptOne.onload = setTimeout(function (Callback) {
-            _._copy_js()
-            Callback()
-          }, 10, Callback)
-          document.head.appendChild(scriptOne)
         } else {
-          _._copy_js()
-          Callback()
+          console.error('Please use only a array, or a string.')
         }
       } else {
-        console.error('Please use only a array, or a string.')
+        // NEED A WAY TO REQUIRE EXTENSIONS WITH USE OF NODE.JS
+        // ...
       }
       return null
     },
@@ -926,12 +977,16 @@
      * @example _('.wrapper').hide()
      */
     hide: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].style.display = 'none'
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'none'
+        }
+        return this
+      } else {
+        return false
       }
-      return this
     },
 
     /**
@@ -1626,6 +1681,10 @@
       return true
     },
 
+    _CLIAlert: function alert (x) {
+      document.write(x)
+    },
+
     /**
      * _copy_js
      *
@@ -1688,7 +1747,7 @@
 })(typeof exports === 'undefined' ? window : module.exports)
 
 // Add Event! (if not using via Node.js)
-if (typeof exports === 'undefined') {
+if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined') {
   var _JSLoaded = document.createEvent('CustomEvent')
   _JSLoaded.initEvent('_.jsLoaded', !0, !0, { })
   window.dispatchEvent(_JSLoaded)
@@ -1702,3 +1761,4 @@ if (typeof exports === 'undefined') {
 // For reading the full source code.
 // if you have questions, please go to:
 // -> https://github.com/wdg/_.js/issues
+
