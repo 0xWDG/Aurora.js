@@ -52,63 +52,204 @@ function __RunTest (i, x) {
   }
 }
 
+// Since we've never gonna call a object in Node.js this will always be undefined.
+// We still put the test in
 __RunTest('_._lastObj', undefined)
-__RunTest('_._modLoaded', undefined)
-__RunTest('_._eventStore', undefined)
-__RunTest('_.length', 1)
-__RunTest('_.params', undefined)
-__RunTest('_.version', _.version)
-__RunTest('_.revision', _.revision)
-__RunTest('_.fullversion', _.fullversion)
-__RunTest('_.isBeta', _.isBeta)
-__RunTest('_.isAlpha', _.isAlpha) // WILL BE REMOVED!!!
-__RunTest('_.isCompiled', _.isCompiled)
-__RunTest('_.isStable', _.isStable)
-__RunTest('_.nodeJS', true)
-__RunTest('_.ScriptRX', _.ScriptRX)
-__RunTest('_.JSONRX', _.JSONRX)
-__RunTest('_.emoij.nerd', '🤓')
-__RunTest('_.emoij.smilie', '😃')
-__RunTest('_.emoij.dsmilie', '😀')
-__RunTest('_.emoij.heart', '❤️')
-__RunTest('_.emoij.brokenheart', '💔')
-__RunTest('_.browser[\'ie\']', false)
-__RunTest('_.browser[\'firefox\']', false)
-__RunTest('_.browser[\'safari\']', false)
-__RunTest('_.browser[\'opera\']', false)
-__RunTest('_.browser[\'edge\']', false)
-__RunTest('_.browser[\'chrome\']', false)
-__RunTest('_.browser[\'userAgent\']', 'Node.js Node.js Node.js')
-__RunTest('_.browser[\'supportTouch\']', false)
-__RunTest('_.getBrowser', 'Node.js')
-__RunTest('_.$(\'TEST\')', 'undefined')
-__RunTest('_.extend(true, {apple:0, chicken:{weight:52, price:100}, cherry:97},{chicken:{price:200}, durian:100})', '[object Object]')
-__RunTest('_.isArray([])', true)
-__RunTest('_.isArray(null)', false)
-__RunTest('_.getCookie(\'Cookiemonster\')', false)
-__RunTest('_.setCookie(\'Cookiemonster\', \'Cookiemonster is cool\')', false)
-__RunTest('_.getCookie(\'Cookiemonster\')', false)
-__RunTest('_(\'.x\').toggle()', false)
-__RunTest('_(\'.x\').on(\'click\', function (){console.log(\'clicked on x\')})', false)
-__RunTest('_.noop()', undefined)
-__RunTest('_.supportTouch()', false)
-__RunTest('_("<b>Hi!</b>").appendTo(".inner")', false)
-__RunTest('_._error(\'#IGNORE#ME\', \'SOME TERRIBLE THING HAPPENED!\')', null)
-// __RunTest('_.error(\'XYX\')', false)
-__RunTest('_.isFunction(function () {})', true)
-__RunTest('_.isFunction(false)', false)
-__RunTest('_.type(function () { })', 'function')
-__RunTest('_.type({})', 'object')
-__RunTest('_.type([])', 'array')
-__RunTest('_.escapeForRegex(\'myPotensialRege\\\\\\\'xUnSafeString\')', 'myPotensialRege\\\\\'xUnSafeString')
-__RunTest('_.isPlainObject(function () {})', false)
-__RunTest('_.isPlainObject({})', true)
-__RunTest('_.isPlainObject([])', false)
-__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
-__RunTest('_.format(\'my %s\', \'wesley\')', 'my wesley')
-__RunTest('_(\'.wrapper\').hide()', false)
-__RunTest('TOTAL', 'TOTAL')
-var x = _.browser['userAgent']
-console.log(_.cconsole.color.yellow + x)
-console.log(_.cconsole.color.yellow + typeof x)
 
+// We can't load modules in Node.js right now
+// ... i am looking for a solution for this problem
+__RunTest('_._modLoaded', undefined)
+
+// We don't have a eventStore for Node.js
+// it's simply not neccecary
+__RunTest('_._eventStore', undefined)
+
+// We don't have a length so we'll return 1
+// 1 = basic
+__RunTest('_.length', 1)
+
+// We didn't call with params
+// So we'll got none
+__RunTest('_.params', undefined)
+
+// We did call with params
+// Really?, Nope!
+__RunTest('_(\'.MyParam\').params', undefined)
+
+// What version are we running?
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.version', _.version)
+
+// What revision are we running?
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.revision', _.revision)
+
+// Please let me see the full version
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.fullversion', _.fullversion)
+
+// Are we running a Beta version?
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.isBeta', _.isBeta)
+
+// Are we running a Alpha version? (DEPRECTATED)
+// Removed in v1.0.0
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.isAlpha', _.isAlpha) // WILL BE REMOVED!!!
+
+// Is this version the 'compiled' one?
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.isCompiled', _.isCompiled)
+
+// Is this version Stable?
+// Since this test is also for future versions we only check via eval()'d code
+__RunTest('_.isStable', _.isStable)
+
+// Are we running in Node.js?
+// Guess the answer!
+__RunTest('_.nodeJS', true)
+
+// This is a fancy one,
+// This is a REGEX string to check if there is a <script> tag
+__RunTest('_.ScriptRX', _.ScriptRX)
+
+// Another fany one,
+// This is a REGEX string to check if it is JSON
+__RunTest('_.JSONRX', _.JSONRX)
+
+// We are so emotional that we'll need to support Emoijs
+__RunTest('_.emoij.nerd', '🤓')
+
+// We are so emotional that we'll need to support Emoijs
+__RunTest('_.emoij.smilie', '😃')
+
+// We are so emotional that we'll need to support Emoijs
+__RunTest('_.emoij.dsmilie', '😀')
+
+// We are so emotional that we'll need to support Emoijs
+__RunTest('_.emoij.heart', '❤️')
+
+// We are so emotional that we'll need to support Emoijs
+__RunTest('_.emoij.brokenheart', '💔')
+
+// Are we running on Internet Explorer
+// No, We are in Node.js
+__RunTest('_.browser[\'ie\']', false)
+
+// Are we running on Firefox
+// No, We are in Node.js
+__RunTest('_.browser[\'firefox\']', false)
+
+// Are we running on Safari
+// No, We are in Node.js
+__RunTest('_.browser[\'safari\']', false)
+
+// Are we running on Opera
+// No, We are in Node.js
+__RunTest('_.browser[\'opera\']', false)
+
+// Are we running on Edge
+// No, We are in Node.js
+__RunTest('_.browser[\'edge\']', false)
+
+// Are we running on (Google) Chrome
+// No, We are in Node.js
+__RunTest('_.browser[\'chrome\']', false)
+
+// What is our (fake) User-Agent?
+__RunTest('_.browser[\'userAgent\']', 'Node.js Node.js Node.js')
+
+// Do we support touch (touchscreen based)
+__RunTest('_.browser[\'supportTouch\']', false)
+
+// What browser are we using?
+__RunTest('_.getBrowser', 'Node.js')
+
+// jQuery call ;)
+// Try _.$() in your browser
+__RunTest('_.$(\'TEST\')', 'undefined')
+
+// Try to extend
+__RunTest('_.extend(true, {apple:0, chicken:{weight:52, price:100}, cherry:97},{chicken:{price:200}, durian:100})', '[object Object]')
+
+// Is it an Array?
+__RunTest('_.isArray([])', true)
+
+// Is it an Array?
+__RunTest('_.isArray(null)', false)
+
+// Get the cookie value
+__RunTest('_.getCookie(\'Cookiemonster\')', false)
+
+// Set the cookie value
+__RunTest('_.setCookie(\'Cookiemonster\', \'Cookiemonster is cool\')', false)
+
+// Delete the cookie
+__RunTest('_.getCookie(\'Cookiemonster\')', false)
+
+// Toggle (between display: none; and display: block)
+__RunTest('_(\'.x\').toggle()', false)
+
+// On ...
+// ... Click!
+__RunTest('_(\'.x\').on(\'click\', function (){console.log(\'clicked on x\')})', false)
+
+// This is just for handling errors, does nothing at all
+// code is
+// noop: function () { }
+__RunTest('_.noop()', undefined)
+
+// Do we support touch?
+__RunTest('_.supportTouch()', false)
+
+// Append text?
+// Failed, we are not in a browser
+__RunTest('_("<b>Hi!</b>").appendTo(".inner")', false)
+
+// Throw an error
+__RunTest('_._error(\'#IGNORE#ME\', \'SOME TERRIBLE THING HAPPENED!\')', null)
+
+// This one doesn't work yet on Node.js
+// __RunTest('_.error(\'XYX\')', false)
+
+// Is it a function?
+__RunTest('_.isFunction(function () {})', true)
+
+// Is it a function?
+__RunTest('_.isFunction(false)', false)
+
+// What type object is this?
+__RunTest('_.type(function () { })', 'function')
+
+// What type object is this?
+__RunTest('_.type({})', 'object')
+
+// What type object is this?
+__RunTest('_.type([])', 'array')
+
+// Escape a potential unsafe string for Regex
+__RunTest('_.escapeForRegex(\'myPotensialRege\\\\\\\'xUnSafeString\')', 'myPotensialRege\\\\\'xUnSafeString')
+
+// Is it a plain object?
+__RunTest('_.isPlainObject(function () {})', false)
+
+// Is it a plain object?
+__RunTest('_.isPlainObject({})', true)
+
+// Is it a plain object?
+__RunTest('_.isPlainObject([])', false)
+
+// Require
+// ... Does not work yet on Node.js
+__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+
+// Format code
+// like sprintf(...)
+__RunTest('_.format(\'my %s\', \'wesley\')', 'my wesley')
+
+// Hide this wrapper
+// if we are a browser...
+__RunTest('_(\'.wrapper\').hide()', false)
+
+// Display test Results!
+__RunTest('TOTAL', 'TOTAL')
