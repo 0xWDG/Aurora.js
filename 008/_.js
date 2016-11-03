@@ -778,10 +778,10 @@
      *
      * @internal
      * @universal function
-     * @param what what function?
-     * @param since since when?
-     * @param endoflife EOL in version?
-     * @param [alternative] is there a alternative?
+     * @param string what what function?
+     * @param string since since when?
+     * @param string endoflife EOL in version?
+     * @param string [alternative] is there a alternative?
      * @return null
      * @example _.error('Message')
      */
