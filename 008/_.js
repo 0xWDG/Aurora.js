@@ -776,6 +776,7 @@
      *
      * Throw a warning when a function is deprecated
      *
+     * @internal
      * @universal function
      * @param what what function?
      * @param since since when?
