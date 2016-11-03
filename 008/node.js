@@ -252,5 +252,22 @@ __RunTest('_.format(\'my %s\', \'wesley\')', 'my wesley')
 // if we are a browser...
 __RunTest('_(\'.wrapper\').hide()', false)
 
+__RunTest('_(\'.wrapper\').html(\'xxxx\')', false)
+__RunTest('_(\'.wrapper\').html(\'xxxx\', true)', false)
+__RunTest('_(\'.wrapper\').html()', false)
+
+__RunTest('_(\'.wrapper\').show()', false)
+
+__RunTest('_.framebreak()', false)
+
+// if (!this.nodeJS) {
+//   Execute code
+// } else {
+//   return false
+// }
+
+// 🖥 CLI ONLY
+// 🌍 / 🌐 UNIVERSAL
+// 🕸 WEB ONLY
 // Display test Results!
 __RunTest('TOTAL', 'TOTAL')

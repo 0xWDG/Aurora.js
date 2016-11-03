@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r161101'
+    this.revision = 'r161103'
 
     // * this.fullversion
     // *
@@ -182,7 +182,7 @@
     // *
     // * [CLI] Change console colors
     // *
-    // * @cli
+    // * @cli only
     // * @since v0.0.8
     // * @var object console
     // * @example _.emoij.color.red
@@ -331,6 +331,7 @@
      *
      * emulate jQuery's $ script :D
      *
+     * @web only
      * @param object [object] Wrapper
      * @return this
      * @example _.emulatejQuery()
@@ -351,6 +352,7 @@
      *
      * Easter egg ;)
      *
+     * @universal function
      * @param object [object] Wrapper
      * @return this
      * @example _.$()
@@ -383,6 +385,7 @@
      *
      * Merge the contents of two or more objects together into the first object.
      *
+     * @universal function
      * @param object object Wrapper
      * @param bool [deep] Deep?
      * @param object object Object1
@@ -453,6 +456,7 @@
      *
      * Must be important enough that everyone need this!
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object obj object to test
      * @return bool
@@ -468,6 +472,7 @@
      *
      * Get cookie data
      *
+     * @web only
      * @since v0.0.8
      * @param string name cookies name
      * @return string/bool
@@ -503,6 +508,7 @@
      *
      * Set cookie data
      *
+     * @web only
      * @since v0.0.8
      * @param string name cookies name
      * @param string value cookies value
@@ -562,6 +568,7 @@
      *
      * Delete cookie data
      *
+     * @web only
      * @since v0.0.8
      * @param string name cookies name
      * @param string [path] path (default: /)
@@ -600,6 +607,7 @@
      *
      * Toggle between hidden, and opaque
      *
+     * @web only
      * @since v0.0.8
      * @param object object Wrapper
      * @return null
@@ -764,10 +772,42 @@
     },
 
     /**
+     * deprecated
+     *
+     * Throw a warning when a function is deprecated
+     *
+     * @universal function
+     * @param what what function?
+     * @param since since when?
+     * @param endoflife EOL in version?
+     * @param [alternative] is there a alternative?
+     * @return null
+     * @example _.error('Message')
+     */
+    deprecated: function (what, since, endoflife, alternative) {
+      console.warn(
+        this.format(
+            '⚠️  function \'%s\' is deprecated since v%s %s\nthis function will be removed in v%s%s',
+
+            what,
+            since,
+            '\nSee https://github.com/wdg/_.js/wiki/changed_in_' + this.version.replace(/(\.|b|a)/g, '') + ' for more information.',
+            endoflife,
+            typeof alternative === 'undefined'
+              ? '\n There\'s no alternative for ' + what
+              : '\nAlternative: ' + alternative + '\nSee: https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
+                'function_' + alternative + ' for more information'
+          )
+      )
+      return null
+    },
+
+    /**
      * error
      *
      * Throw a error (why would you ever do that?)
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string message
      * @return null
@@ -782,6 +822,7 @@
      *
      * Is it a fly? or a function?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object obj object to test
      * @return bool
@@ -796,6 +837,7 @@
      *
      * What kind of object is parsed?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object obj Object to test
      * @return string
@@ -812,6 +854,7 @@
      *
      * Escape a string for safe regex use!
      *
+     * @universal function
      * @since v0.0.8
      * @param object [object] Wrapper
      * @param string str the string to escape
@@ -828,6 +871,7 @@
      *
      * Check to see if an object is a plain object (created using "{}" or "new Object").
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object obj Object to test
      * @return bool
@@ -866,6 +910,7 @@
      * if a file is starting with _ then it is a _.js module
      * DO not use _ as first character on own modules! (unless you do a pull request.)
      *
+     * @web only
      * @param object [object] Wrapper
      * @param string|array jsArray the array of files to load (or string)
      * @param function Callback the Callback function
@@ -937,6 +982,7 @@
      *
      * Format sort of sprintf
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str String
      * @param string ... Options
@@ -972,11 +1018,15 @@
      *
      * Hide a object from the website
      *
+     * @web only
      * @param object object Wrapper
+     * @deprecated 0.0.8
+     * @removed 0.1.0
      * @return this
      * @example _('.wrapper').hide()
      */
     hide: function () {
+      this.deprecated('hide', '0.0.8', '0.1.0', 'toggle')
       if (!this.nodeJS) {
         var len = this.length
         while (len--) {
@@ -994,6 +1044,7 @@
      *
      * place html in a object from the website
      *
+     * @web only
      * @param object object Wrapper
      * @param string [data] HTML to write
      * @return this
@@ -1002,18 +1053,25 @@
      * @example _('.wrapper').html() //Read
      */
     html: function (data, append) {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        if (typeof data === 'undefined') {
-          return this[len].innerHTML
-        } else if (typeof append === 'undefined') {
-          this[len].innerHTML = data
-        } else {
-          this[len].innerHTML += data
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+
+          if (typeof data === 'undefined') {
+            return this[len].innerHTML
+          } else if (typeof append === 'undefined') {
+            this[len].innerHTML = data
+          } else {
+            this[len].innerHTML += data
+          }
         }
+
+        return this
+      } else {
+        return false
       }
-      return this
     },
 
     /**
@@ -1021,17 +1079,27 @@
      *
      * show a object from the website
      *
+     * @web only
      * @param object object Wrapper
+     * @deprecated 0.0.8
+     * @removed 0.1.0
      * @return this
      * @example _('.wrapper').show()
      */
     show: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].style.display = 'block'
+      this.deprecated('show', '0.0.8', '0.1.0', 'toggle')
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'block'
+        }
+
+        return this
+      } else {
+        return false
       }
-      return this
     },
 
     /**
@@ -1044,8 +1112,10 @@
      * @example _.framebreak()
      */
     framebreak: function () {
-      if (self.top.location !== self.location) {
-        self.top.location.href = document.location.href
+      if (!this.nodeJS) {
+        if (self.top.location !== self.location) {
+          self.top.location.href = document.location.href
+        }
       }
       return false
     },
