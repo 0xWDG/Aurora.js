@@ -1023,6 +1023,7 @@
      * @param object object Wrapper
      * @deprecated 0.0.8
      * @removed 0.1.0
+     * @alternative toggle
      * @return this
      * @example _('.wrapper').hide()
      */
@@ -1084,6 +1085,7 @@
      * @param object object Wrapper
      * @deprecated 0.0.8
      * @removed 0.1.0
+     * @alternative toggle
      * @return this
      * @example _('.wrapper').show()
      */
