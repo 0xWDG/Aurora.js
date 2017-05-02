@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r161101'
+    this.revision = 'r161103'
 
     // * this.fullversion
     // *
@@ -776,26 +776,28 @@
      *
      * Throw a warning when a function is deprecated
      *
+     * @internal
      * @universal function
-     * @param what what function?
-     * @param since since when?
-     * @param endoflife EOL in version?
-     * @param [alternative] is there a alternative?
+     * @param string what what function?
+     * @param string since since when?
+     * @param string endoflife EOL in version?
+     * @param string [alternative] is there a alternative?
      * @return null
      * @example _.error('Message')
      */
     deprecated: function (what, since, endoflife, alternative) {
       console.warn(
         this.format(
-            '⚠️  function \'%s\' is deprecated since v%s %s\nthis function will be removed in v%s%s',
+            '⚠️  function \'%s\' is deprecated since v%s %s\n               this function will be removed in v%s %s\n%s',
 
             what,
             since,
-            '\nSee https://github.com/wdg/_.js/wiki/changed_in_' + this.version.replace(/(\.|b|a)/g, '') + ' for more information.',
+            '(https://github.com/wdg/_.js/wiki/changed_in_' + since.replace(/(\.|b|a)/g, '') + ')',
             endoflife,
+            '(https://github.com/wdg/_.js/wiki/changed_in_' + endoflife.replace(/(\.|b|a)/g, '') + ')',
             typeof alternative === 'undefined'
               ? '\n There\'s no alternative for ' + what
-              : '\nAlternative: ' + alternative + '\nSee: https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
+              : '\nAlternative: _.' + alternative + '(...) See https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
                 'function_' + alternative + ' for more information'
           )
       )
@@ -1022,6 +1024,7 @@
      * @param object object Wrapper
      * @deprecated 0.0.8
      * @removed 0.1.0
+     * @alternative toggle
      * @return this
      * @example _('.wrapper').hide()
      */
@@ -1083,6 +1086,7 @@
      * @param object object Wrapper
      * @deprecated 0.0.8
      * @removed 0.1.0
+     * @alternative toggle
      * @return this
      * @example _('.wrapper').show()
      */
@@ -1107,6 +1111,7 @@
      *
      * If i'm in a frame, please break out of it
      *
+     * @web only
      * @param object [object] Wrapper
      * @return false
      * @example _.framebreak()
@@ -1127,6 +1132,7 @@
      * Please not call this function yourself, unless you know what you are doing!
      *
      * @internal
+     * @web only
      * @param object object Wrapper
      * @param string form Form to handle
      * @param function callback callback to
@@ -1134,53 +1140,58 @@
      * @example _('.wrapper').ajaxPost(form)
      */
     ajaxPOST: function (form, callback) {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        var xmlPhttp
-        var change = this[len]
-        if (self.XMLHttpRequest) {
-          xmlPhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
-        } else {
-          xmlPhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
-        }
+      if (!this.nodeJS) {
+        var len = this.length
 
-        // Add form to FormData
-        var formData = new FormData(form) //eslint-disable-line
+        while (len--) {
+          self._lastObj = this[len]
+          var xmlPhttp
+          var change = this[len]
 
-        // Open
-        xmlPhttp.open('POST', form.action, true)
-
-        // Progress (we do not use it (yet))
-        xmlPhttp.upload.onprogress = function (e) {
-          if (e.lengthComputable) {
-            var progress = (e.loaded / e.total) * 100
-            console.log('Progress = ' + progress + '%')
+          if (self.XMLHttpRequest) {
+            xmlPhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+          } else {
+            xmlPhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
           }
-        }
 
-        // Readystate Change(d)
-        xmlPhttp.onreadystatechange = function () {
-          if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
-            change.innerHTML = xmlPhttp.responseText
+          // Add form to FormData
+          var formData = new FormData(form) //eslint-disable-line
 
-            // JavaScript Fix!
-            var js = change.getElementsByTagName('script')
-            for (var i = 0, j = js.length; i < j; i++) {
-              eval(js[i].innerHTML) //eslint-disable-line
+          // Open
+          xmlPhttp.open('POST', form.action, true)
+
+          // Progress (we do not use it (yet))
+          xmlPhttp.upload.onprogress = function (e) {
+            if (e.lengthComputable) {
+              var progress = (e.loaded / e.total) * 100
+              console.log('Progress = ' + progress + '%')
             }
-            // fix posts also (.ajax)
-            var pst = change.getElementsByTagName('form')
-            for (var ii = 0, jj = pst.length; ii < jj; ii++) {
-              if (pst[ii].method.toLowerCase() === 'post') {
-                pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+          }
+
+          // Readystate Change(d)
+          xmlPhttp.onreadystatechange = function () {
+            if (xmlPhttp.readyState === 4 && xmlPhttp.status === 200) {
+              change.innerHTML = xmlPhttp.responseText
+
+              // JavaScript Fix!
+              var js = change.getElementsByTagName('script')
+              for (var i = 0, j = js.length; i < j; i++) {
+                eval(js[i].innerHTML) //eslint-disable-line
+              }
+
+              // fix posts also (.ajax)
+              var pst = change.getElementsByTagName('form')
+              for (var ii = 0, jj = pst.length; ii < jj; ii++) {
+                if (pst[ii].method.toLowerCase() === 'post') {
+                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+                }
               }
             }
           }
-        }
 
-        // Send our FormData
-        xmlPhttp.send(formData)
+          // Send our FormData
+          xmlPhttp.send(formData)
+        }
       }
       return false
     },
@@ -1190,6 +1201,7 @@
      *
      * Loads a page AJAX
      *
+     * @web only
      * @param object object Wrapper
      * @param string url Url to get
      * @param object options extra options
@@ -1197,41 +1209,44 @@
      * @example _('.wrapper').ajax(url, options)
      */
     ajax: function (url, options) {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
+      if (!this.nodeJS) {
+        var len = this.length
 
-        var xmlhttp
-        var change = this[len]
+        while (len--) {
+          self._lastObj = this[len]
 
-        if (self.XMLHttpRequest) {
-          xmlhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
-        } else {
-          xmlhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
-        }
+          var xmlhttp
+          var change = this[len]
 
-        xmlhttp.onreadystatechange = function () {
-          if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-            change.innerHTML = xmlhttp.responseText
+          if (self.XMLHttpRequest) {
+            xmlhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+          } else {
+            xmlhttp = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
+          }
 
-            // JavaScript Fix!
-            var js = change.getElementsByTagName('script')
-            for (var i = 0, j = js.length; i < j; i++) {
-              eval(js[i].innerHTML) //eslint-disable-line
-            }
+          xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              change.innerHTML = xmlhttp.responseText
 
-            // fix posts also (.ajax)
-            var pst = change.getElementsByTagName('form')
-            for (var ii = 0, jj = pst.length; ii < jj; ii++) {
-              if (pst[ii].method.toLowerCase() === 'post') {
-                pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+              // JavaScript Fix!
+              var js = change.getElementsByTagName('script')
+              for (var i = 0, j = js.length; i < j; i++) {
+                eval(js[i].innerHTML) //eslint-disable-line
+              }
+
+              // fix posts also (.ajax)
+              var pst = change.getElementsByTagName('form')
+              for (var ii = 0, jj = pst.length; ii < jj; ii++) {
+                if (pst[ii].method.toLowerCase() === 'post') {
+                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+                }
               }
             }
           }
-        }
 
-        xmlhttp.open('GET', url, true)
-        xmlhttp.send()
+          xmlhttp.open('GET', url, true)
+          xmlhttp.send()
+        }
       }
 
       return false
@@ -1242,6 +1257,7 @@
      *
      * Enables noConflict mode, so _()/_ can also be W()
      *
+     * @universal function
      * @param object [object] Wrapper
      * @return this
      * @example var W = _.noConflict()
@@ -1259,14 +1275,19 @@
      *
      * Are we running local?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @return bool
      * @example _.isLocal()
      */
     isLocal: function () {
-      if (self.location.protocol !== 'file:') {
-        if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-          return false
+      if (!this.nodeJS) {
+        if (self.location.protocol !== 'file:') {
+          if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
+            return false
+          } else {
+            return true
+          }
         } else {
           return true
         }
@@ -1280,14 +1301,17 @@
      *
      * this make "SSL" / "HTTPS" required
      *
+     * @web only
      * @param object [object] Wrapper
      * @return this
      * @example _.requireSSL()
      */
     requireSSL: function () {
-      if (self.location.protocol !== 'https:' && self.location.protocol !== 'file:') {
-        if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-          self.location.href = 'https:' + self.location.href.substring(self.location.protocol.length)
+      if (!this.nodeJS) {
+        if (self.location.protocol !== 'https:' && self.location.protocol !== 'file:') {
+          if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
+            self.location.href = 'https:' + self.location.href.substring(self.location.protocol.length)
+          }
         }
       }
       return
@@ -1298,6 +1322,7 @@
      *
      * loadExtension Tries to load a extension (module)
      *
+     * @web only
      * @deprecated 0.0.4
      * @removed 0.1.0
      * @param object [object] Wrapper
@@ -1305,7 +1330,7 @@
      * @example _.loadExtension(src, callback)
      */
     loadExtension: function (src, callback) {
-      console.error('Please do not use _().loadExtension(...) anymore')
+      this.deprecated('loadExtension', '0.0.4', '0.1.0', 'require')
       return this.require(src, callback)
     },
 
@@ -1314,6 +1339,7 @@
      *
      * isUndefined is a object undefined?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object thing object to test
      * @return bool
@@ -1328,6 +1354,7 @@
      *
      * isEmpty is a object empty?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object check object to test
      * @return bool
@@ -1342,6 +1369,7 @@
      *
      * isBlank is a object blank?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object myObject object to test
      * @return bool
@@ -1356,6 +1384,7 @@
      *
      * Get the filesize of a file
      *
+     * @web only
      * @since v0.0.8
      * @param string fileURL file url
      * @param object onSize return to function
@@ -1363,33 +1392,36 @@
      * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {window.alert(size)})
      */
     getFileSize: function (fileURL, onSize) {
-      var len = this.length
-      while (len--) {
-        var xhr
-        if (self.XMLHttpRequest) {
-          xhr = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
-        } else {
-          xhr = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
-        }
-        xhr.open('HEAD', fileURL, true)
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-              if (typeof onSize === 'function') {
-                onSize(xhr.getResponseHeader('Content-Length') / 1024)
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          var xhr
+          if (self.XMLHttpRequest) {
+            xhr = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
+          } else {
+            xhr = new self.ActiveXObject('Microsoft.XMLHTTP') // code for IE6, IE5
+          }
+          xhr.open('HEAD', fileURL, true)
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                if (typeof onSize === 'function') {
+                  onSize(xhr.getResponseHeader('Content-Length') / 1024)
+                } else {
+                  _(onSize).html(xhr.getResponseHeader('Content-Length') / 1024)
+                }
               } else {
-                _(onSize).html(xhr.getResponseHeader('Content-Length') / 1024)
-              }
-            } else {
-              if (typeof onSize === 'function') {
-                onSize('Error while getting filesize')
-              } else {
-                _(onSize).html('Error while getting filesize')
+                if (typeof onSize === 'function') {
+                  onSize('Error while getting filesize')
+                } else {
+                  _(onSize).html('Error while getting filesize')
+                }
               }
             }
           }
+          xhr.send(null)
         }
-        xhr.send(null)
       }
 
       return null
@@ -1400,17 +1432,21 @@
      *
      * stripTags strip HTML tags of a object
      *
+     * @web only
      * @param object object Wrapper
      * @return null
      * @example _('.codeField').stripTags()
      */
     stripTags: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '')
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '')
+        }
       }
-      return null
+      return !this.nodeJS ? null : false
     },
 
     /**
@@ -1418,17 +1454,22 @@
      *
      * stripScripts strip Scripts from a object
      *
+     * @web only
      * @param object object Wrapper
      * @return null
      * @example _('.codeField').stripScripts()
      */
     stripScripts: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '')
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].innerHTML = this[len].innerHTML.replace(new RegExp(this.ScriptRX, 'img'), '')
+        }
       }
-      return null
+
+      return !this.nodeJS ? null : false
     },
 
     /**
@@ -1436,24 +1477,29 @@
      *
      * css read, or write css
      *
+     * @web only
      * @param object object Wrapper
      * @param string read what to read
      * @param string [write] what to write
      * @example _('.wrapper').css('width', '10px')
      */
     css: function (read, write) {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        if (this.isUndefined(write)) { // Read
-          return self.getComputedStyle(this[len]).getPropertyValue(read)
-        } else { // Write
-          var _read = read
-          _read = _read.replace(/-/g, '')
-          // this[len].style._read = write; // does edit the dom.
-          this[len].setAttribute('style', read + ':' + write + ';')
-          return this
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          self._lastObj = this[len]
+          if (this.isUndefined(write)) { // Read
+            return self.getComputedStyle(this[len]).getPropertyValue(read)
+          } else { // Write
+            var _read = read
+            _read = _read.replace(/-/g, '')
+            // this[len].style._read = write; // does edit the dom.
+            this[len].setAttribute('style', read + ':' + write + ';')
+            return this
+          }
         }
+      } else {
+        return false
       }
     },
 
@@ -1462,6 +1508,7 @@
      *
      * escape the HTML
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str string to escape
      * @return string
@@ -1476,6 +1523,7 @@
      *
      * unescape the HTML
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str string to escape
      * @return string
@@ -1490,6 +1538,7 @@
      *
      * string to array
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string|object str string/object to put in the array
      * @return array
@@ -1515,6 +1564,7 @@
      *
      * runTest Run a test [internal, external use.]
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object testCase test case
      * @param object expectedResult expected Result
@@ -1534,6 +1584,7 @@
      *
      * includes does a string includes the thing?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str the string
      * @param string pattern the pattern
@@ -1541,7 +1592,7 @@
      * @example _.includes('hi, i am wesley', 'hi')
      */
     includes: function (str, pattern) {
-      return str.indexOf(pattern) > -1
+      return String(str).indexOf(pattern) > -1
     },
 
     /**
@@ -1549,6 +1600,7 @@
      *
      * startsWith does a string starts With the thing?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str the string
      * @param string pattern the pattern
@@ -1564,6 +1616,7 @@
      *
      * endsWith does a string ends With the thing?
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str the string
      * @param string pattern the pattern
@@ -1580,6 +1633,7 @@
      *
      * capitalize a string
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str the string
      * @return string
@@ -1594,6 +1648,7 @@
      *
      * camelize a string
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param string str the string
      * @return string
@@ -1610,17 +1665,24 @@
      *
      * scroll To Bottom
      *
+     * @web only
      * @param object object Wrapper
      * @return bool
      * @example _('.wrapper').scrollToBottom()
      */
     scrollToBottom: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].scrollTop = this[len].scrollHeight
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].scrollTop = this[len].scrollHeight
+        }
+
+        return true
+      } else {
+        return false
       }
-      return true
     },
 
     /**
@@ -1628,17 +1690,24 @@
      *
      * scroll To Bottom
      *
+     * @web only
      * @param object object Wrapper
      * @return bool
      * @example _('.wrapper').scrollToTop()
      */
     scrollToTop: function () {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
-        this[len].scrollTop = 0
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].scrollTop = 0
+        }
+
+        return true
+      } else {
+        return false
       }
-      return true
     },
 
     /**
@@ -1646,6 +1715,7 @@
      *
      * Walk trough the array, and perform a function
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param array arr Array to parse
      * @param function callbackInt Callback function to call
@@ -1676,6 +1746,7 @@
      *
      * Walk trough array and peform callback
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param array myArr Array to walk trough
      * @param function callbackInt Callback function to call
@@ -1704,6 +1775,7 @@
      *
      * merge objects to one
      *
+     * @universal function
      * @param object [object] Wrapper
      * @param object obj1 Object to merge
      * @param object obj2 Object to merge
@@ -1724,10 +1796,43 @@
     },
 
     /**
+     * clearScreen
+     *
+     * Clear the screen
+     *
+     * @cli only
+     * @example _.clearScreen()
+     */
+    clearScreen: function () {
+      if (this.nodeJS) {
+        process.stdout.write('\x1Bc');
+      } else {
+        console.warn('_.clearScreen() is only for CLi')
+      }
+    },
+
+    /**
+     * oneLineUp
+     *
+     * Move the cursor one line up
+     *
+     * @cli only
+     * @example _.oneLineUp()
+     */
+    oneLineUp: function () {
+      if (this.nodeJS) {
+        process.stdout.write("\r\x1b[K")
+      } else {
+        console.warn('_.clearScreen() is only for CLi')
+      }
+    },
+
+    /**
      * truncate
      *
      * truncate is a object undefined?
      *
+     * @web only
      * @param object object Wrapper
      * @param string length length (default: 30)
      * @param string [truncation] truncation after the truncate (default: ...)
@@ -1735,24 +1840,24 @@
      * @example _('.wrapper').truncate(length[, truncation])
      */
     truncate: function (length, truncation) {
-      var len = this.length
-      while (len--) {
-        self._lastObj = this[len]
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          self._lastObj = this[len]
 
-        length = length || 30
+          length = length || 30
 
-        truncation = this.isUndefined(truncation) ? '...' : truncation
+          truncation = this.isUndefined(truncation) ? '...' : truncation
 
-        this[len].innerHTML = this[len].innerHTML.length > length
-          ? this[len].innerHTML.substring(0, length) + truncation
-          : String(this[len].innerHTML)
+          this[len].innerHTML = this[len].innerHTML.length > length
+            ? this[len].innerHTML.substring(0, length) + truncation
+            : String(this[len].innerHTML)
+        }
+
+        return true
+      } else {
+        // _('this is a verry long long string').truncate(10)
       }
-
-      return true
-    },
-
-    _CLIAlert: function alert (x) {
-      document.write(x)
     },
 
     /**
@@ -1762,6 +1867,8 @@
      * Do not use, if know why this function exists.
      *
      * @internal
+     * @notest
+     * @universal function
      * @since v0.0.7
      * @param object [object] Wrapper
      * @return null
