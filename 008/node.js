@@ -1,56 +1,125 @@
+/*
+**                         _
+**                        (_)
+**                         _    _____
+**                        | |  / ____|
+**                        | |  | (___
+**                    _   | |  \___  \
+**     ______    _   | |__| |  ____) |
+**    |______|  (_)   \____/  |______/
+**
+** https://www.github.com/wdg/_.js/
+** or https://www.wdgwv.com
+**
+** Git....: https://github.com/wdg/_.js
+** Todo...: https://github.com/wdg/_.js/issues
+** Licence: https://github.com/wdg/_.js/blob/master/LICENCE.md (CC BY 4.0)
+** Latest.: https://raw.githubusercontent.com/wdg/_.js/master/latest/_.js
+*/
+
 // _.js TEST FILE
 var _ = require('./_.js')
+var delay = 10 // Delay 10 milli seconds for all tests!
 
-console.log('**')
-console.log('**                         _')
-console.log('**                        (_)')
-console.log('**                         _    _____')
-console.log('**                        | |  / ____|')
-console.log('**                        | |  | (___')
-console.log('**                    _   | |  \\___  \\')
-console.log('**     ______    _   | |__| |  ____) |')
-console.log('**    |______|  (_)   \\____/  |______/')
-if (_.version.match(/b/)) {
-  console.log('**                         v' + _.version.split('b')[0] + ' Beta')
-} else {
-  console.log('**                      v' + _.version + ' Release')
+// PLEASE DO NOT MODIFY BELOW THIS LINE
+
+// Stupid name, yes i'll fix it later
+// TODO: normal function name
+var fillScreen = function (pts) {
+  var screenSize = process.stdout.columns
+  var textSize = pts.length
+  var add = ''
+  for (var i=1; i<(screenSize-textSize); i++) {
+    add = add + ' '
+  }
+
+  process.stdout.write(pts + add)
 }
-console.log('**              JS Standard Code Style')
-console.log('**')
-console.log('**    This is the Node.js init file.')
-console.log('**    To use _.js in your project use:')
-console.log('**       var _ = require(\'./_.js\')')
-console.log('**')
-// console.warn(_console.background.red + '**    !!! Running tests...' + _console.background.default)
-console.log('**')
-console.log(_.runTest('a', 'b'))
 
-// var _testReturn
+// Will be hidden but useful for 'debugging' purposes
+console.log('Terminal size: ' + process.stdout.columns + 'x' + process.stdout.rows);
+
+// Number of current test
 var _testCounter = 1
+
+// Number of current test (for timeout)
+var _timeoutCounter = 1
+
+// How many tests passed (we want 100%)
 var _testPassed = 0
+
+// How many tests are failed (we want 0% (ok mayme 0.05% a 'failed test' test))
 var _testFailed = 0
-function __RunTest (i, x) {
+
+// Ok this code is awful but works for now.
+// This only prints the 'test' to the screen.
+function __RunTest (i, x, z) {
+  setTimeout(function (i, x, z) {
   if (i === 'TOTAL' && x === 'TOTAL') {
-    console.log('All tests finished')
+    fillScreen('\rAll tests finished')
     if (_testFailed > 0) {
-      console.log(_.cconsole.color.green + _testPassed + ' tests Passed (? %)' + _.cconsole.color.standard)
-      console.log(_.cconsole.color.red + _testFailed + ' tests Failed (? %)' + _.cconsole.color.standard)
+      console.log('\n' + _.cconsole.color.green + _testPassed + ' tests Passed (? %)' + _.cconsole.color.standard)
+      console.log('\n' + _.cconsole.color.red + _testFailed + ' tests Failed (? %)' + _.cconsole.color.standard)
     } else {
-      console.log(_.cconsole.color.green + _testPassed + ' (ALL) tests Passed (100 %)' + _.cconsole.color.standard)
+      console.log('\n' + _.cconsole.color.green + _testPassed + ' (ALL) tests Passed (100 %)' + _.cconsole.color.standard)
     }
   } else {
-    if (_.runTest(eval(i), x)) { //eslint-disable-line
-      console.log(_.cconsole.color.green + 'Test ' + i + ' (#' + _testCounter + ') passed' + _.cconsole.color.standard)
-      console.log('Expecting: ' + _.cconsole.color.green + x + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + eval(i) + _.cconsole.color.standard + ' ') //eslint-disable-line
+    var xEval = String(eval(i)).replace(/(\r\n|\n\r|\r|\n)/g, '') //eslint-disable-line
+    if (typeof z !== 'undefined' || _.runTest(xEval, String(x).replace(/(\r\n|\n\r|\r|\n)/g, ''))) { //eslint-disable-line
+      if (_testFailed === 0) {
+        process.stdout.write('\x1Bc');
+        console.log(_.cconsole.color.standard + '**')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        (_)')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _    _____')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  / ____|')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  | (___')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                    _   | |  \\___  \\')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '     ______    _   | |__| |  ____) |')
+        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '    |______|  (_)   \\____/  |______/')
+        if (_.version.match(/b/)) {
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         v' + _.version.split('b')[0] + ' Beta')
+        } else {
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                      v' + _.version + ' Release')
+        }
+        console.log(_.cconsole.color.standard + '**              JS Standard Code Style')
+        console.log(_.cconsole.color.standard + '**')
+        console.log(_.cconsole.color.standard + '**    This is the Node.js init file.')
+        console.log(_.cconsole.color.standard + '**    To use ' + _.cconsole.color.cyan + '_.js' + _.cconsole.color.standard + ' in your project use:')
+        console.log(_.cconsole.color.standard + '**       ' + _.cconsole.color.magenta + 'var _ = require(\'./_.js\')' + _.cconsole.color.standard)
+        console.log(_.cconsole.color.standard + '**')
+        // console.warn(_console.background.red + '**    !!! Running tests...' + _console.background.default)
+        console.log(_.cconsole.color.standard + '**')
+        console.log('')
+        console.log('')
+      }
+      process.stdout.write('Expecting: ' + _.cconsole.color.green + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
+
+      if (_testCounter < 10)
+        _testCounter = "00" + _testCounter
+      else if (_testCounter < 100)
+        _testCounter = "0" + _testCounter
+      else
+        _.noop()
+      fillScreen('\r' + _.cconsole.color.green + 'Test (#' + _testCounter + ') ' + i + ' passed' + _.cconsole.color.standard)
       _testCounter++
       _testPassed++
     } else {
-      console.log(_.cconsole.color.red + 'Test ' + i + ' (#' + _testCounter + ') failed' + _.cconsole.color.standard)
-      console.log('Expecting: ' + _.cconsole.color.magenta + x + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + eval(i) + _.cconsole.color.standard + ' ') //eslint-disable-line
+      if (_testCounter < 10)
+        _testCounter = "0" + _testCounter
+      else if (_testCounter < 100)
+        _testCounter = "0" + _testCounter
+      else
+        _.noop()
+
+      console.log(_.cconsole.color.red + 'Test (#' + _testCounter + ') ' + i + ' failed' + _.cconsole.color.standard)
+      process.stdout.write('Expecting: ' + _.cconsole.color.magenta + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
       _testCounter++
       _testFailed++
     }
   }
+  }, _timeoutCounter * delay, i, x, z)
+  _timeoutCounter++
 }
 
 // Since we've never gonna call a object in Node.js this will always be undefined.
@@ -260,11 +329,45 @@ __RunTest('_(\'.wrapper\').show()', false)
 
 __RunTest('_.framebreak()', false)
 
-// if (!this.nodeJS) {
-//   Execute code
-// } else {
-//   return false
-// }
+__RunTest('_(\'.wrapper\').ajaxPOST(\'form\', function(x){console.log(x)})', false)
+__RunTest('_(\'.wrapper\').ajax(\'https://www.wdgwv.com/conditions/noHTML\')', false)
+__RunTest('_.noConflict()', _)
+__RunTest('_.isLocal()', true)
+__RunTest('_.requireSSL()')
+__RunTest('_.loadExtension([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+__RunTest('_.isUndefined(false)', false)
+__RunTest('_.isUndefined(true)', false)
+__RunTest('_.isUndefined(undefined)', true)
+__RunTest('_.isEmpty(undefined)', false)
+__RunTest('_.isEmpty(\'\')', true)
+__RunTest('_.isBlank(undefined)', false)
+__RunTest('_.isBlank(\'\')', true)
+__RunTest('_.getFileSize(\'https://www.wdgwv.com/logo.png\')', null)
+__RunTest('_(\'.wrapper\').stripTags()', false)
+__RunTest('_(\'.wrapper\').stripScripts()', false)
+
+__RunTest('_(\'.wrapper\').css(\'color: red;\')', false)
+__RunTest('_.escapeHTML(\'<&>\')', '&lt;&amp;&gt;')
+__RunTest('_.unescapeHTML(\'&lt;&amp;&gt;\')', '<&>')
+
+// TODO: Add tests
+// _.toArray({my:'super', object:'rocks!'})
+// runTest
+// includes
+// startsWith
+// endsWith
+// capitalize
+// camelize
+// scrollToBottom
+// scrollToTop
+// _.map(['a', 'b', 'c'], function (i, v) { window.alert('item ' + i + ', value: ' + v);})
+// _.each({a:'b', c:'d'}, function (i, v) { window.alert('key ' + i + ', value: ' + v); })
+// _.merge(obj1, obj2)
+// _('.wrapper').truncate(length[, truncation])
+
+
+
+
 
 // 🖥 CLI ONLY
 // 🌍 / 🌐 UNIVERSAL
