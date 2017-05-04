@@ -1318,7 +1318,7 @@
             callback(rawData)
           })
         }).on('error', function (e) {
-          console.error('Got error: ' + e.message})
+          console.error('Got error: ' + e.message)
           callback(false)
         })
       }
