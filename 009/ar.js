@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                       v0.0.8 Stable
+**                         v0.0.9 Beta
 **              JS Standard Code Style
 **
 ** https://www.github.com/wdg/_.js/
@@ -75,7 +75,7 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.8'
+    this.version = '0.0.9b'
 
     // * this.revision
     // *
@@ -1205,12 +1205,13 @@
      *
      * Loads a page AJAX
      *
-     * @web only
+     * @univeral function
      * @param object object Wrapper
      * @param string url Url to get
      * @param object options extra options
-     * @return bool
-     * @example _('.wrapper').ajax(url, options)
+     * @return bool/string
+     * @example for web use: _('.wrapper').ajax(url, options)
+     * @example for node use: _.ajax(url, options)
      */
     ajax: function (url, options) {
       if (!this.nodeJS) {
@@ -1251,6 +1252,75 @@
           xmlhttp.open('GET', url, true)
           xmlhttp.send()
         }
+      }
+      else {
+        // Node JS
+        return this._NodeAjaxHelper(url, function(x) {
+          return x
+        })
+      }
+      
+      console.error("No return!")
+      return false
+    },
+
+    /**
+     * _NodeAjaxHelper
+     *
+     * Node Ajax Helper
+     * Please not call this function yourself, unless you know what you are doing!
+     *
+     * @internal
+     * @cli only
+     * @param string url
+     * @param function callback callback to
+     * @return false
+     * @example _._NodeAjaxHelper(url, callback)
+     */
+    _NodeAjaxHelper: function (url, callback) {
+      if (url.toLowerCase().indexOf("https://") > -1) {
+        var https = require('https')
+
+        https.get(url, function (res) {
+          res.setEncoding('utf8')
+          var data = ''
+
+          if ([301, 302].indexOf(res.statusCode) > -1) {
+            callback(this.ajax(res.headers.location))
+          }
+
+          res.on('data', (d) => {
+            data += d
+          })
+
+          res.on('end', function() {
+            callback(data)
+          })
+        }).on('error', (e) => {
+          console.error(e)
+          callback(false)
+        })
+      } else {
+        var http = require('http')
+
+        http.get(url, function (res) {
+          res.setEncoding('utf8')
+          var rawData = ''
+          if (res.statusCode !== 200) {
+            console.error(`Request Failed.\nStatus Code: ${res.statusCode}`)
+          }
+
+          res.on('data', function (chunk) {
+            rawData += chunk
+          })
+
+          res.on('end', function () {
+            callback(rawData)
+          })
+        }).on('error', function (e) {
+          console.error(`Got error: ${e.message}`)
+          callback(false)
+        })
       }
 
       return false
@@ -1493,12 +1563,46 @@
         while (len--) {
           self._lastObj = this[len]
           if (this.isUndefined(write)) { // Read
-            return self.getComputedStyle(this[len]).getPropertyValue(read)
+            return this[len].style.cssText
           } else { // Write
-            var _read = read
-            _read = _read.replace(/-/g, '')
-            // this[len].style._read = write; // does edit the dom.
-            this[len].setAttribute('style', read + ':' + write + ';')
+            // Explode ";" from ".style.cssText".
+            // Loop, and change if is in our requested value.
+            var arrayOfItems = this[len].style.cssText.split(';')
+
+            // New array of items
+            var newArrayOfItems = ''
+
+            // Is the item found?
+            var found = false
+
+            // Where are we?
+            var count = 0
+
+            // Temporary variable
+            var temp = ''
+
+            while (count < arrayOfItems.length) {
+              if (this.startsWith(read, arrayOfItems[count])) {
+                temp = arrayOfItems[count].split(':')
+                newArrayOfItems = newArrayOfItems + temp[0] + ': ' + write + '; '
+                found = true
+              } else {
+                newArrayOfItems = newArrayOfItems + arrayOfItems[count] + '; '
+              }
+
+              count++
+            }
+
+            if (found) {
+              // console.log(this[len].style.cssText + "" + read + ":" + write + ";")
+              this[len].style.cssText = this[len].style.cssText + read + ":" + write + ";"
+            } else {
+              this[len].style.cssText = newArrayOfItems
+            }
+
+            // console.log(this[len].style.cssText)
+            // console.log('document.querySelectorAll(\'.' + this[len].className + '\')[' + len + '].style.' + _read + '= \'' + write + '\';')
+            // eval('document.querySelectorAll(\'.' + this[len].className + '\')[' + len + '].style.' + _read + '= \'' + write + '\';')
             return this
           }
         }

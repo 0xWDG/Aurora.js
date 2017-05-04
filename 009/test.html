@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ 	<script type='text/javascript' src='_.js'></script>
+ </head>
+ <body>
+   <div class='wrapper'>Wrapper:D</div>
+   <div class='inner'>Test Append</div>
+
+   <script type='text/javascript'>
+     window.addEventListener("_.jsLoaded", function() {
+       window.alert('_.js Loaded! (received)')
+     });
+
+     _( '&nbsp;<b><font color="green">Pass!</font></b>' ).appendTo( '.inner' );
+  </script>
+ </body>
+</html>

@@ -1,0 +1,11 @@
+<div class="testResults" style='width:600px;height:300px;'>...</div>
+
+<script type="text/javascript" src='../_.js'></script>
+
+<script type="text/javascript">
+  _().require("_translate", function() { 
+    _('.testResults').translate.init()
+
+    _('.testResults').translate.init({test: true})
+  }, true) // Load local
+</script>
