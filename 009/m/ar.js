@@ -2,6 +2,8 @@
 //# sourceMappingURL=ar.js.map
 //# sourceMappingURL=ar.js.map
 //# sourceMappingURL=ar.js.map
+//# sourceMappingURL=ar.js.map
+//# sourceMappingURL=ar.js.map
 (function(d){d._lastObj=null;d._modLoaded=[];d._eventStore=[];var h=function(a){return new l(a)},l=function(a){var c="undefined"!==typeof exports||"undefined"===typeof a?[]:-1===a.indexOf(">")?document.querySelectorAll(a):[];this.length=c.length;this.param=a;this.version="0.0.8b";this.revision="r161103";this.fullversion=this.version+this.revision;this.isBeta=this.version.match(/b/g);this.isAlpha=this.version.match(/a/g);this.isCompiled=!1;this.isStable=!this.isBeta&&!this.isAlpha;this.ScriptRX="<script[^>]*>([\\S\\s]*?)\x3c/script\\s*>";
 this.JSONRX="/^/*-secure-([sS]*)*/s*$/";this.nodeJS="undefined"!==typeof exports;this.emoij={nerd:"\ud83e\udd13",smilie:"\ud83d\ude03",dsmilie:"\ud83d\ude00",heart:"\u2764\ufe0f",brokenheart:"\ud83d\udc94"};this.objectclass={"[object Boolean]":"boolean","[object Number":"number","[object String":"string","[object Function]":"function","[object Array]":"array","[object Date]":"date","[object RegExp]":"regexp","[object Object]":"object","[object Error]":"error"};this.cconsole={reset:{start:"\u001b[0m",
 stop:"\u001b[0m"},bold:{start:"\u001b[1m",stop:"\u001b[22m"},dim:{start:"\u001b[2m",stop:"\u001b[22m"},italic:{start:"\u001b[3m",stop:"\u001b[23m"},underline:{start:"\u001b[4m",stop:"\u001b[24m"},inverse:{start:"\u001b[7m",stop:"\u001b[27m"},hidden:{start:"\u001b[8m",stop:"\u001b[28m"},strikethrough:{start:"\u001b[9m",stop:"\u001b[29m"},color:{standard:"\u001b[39m",black:"\u001b[30m",red:"\u001b[31m",green:"\u001b[32m",yellow:"\u001b[33m",blue:"\u001b[34m",magenta:"\u001b[35m",cyan:"\u001b[36m",white:"\u001b[37m",
