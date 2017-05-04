@@ -82,7 +82,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r170502'
+    this.revision = 'r170504'
 
     // * this.fullversion
     // *
@@ -1278,7 +1278,7 @@
      * @example _._NodeAjaxHelper(url, callback)
      */
     _NodeAjaxHelper: function (url, callback) {
-      if (url.toLowerCase().indexOf("https://") > -1) {
+      if (url.toLowerCase().indexOf('https://') > -1) {
         var https = require('https')
 
         https.get(url, function (res) {
@@ -1289,14 +1289,14 @@
             callback(this.ajax(res.headers.location))
           }
 
-          res.on('data', (d) => {
+          res.on('data', function (d) {
             data += d
           })
 
-          res.on('end', function() {
+          res.on('end', function () {
             callback(data)
           })
-        }).on('error', (e) => {
+        }).on('error', function (e) {
           console.error(e)
           callback(false)
         })
@@ -1307,7 +1307,7 @@
           res.setEncoding('utf8')
           var rawData = ''
           if (res.statusCode !== 200) {
-            console.error(`Request Failed.\nStatus Code: ${res.statusCode}`)
+            console.error('Request Failed.\nStatus Code: ' + res.statusCode)
           }
 
           res.on('data', function (chunk) {
@@ -1318,7 +1318,7 @@
             callback(rawData)
           })
         }).on('error', function (e) {
-          console.error(`Got error: ${e.message}`)
+          console.error('Got error: ' + e.message)
           callback(false)
         })
       }
