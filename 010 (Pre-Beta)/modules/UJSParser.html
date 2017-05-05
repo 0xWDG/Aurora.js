@@ -1,0 +1,24 @@
+<div class='testResults' style='width:600px;height:300px;'>...</div>
+
+<script type='text/javascript' src='../_.js'></script>
+
+<script type='text/javascript'>
+  _.require('_UJSParser', function () {
+    window._.SJSParser.init()
+
+    _.SJSParser.extend({
+    	WTF: function(i) {
+    		console.log('WTF: ' + i)
+    	},
+    	Abld: function(i) {
+    		console.log('Abld: ' + i)
+    	}
+    })
+  }, true) // Load local
+</script>
+
+<script type='text/_.js'>log('hi');</script>
+<script type='text/_.js'>error('hi');</script>
+<script type='text/_.js'>WTF('hi');</script>
+<script type='text/_.js'>Abld('hi');</script>
+

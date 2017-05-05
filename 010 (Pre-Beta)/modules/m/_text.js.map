@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"./m/_text.js",
+"lineCount":1,
+"mappings":"AAmBKA,MAAAC,EAAL,CAIED,MAAAC,EAAAC,GAAAC,gBAJF,CAIgCC,QAAS,CAACC,CAAD,CAAO,CAG5C,IAFIC,CAEJ,CAFU,IAAAC,OAEV,CAAOD,CAAA,EAAP,CAAA,CACEE,OAAAC,IAAA,CAAY,mBAAZ,CAAkC,IAAA,CAAKH,CAAL,CAAAI,UAAlC,CAJ0C,CAJhD,CACEV,MAAAW,MAAA,CAAa,kCAAb;",
+"sources":["./_text.js"],
+"names":["window","_","fn","text_to_console","window._.fn.text_to_console","name","len","length","console","log","innerHTML","alert"]
+}

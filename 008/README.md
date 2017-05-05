@@ -1,5 +1,5 @@
 # _.js
-#### v0.0.8 (Beta)
+#### v0.0.8 (Stable)
 
 #### Biggest changes
 

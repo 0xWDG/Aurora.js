@@ -1,0 +1,32 @@
+<div class="testResults" style='width:600px;height:300px;'>...</div>
+
+<script type="text/javascript" src='../_.js'></script>
+
+<!--
+Works:
+<script type="text/javascript">
+  _().require("_multimedia", function() { 
+    _('.testResults').multimedia({
+      before: 'multimedia/before.mp3',
+      file:   'multimedia/main.mp3',
+      after:  'multimedia/after.mp3'
+    });
+  });
+</script>
+-->
+
+<script type="text/javascript">
+  _().require("_multimedia", function() { 
+    _('.testResults').multimedia({
+      options:{controls:true},
+      before: 'multimedia/before.mp4',
+      // file:   'multimedia/main.mp4',
+      file:   [
+      			'multimedia/before.mp3',
+      			'multimedia/main.mp3',
+      			'multimedia/after.mp3',
+      		  ],
+      after:  'multimedia/after.mp4'
+    });
+  });
+</script>

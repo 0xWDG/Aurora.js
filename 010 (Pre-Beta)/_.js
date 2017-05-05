@@ -7,8 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.0.9 Beta
-**              JS Standard Code Style
+**                         v0.1.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -97,15 +96,6 @@
     // *
     // * @var bool isBeta
     this.isBeta = (this.version.match(/b/g))
-
-    // * this.isAlpha
-    // *
-    // * Is product in Aplha (alfa) status
-    // *
-    // * @var bool isAlpha
-    // * @deprecated v0.0.6
-    // * @removed v0.1.0
-    this.isAlpha = (this.version.match(/a/g))
 
     // * this.isCompiled
     // *
@@ -1020,33 +1010,6 @@
     },
 
     /**
-     * Hide
-     *
-     * Hide a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').hide()
-     */
-    hide: function () {
-      this.deprecated('hide', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'none'
-        }
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
      * html
      *
      * place html in a object from the website
@@ -1073,35 +1036,6 @@
           } else {
             this[len].innerHTML += data
           }
-        }
-
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
-     * show
-     *
-     * show a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').show()
-     */
-    show: function () {
-      this.deprecated('show', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'block'
         }
 
         return this
@@ -1389,23 +1323,6 @@
         }
       }
       return
-    },
-
-    /**
-     * loadExtension
-     *
-     * loadExtension Tries to load a extension (module)
-     *
-     * @web only
-     * @deprecated 0.0.4
-     * @removed 0.1.0
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.loadExtension(src, callback)
-     */
-    loadExtension: function (src, callback) {
-      this.deprecated('loadExtension', '0.0.4', '0.1.0', 'require')
-      return this.require(src, callback)
     },
 
     /**
