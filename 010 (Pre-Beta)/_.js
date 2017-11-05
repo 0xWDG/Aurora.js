@@ -298,7 +298,11 @@
     }
 
     // Return as object
-    return this
+    if (this.length === 1) {
+      return this
+    } else {
+      return this
+    }
   }
 
   // Extend the Library object.

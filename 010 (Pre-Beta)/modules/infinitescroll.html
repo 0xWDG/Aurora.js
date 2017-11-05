@@ -1,4 +1,4 @@
-<style type="text/css">
+<style type='text/css'>
 #infinite-list {
   /* We need to limit the height and show a scrollbar */
   width: 200px;
@@ -24,11 +24,11 @@ li:hover {
 </ul>
 
 
-<script type="text/javascript" src='../_.js'></script>
+<script type='text/javascript' src='../_.js'></script>
 
-<script type="text/javascript">
-_().require("_infinitescroll", function () {
-  var listElm = document.querySelector('#infinite-list')
+<script type='text/javascript'>
+_().require('_infinitescroll', function () {
+  var listElm = _('#infinite-list')[0]
   var nextItem = 1
   var loadMore = function () {
     for (var i = 0; i < 20; i++) {
