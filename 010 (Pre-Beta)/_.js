@@ -298,11 +298,7 @@
     }
 
     // Return as object
-    if (this.length === 1) {
-      return this
-    } else {
-      return this
-    }
+    return this
   }
 
   // Extend the Library object.
@@ -371,7 +367,6 @@
             decodeURIComponent('%F0%9F%92%99'))
         }
       }
-      return
     },
 
     /**
@@ -512,12 +507,12 @@
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
-    setCookie: function (name, value) { // , expires, path, domain, secure
+    setCookie: function (name, value, expires, path, domain, secure) {
       if (!this.nodeJS) {
         if (!domain) {
           var tdomain = self.location.hostname
           tdomain = domain.split('.')
-          var domain = '.'
+          domain = '.'
 
           for (var i = 1; i < tdomain.lenth; i++) {
             domain += tdomain[i]
@@ -528,15 +523,15 @@
         today.setTime(today.getTime())
 
         if (typeof expires !== typeof 'String') {
-          var expires = 1
+          expires = 1
         }
 
         if (typeof path !== typeof 'String') {
-          var path = '/'
+          path = '/'
         }
 
         if (typeof secure !== typeof false) {
-          var secure = false
+          secure = false
         }
 
         if (expires) {
@@ -570,13 +565,13 @@
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
-    deleteCookie: function (name) { // , path, domain
+    deleteCookie: function (name, path, domain) {
       if (!this.nodeJS) {
         if (this.getCookie(name)) {
           if (!domain) {
             var tdomain = self.location.hostname
             tdomain = domain.split('.')
-            var domain = '.'
+            domain = '.'
 
             for (var i = 1; i < tdomain.lenth; i++) {
               domain += tdomain[i]
@@ -1188,15 +1183,14 @@
           xmlhttp.open('GET', url, true)
           xmlhttp.send()
         }
-      }
-      else {
+      } else {
         // Node JS
-        return this._NodeAjaxHelper(url, function(x) {
+        return this._NodeAjaxHelper(url, function (x) {
           return x
         })
       }
-      
-      console.error("No return!")
+
+      console.error('No return!')
       return false
     },
 
@@ -1209,11 +1203,11 @@
      * @internal
      * @cli only
      * @param string url
-     * @param function callback callback to
+     * @param function callbackFunc callback to
      * @return false
      * @example _._NodeAjaxHelper(url, callback)
      */
-    _NodeAjaxHelper: function (url, callback) {
+    _NodeAjaxHelper: function (url, callbackFunc) {
       if (url.toLowerCase().indexOf('https://') > -1) {
         var https = require('https')
 
@@ -1222,7 +1216,7 @@
           var data = ''
 
           if ([301, 302].indexOf(res.statusCode) > -1) {
-            callback(this.ajax(res.headers.location))
+            callbackFunc(this.ajax(res.headers.location))
           }
 
           res.on('data', function (d) {
@@ -1230,11 +1224,11 @@
           })
 
           res.on('end', function () {
-            callback(data)
+            callbackFunc(data)
           })
         }).on('error', function (e) {
           console.error(e)
-          callback(false)
+          callbackFunc(false)
         })
       } else {
         var http = require('http')
@@ -1251,11 +1245,11 @@
           })
 
           res.on('end', function () {
-            callback(rawData)
+            callbackFunc(rawData)
           })
         }).on('error', function (e) {
           console.error('Got error: ' + e.message)
-          callback(false)
+          callbackFunc(false)
         })
       }
 
@@ -1298,7 +1292,6 @@
           }
         }
       }
-      return
     },
 
     /**
@@ -1488,7 +1481,7 @@
 
             if (found) {
               // console.log(this[len].style.cssText + "" + read + ":" + write + ";")
-              this[len].style.cssText = this[len].style.cssText + read + ":" + write + ";"
+              this[len].style.cssText = this[len].style.cssText + read + ':' + write + ';'
             } else {
               this[len].style.cssText = newArrayOfItems
             }
@@ -1754,11 +1747,10 @@
       for (var i = 0; i < arr.length; i++) {
         // (other) Underscore.js uses -> : __ret.push(callback_int(i, arr[i]))
         var temp = callbackInt(i, arr[i])
-        
+
         if (typeof temp === 'undefined') {
           _.error('ERROR WHILE MAPPING')
-        }
-        else {
+        } else {
           if (typeof temp[0] === 'string') {
             for (var j = 0; j < temp.length; j++) {
               __ret.push(temp[j])
@@ -1835,7 +1827,7 @@
      */
     clearScreen: function () {
       if (this.nodeJS) {
-        process.stdout.write('\x1Bc');
+        process.stdout.write('\x1Bc')
       } else {
         console.warn('_.clearScreen() is only for CLi')
       }
@@ -1851,7 +1843,7 @@
      */
     oneLineUp: function () {
       if (this.nodeJS) {
-        process.stdout.write("\r\x1b[K")
+        process.stdout.write('\r\x1b[K')
       } else {
         console.warn('_.clearScreen() is only for CLi')
       }
@@ -1996,4 +1988,3 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
 // For reading the full source code.
 // if you have questions, please go to:
 // -> https://github.com/wdg/_.js/issues
-
