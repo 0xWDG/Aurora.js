@@ -7,6 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
+**                         v0.1.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -29,7 +30,7 @@ var fillScreen = function (pts) {
   var screenSize = process.stdout.columns
   var textSize = pts.length
   var add = ''
-  for (var i=1; i<(screenSize-textSize); i++) {
+  for (var i = 1; i < (screenSize - textSize); i++) {
     add = add + ' '
   }
 
@@ -37,7 +38,7 @@ var fillScreen = function (pts) {
 }
 
 // Will be hidden but useful for 'debugging' purposes
-console.log('Terminal size: ' + process.stdout.columns + 'x' + process.stdout.rows);
+console.log('Terminal size: ' + process.stdout.columns + 'x' + process.stdout.rows)
 
 // Number of current test
 var _testCounter = 1
@@ -55,69 +56,70 @@ var _testFailed = 0
 // This only prints the 'test' to the screen.
 function __RunTest (i, x, z) {
   setTimeout(function (i, x, z) {
-  if (i === 'TOTAL' && x === 'TOTAL') {
-    fillScreen('\rAll tests finished')
-    if (_testFailed > 0) {
-      console.log('\n' + _.cconsole.color.green + _testPassed + ' tests Passed (? %)' + _.cconsole.color.standard)
-      console.log('\n' + _.cconsole.color.red + _testFailed + ' tests Failed (? %)' + _.cconsole.color.standard)
-    } else {
-      console.log('\n' + _.cconsole.color.green + _testPassed + ' (ALL) tests Passed (100 %)' + _.cconsole.color.standard)
-    }
-  } else {
-    var xEval = String(eval(i)).replace(/(\r\n|\n\r|\r|\n)/g, '') //eslint-disable-line
-    if (typeof z !== 'undefined' || _.runTest(xEval, String(x).replace(/(\r\n|\n\r|\r|\n)/g, ''))) { //eslint-disable-line
-      if (_testFailed === 0) {
-        process.stdout.write('\x1Bc');
-        console.log(_.cconsole.color.standard + '**')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        (_)')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _    _____')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  / ____|')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  | (___')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                    _   | |  \\___  \\')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '     ______    _   | |__| |  ____) |')
-        console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '    |______|  (_)   \\____/  |______/')
-        if (_.version.match(/b/)) {
-          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         v' + _.version.split('b')[0] + ' Beta')
-        } else {
-          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                      v' + _.version + ' Release')
-        }
-        console.log(_.cconsole.color.standard + '**              JS Standard Code Style')
-        console.log(_.cconsole.color.standard + '**')
-        console.log(_.cconsole.color.standard + '**    This is the Node.js init file.')
-        console.log(_.cconsole.color.standard + '**    To use ' + _.cconsole.color.cyan + '_.js' + _.cconsole.color.standard + ' in your project use:')
-        console.log(_.cconsole.color.standard + '**       ' + _.cconsole.color.magenta + 'var _ = require(\'./_.js\')' + _.cconsole.color.standard)
-        console.log(_.cconsole.color.standard + '**')
-        // console.warn(_console.background.red + '**    !!! Running tests...' + _console.background.default)
-        console.log(_.cconsole.color.standard + '**')
-        console.log('')
-        console.log('')
+    if (i === 'TOTAL' && x === 'TOTAL') {
+      fillScreen('\rAll tests finished')
+      if (_testFailed > 0) {
+        console.log('\n' + _.cconsole.color.green + _testPassed + ' tests Passed (? %)' + _.cconsole.color.standard)
+        console.log('\n' + _.cconsole.color.red + _testFailed + ' tests Failed (? %)' + _.cconsole.color.standard)
+      } else {
+        console.log('\n' + _.cconsole.color.green + _testPassed + ' (ALL) tests Passed (100 %)' + _.cconsole.color.standard)
       }
-      process.stdout.write('Expecting: ' + _.cconsole.color.green + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
-
-      if (_testCounter < 10)
-        _testCounter = "00" + _testCounter
-      else if (_testCounter < 100)
-        _testCounter = "0" + _testCounter
-      else
-        _.noop()
-      fillScreen('\r' + _.cconsole.color.green + 'Test (#' + _testCounter + ') ' + i + ' passed' + _.cconsole.color.standard)
-      _testCounter++
-      _testPassed++
     } else {
-      if (_testCounter < 10)
-        _testCounter = "0" + _testCounter
-      else if (_testCounter < 100)
-        _testCounter = "0" + _testCounter
-      else
-        _.noop()
+      var xEval = String(eval(i)).replace(/(\r\n|\n\r|\r|\n)/g, '') //eslint-disable-line
+      if (typeof z !== 'undefined' || _.runTest(xEval, String(x).replace(/(\r\n|\n\r|\r|\n)/g, ''))) { //eslint-disable-line
+        if (_testFailed === 0) {
+          process.stdout.write('\x1Bc')
+          console.log(_.cconsole.color.standard + '**')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        (_)')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         _    _____')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  / ____|')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                        | |  | (___')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                    _   | |  \\___  \\')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '     ______    _   | |__| |  ____) |')
+          console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '    |______|  (_)   \\____/  |______/')
+          if (_.version.match(/b/)) {
+            console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                         v' + _.version.split('b')[0] + ' Beta')
+          } else {
+            console.log(_.cconsole.color.standard + '**' + _.cconsole.color.cyan + '                      v' + _.version + ' Release')
+          }
+          console.log(_.cconsole.color.standard + '**              JS Standard Code Style')
+          console.log(_.cconsole.color.standard + '**')
+          console.log(_.cconsole.color.standard + '**    This is the Node.js init file.')
+          console.log(_.cconsole.color.standard + '**    To use ' + _.cconsole.color.cyan + '_.js' + _.cconsole.color.standard + ' in your project use:')
+          console.log(_.cconsole.color.standard + '**       ' + _.cconsole.color.magenta + 'var _ = require(\'./_.js\')' + _.cconsole.color.standard)
+          console.log(_.cconsole.color.standard + '**')
+          // console.warn(_console.background.red + '**    !!! Running tests...' + _console.background.default)
+          console.log(_.cconsole.color.standard + '**')
+          console.log('')
+          console.log('')
+        }
+        process.stdout.write('Expecting: ' + _.cconsole.color.green + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
+        if (_testCounter < 10) {
+          _testCounter = '00' + _testCounter
+        } else if (_testCounter < 100) {
+          _testCounter = '0' + _testCounter
+        } else {
+          _.noop()
+        }
+        fillScreen('\r' + _.cconsole.color.green + 'Test (#' + _testCounter + ') ' + i + ' passed' + _.cconsole.color.standard)
+        _testCounter++
+        _testPassed++
+      } else {
+        if (_testCounter < 10) {
+          _testCounter = '0' + _testCounter
+        } else if (_testCounter < 100) {
+          _testCounter = '0' + _testCounter
+        } else {
+          _.noop()
+        }
 
-      console.log(_.cconsole.color.red + 'Test (#' + _testCounter + ') ' + i + ' failed' + _.cconsole.color.standard)
-      console.log('Expecting: ' + _.cconsole.color.magenta + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + xEval + _.cconsole.color.standard) //eslint-disable-line
-      _testCounter++
-      _testFailed++
+        console.log(_.cconsole.color.red + 'Test (#' + _testCounter + ') ' + i + ' failed' + _.cconsole.color.standard)
+        console.log('Expecting: ' + _.cconsole.color.magenta + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + xEval + _.cconsole.color.standard) //eslint-disable-line
+        _testCounter++
+        _testFailed++
+      }
     }
-  }
   }, _timeoutCounter * delay, i, x, z)
   _timeoutCounter++
 }
@@ -317,17 +319,11 @@ __RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing();
 // like sprintf(...)
 __RunTest('_.format(\'my %s\', \'wesley\')', 'my wesley')
 
-// Hide this wrapper
-// if we are a browser...
-__RunTest('_(\'.wrapper\').hide()', false)
-
 __RunTest('_(\'.wrapper\').html(\'xxxx\')', false)
 
 __RunTest('_(\'.wrapper\').html(\'xxxx\', true)', false)
 
 __RunTest('_(\'.wrapper\').html()', false)
-
-__RunTest('_(\'.wrapper\').show()', false)
 
 __RunTest('_.framebreak()', false)
 
@@ -341,7 +337,7 @@ __RunTest('_.isLocal()', true)
 
 __RunTest('_.requireSSL()')
 
-__RunTest('_.loadExtension([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
 
 __RunTest('_.isUndefined(false)', false)
 
@@ -394,7 +390,6 @@ __RunTest('_.each({a:\'b\', c:\'d\'}, function (i, v) { console.log(\'key \' + i
 __RunTest('_.merge({a:\'a\'}, {b:\'b\'})', '[object Object]')
 
 __RunTest('_(\'XXX\').truncate(2)', false)
-
 
 // 🖥 CLI ONLY
 // 🌍 / 🌐 UNIVERSAL

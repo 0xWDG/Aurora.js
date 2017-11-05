@@ -74,14 +74,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.9b'
+    this.version = '0.1.0b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r170504'
+    this.revision = 'r171105'
 
     // * this.fullversion
     // *
@@ -931,8 +931,8 @@
               script.type = 'text/javascript'
               script.src = jsArray[i]
               if (i === 1) {
-                scriptOne.onreadystatechange = ''
-                scriptOne.onload = setTimeout(function (Callback) {
+                script.onreadystatechange = ''
+                script.onload = setTimeout(function (Callback) {
                   _._copy_js()
                   Callback()
                 }, 10, Callback)

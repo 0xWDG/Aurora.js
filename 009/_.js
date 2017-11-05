@@ -185,14 +185,14 @@
     // * @cli only
     // * @since v0.0.8
     // * @var object console
-    // * @example _.emoij.color.red
+    // * @example _.cconsole.color.red
     this.cconsole = {
-      reset: {
+      reset: { // This will reset to default console settings
         start: '\u001b[0m',
         stop: '\u001b[0m'
       },
 
-      bold: {
+      bold: { //This is for Bold text
         start: '\u001b[1m',
         stop: '\u001b[22m' // or 21
       },
@@ -202,7 +202,7 @@
         stop: '\u001b[22m'
       },
 
-      italic: {
+      italic: { // This is for Italic text
         start: '\u001b[3m',
         stop: '\u001b[23m'
       },
@@ -227,7 +227,7 @@
         stop: '\u001b[29m'
       },
 
-      color: {
+      color: { // This holds the colors
         standard: '\u001b[39m',
         black: '\u001b[30m',
         red: '\u001b[31m',
@@ -323,7 +323,7 @@
      * @example _._('version')
      */
     _: function (configKey) {
-      return this[configKey]
+      return (typeof this[configKey] === undefined) ? undefined : this[configKey]
     },
 
     /**
@@ -338,11 +338,19 @@
      */
     emulatejQuery: function () {
       // jQuery uses a lot of window elements.
-      // $, _$, jQuery and _jQuery!
+
+      // Register $
       self.$ = self._
+
+      // Register _$
       self._$ = self._
+
+	  // Register jQuery
       self.jQuery = self._
+
+	  // Register _jQuery
       self._jQuery = self._
+
       // After setting, just return
       return self._
     },
