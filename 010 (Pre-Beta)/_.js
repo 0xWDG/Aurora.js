@@ -858,8 +858,7 @@
      * @example _.escapeForRegex('myPotensialRegexUnSafeString')
      */
     escapeForRegex: function (str) {
-      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
-                .replace(/\x08/g, '\\x08') //eslint-disable-line
+      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').replace(/\x08/g, '\\x08') //eslint-disable-line
     },
 
     /**
@@ -916,7 +915,6 @@
      */
     require: function (jsArray, Callback, local) {
       if (!this.nodeJS) {
-        if (typeof local === 'undefined') local = false
         if (typeof jsArray === 'object') {
           for (var i = jsArray.length - 1; i >= 0; i--) {
             if (self._modLoaded.indexOf(jsArray[i]) === -1) {
@@ -924,7 +922,7 @@
               if (!jsArray[i].match(/\.js/g)) {
                 jsArray[i] = jsArray[i] + '.js'
               }
-              if (this.startsWith(jsArray[i], '_') && !local) {
+              if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
                 jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
               }
               var script = document.createElement('script')
@@ -947,7 +945,7 @@
           if (self._modLoaded.indexOf(jsArray) === -1) {
             self._modLoaded.push(jsArray)
             if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-            if (this.startsWith(jsArray, '_') && !local) {
+            if (this.startsWith(jsArray, '_') && !this.isLocal()) {
               jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
             }
             var scriptOne = document.createElement('script')
@@ -1276,32 +1274,6 @@
       }
 
       return _
-    },
-
-    /**
-     * isLocal
-     *
-     * Are we running local?
-     *
-     * @universal function
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.isLocal()
-     */
-    isLocal: function () {
-      if (!this.nodeJS) {
-        if (self.location.protocol !== 'file:') {
-          if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-            return false
-          } else {
-            return true
-          }
-        } else {
-          return true
-        }
-      } else {
-        return true
-      }
     },
 
     /**
@@ -1637,6 +1609,32 @@
     },
 
     /**
+     * isLocal
+     *
+     * Are we running local?
+     *
+     * @universal function
+     * @param object [object] Wrapper
+     * @return bool
+     * @example _.isLocal()
+     */
+    isLocal: function () {
+      if (!this.nodeJS) {
+        if (self.location.protocol !== 'file:') {
+          if (!self.location.href.match(/(file:\/\/|localhost|127\.0\.0\.1|::1)/g)) {
+            return false
+          } else {
+            return true
+          }
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
+    },
+
+    /**
      * endsWith
      *
      * endsWith does a string ends With the thing?
@@ -1886,6 +1884,33 @@
       } else {
         // _('this is a verry long long string').truncate(10)
         return false
+      }
+    },
+  /**
+   * infinitescroll
+   *
+   * infinite scroll
+   *
+   * @web only
+   * @notest
+   * @param object object
+   * @param callbackOnEnd the callback function on reaching end of the page
+   * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
+   * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
+   */
+    infinitescroll: function (callbackOnEnd) {
+      var len = this.length
+      while (len--) {
+        this[len].addEventListener('scroll', function (element) {
+          console.log(this.scrollHeight)
+          if (this.scrollTop + this.clientHeight + 250 >= this.scrollHeight) {
+            if (typeof callbackOnEnd === 'function') {
+              callbackOnEnd()
+            } else {
+              _._error('infinitescroll')
+            }
+          }
+        })
       }
     },
 
