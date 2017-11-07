@@ -7,8 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.0.9 Beta
-**              JS Standard Code Style
+**                         v0.1.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -75,14 +74,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.9b'
+    this.version = '0.1.0b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r170504'
+    this.revision = 'r171105'
 
     // * this.fullversion
     // *
@@ -97,15 +96,6 @@
     // *
     // * @var bool isBeta
     this.isBeta = (this.version.match(/b/g))
-
-    // * this.isAlpha
-    // *
-    // * Is product in Aplha (alfa) status
-    // *
-    // * @var bool isAlpha
-    // * @deprecated v0.0.6
-    // * @removed v0.1.0
-    this.isAlpha = (this.version.match(/a/g))
 
     // * this.isCompiled
     // *
@@ -185,7 +175,7 @@
     // * @cli only
     // * @since v0.0.8
     // * @var object console
-    // * @example _.emoij.color.red
+    // * @example _.cconsole.color.red
     this.cconsole = {
       reset: {
         start: '\u001b[0m',
@@ -377,7 +367,6 @@
             decodeURIComponent('%F0%9F%92%99'))
         }
       }
-      return
     },
 
     /**
@@ -518,12 +507,12 @@
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
-    setCookie: function (name, value) { // , expires, path, domain, secure
+    setCookie: function (name, value, expires, path, domain, secure) {
       if (!this.nodeJS) {
         if (!domain) {
           var tdomain = self.location.hostname
           tdomain = domain.split('.')
-          var domain = '.'
+          domain = '.'
 
           for (var i = 1; i < tdomain.lenth; i++) {
             domain += tdomain[i]
@@ -534,15 +523,15 @@
         today.setTime(today.getTime())
 
         if (typeof expires !== typeof 'String') {
-          var expires = 1
+          expires = 1
         }
 
         if (typeof path !== typeof 'String') {
-          var path = '/'
+          path = '/'
         }
 
         if (typeof secure !== typeof false) {
-          var secure = false
+          secure = false
         }
 
         if (expires) {
@@ -576,13 +565,13 @@
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
-    deleteCookie: function (name) { // , path, domain
+    deleteCookie: function (name, path, domain) {
       if (!this.nodeJS) {
         if (this.getCookie(name)) {
           if (!domain) {
             var tdomain = self.location.hostname
             tdomain = domain.split('.')
-            var domain = '.'
+            domain = '.'
 
             for (var i = 1; i < tdomain.lenth; i++) {
               domain += tdomain[i]
@@ -868,8 +857,7 @@
      * @example _.escapeForRegex('myPotensialRegexUnSafeString')
      */
     escapeForRegex: function (str) {
-      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
-                .replace(/\x08/g, '\\x08') //eslint-disable-line
+      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').replace(/\x08/g, '\\x08') //eslint-disable-line
     },
 
     /**
@@ -926,7 +914,6 @@
      */
     require: function (jsArray, Callback, local) {
       if (!this.nodeJS) {
-        if (typeof local === 'undefined') local = false
         if (typeof jsArray === 'object') {
           for (var i = jsArray.length - 1; i >= 0; i--) {
             if (self._modLoaded.indexOf(jsArray[i]) === -1) {
@@ -934,15 +921,15 @@
               if (!jsArray[i].match(/\.js/g)) {
                 jsArray[i] = jsArray[i] + '.js'
               }
-              if (this.startsWith(jsArray[i], '_') && !local) {
+              if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
                 jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
               }
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
               if (i === 1) {
-                scriptOne.onreadystatechange = ''
-                scriptOne.onload = setTimeout(function (Callback) {
+                script.onreadystatechange = ''
+                script.onload = setTimeout(function (Callback) {
                   _._copy_js()
                   Callback()
                 }, 10, Callback)
@@ -957,7 +944,7 @@
           if (self._modLoaded.indexOf(jsArray) === -1) {
             self._modLoaded.push(jsArray)
             if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-            if (this.startsWith(jsArray, '_') && !local) {
+            if (this.startsWith(jsArray, '_') && !this.isLocal()) {
               jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
             }
             var scriptOne = document.createElement('script')
@@ -1020,33 +1007,6 @@
     },
 
     /**
-     * Hide
-     *
-     * Hide a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').hide()
-     */
-    hide: function () {
-      this.deprecated('hide', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'none'
-        }
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
      * html
      *
      * place html in a object from the website
@@ -1073,35 +1033,6 @@
           } else {
             this[len].innerHTML += data
           }
-        }
-
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
-     * show
-     *
-     * show a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').show()
-     */
-    show: function () {
-      this.deprecated('show', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'block'
         }
 
         return this
@@ -1252,15 +1183,14 @@
           xmlhttp.open('GET', url, true)
           xmlhttp.send()
         }
-      }
-      else {
+      } else {
         // Node JS
-        return this._NodeAjaxHelper(url, function(x) {
+        return this._NodeAjaxHelper(url, function (x) {
           return x
         })
       }
-      
-      console.error("No return!")
+
+      console.error('No return!')
       return false
     },
 
@@ -1273,11 +1203,11 @@
      * @internal
      * @cli only
      * @param string url
-     * @param function callback callback to
+     * @param function callbackFunc callback to
      * @return false
      * @example _._NodeAjaxHelper(url, callback)
      */
-    _NodeAjaxHelper: function (url, callback) {
+    _NodeAjaxHelper: function (url, callbackFunc) {
       if (url.toLowerCase().indexOf('https://') > -1) {
         var https = require('https')
 
@@ -1286,7 +1216,7 @@
           var data = ''
 
           if ([301, 302].indexOf(res.statusCode) > -1) {
-            callback(this.ajax(res.headers.location))
+            callbackFunc(this.ajax(res.headers.location))
           }
 
           res.on('data', function (d) {
@@ -1294,11 +1224,11 @@
           })
 
           res.on('end', function () {
-            callback(data)
+            callbackFunc(data)
           })
         }).on('error', function (e) {
           console.error(e)
-          callback(false)
+          callbackFunc(false)
         })
       } else {
         var http = require('http')
@@ -1315,11 +1245,11 @@
           })
 
           res.on('end', function () {
-            callback(rawData)
+            callbackFunc(rawData)
           })
         }).on('error', function (e) {
           console.error('Got error: ' + e.message)
-          callback(false)
+          callbackFunc(false)
         })
       }
 
@@ -1345,32 +1275,6 @@
     },
 
     /**
-     * isLocal
-     *
-     * Are we running local?
-     *
-     * @universal function
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.isLocal()
-     */
-    isLocal: function () {
-      if (!this.nodeJS) {
-        if (self.location.protocol !== 'file:') {
-          if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-            return false
-          } else {
-            return true
-          }
-        } else {
-          return true
-        }
-      } else {
-        return true
-      }
-    },
-
-    /**
      * requireSSL
      *
      * this make "SSL" / "HTTPS" required
@@ -1388,24 +1292,6 @@
           }
         }
       }
-      return
-    },
-
-    /**
-     * loadExtension
-     *
-     * loadExtension Tries to load a extension (module)
-     *
-     * @web only
-     * @deprecated 0.0.4
-     * @removed 0.1.0
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.loadExtension(src, callback)
-     */
-    loadExtension: function (src, callback) {
-      this.deprecated('loadExtension', '0.0.4', '0.1.0', 'require')
-      return this.require(src, callback)
     },
 
     /**
@@ -1595,7 +1481,7 @@
 
             if (found) {
               // console.log(this[len].style.cssText + "" + read + ":" + write + ";")
-              this[len].style.cssText = this[len].style.cssText + read + ":" + write + ";"
+              this[len].style.cssText = this[len].style.cssText + read + ':' + write + ';'
             } else {
               this[len].style.cssText = newArrayOfItems
             }
@@ -1720,6 +1606,32 @@
     },
 
     /**
+     * isLocal
+     *
+     * Are we running local?
+     *
+     * @universal function
+     * @param object [object] Wrapper
+     * @return bool
+     * @example _.isLocal()
+     */
+    isLocal: function () {
+      if (!this.nodeJS) {
+        if (self.location.protocol !== 'file:') {
+          if (!self.location.href.match(/(file:\/\/|localhost|127\.0\.0\.1|::1)/g)) {
+            return false
+          } else {
+            return true
+          }
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
+    },
+
+    /**
      * endsWith
      *
      * endsWith does a string ends With the thing?
@@ -1835,11 +1747,10 @@
       for (var i = 0; i < arr.length; i++) {
         // (other) Underscore.js uses -> : __ret.push(callback_int(i, arr[i]))
         var temp = callbackInt(i, arr[i])
-        
+
         if (typeof temp === 'undefined') {
           _.error('ERROR WHILE MAPPING')
-        }
-        else {
+        } else {
           if (typeof temp[0] === 'string') {
             for (var j = 0; j < temp.length; j++) {
               __ret.push(temp[j])
@@ -1916,7 +1827,7 @@
      */
     clearScreen: function () {
       if (this.nodeJS) {
-        process.stdout.write('\x1Bc');
+        process.stdout.write('\x1Bc')
       } else {
         console.warn('_.clearScreen() is only for CLi')
       }
@@ -1932,7 +1843,7 @@
      */
     oneLineUp: function () {
       if (this.nodeJS) {
-        process.stdout.write("\r\x1b[K")
+        process.stdout.write('\r\x1b[K')
       } else {
         console.warn('_.clearScreen() is only for CLi')
       }
@@ -1969,6 +1880,33 @@
       } else {
         // _('this is a verry long long string').truncate(10)
         return false
+      }
+    },
+  /**
+   * infinitescroll
+   *
+   * infinite scroll
+   *
+   * @web only
+   * @notest
+   * @param object object
+   * @param callbackOnEnd the callback function on reaching end of the page
+   * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
+   * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
+   */
+    infinitescroll: function (callbackOnEnd) {
+      var len = this.length
+      while (len--) {
+        this[len].addEventListener('scroll', function (element) {
+          console.log(this.scrollHeight)
+          if (this.scrollTop + this.clientHeight + 250 >= this.scrollHeight) {
+            if (typeof callbackOnEnd === 'function') {
+              callbackOnEnd()
+            } else {
+              _._error('infinitescroll')
+            }
+          }
+        })
       }
     },
 
@@ -2050,4 +1988,3 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
 // For reading the full source code.
 // if you have questions, please go to:
 // -> https://github.com/wdg/_.js/issues
-

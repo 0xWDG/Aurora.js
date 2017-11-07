@@ -81,7 +81,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r171105'
+    this.revision = 'r171107'
 
     // * this.fullversion
     // *
@@ -175,7 +175,7 @@
     // * @cli only
     // * @since v0.0.8
     // * @var object console
-    // * @example _.emoij.color.red
+    // * @example _.cconsole.color.red
     this.cconsole = {
       reset: {
         start: '\u001b[0m',
