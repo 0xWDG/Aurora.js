@@ -291,6 +291,14 @@
     // * @var string getBrowser
     this.getBrowser = temp
 
+    // * this.innerHTML
+    // *
+    // * innerHTML
+    // *
+    // * @since v0.1.0
+    // * @var string innerHTML
+    this.innerHTML = (this.length==1) ? selector[0].innerHTML : null
+
     // Add selector to object for method chaining
     for (var i = 0; i < this.length; i++) {
       this[i] = selector[i]
@@ -1882,6 +1890,26 @@
         return false
       }
     },
+
+  /**
+   * DOMEval
+   *
+   * Eval code in DOM
+   *
+   * @web only
+   * @notest
+   * @since v0.1.0
+   * @param code code to run
+   * @example _().DOMEval('alert(1)')
+   */
+    DOMEval: function (code, doc) {
+      doc = doc || document
+
+      var script = doc.createElement('script')
+      script.text = code
+      doc.head.appendChild(script).parentNode.removeChild(script)
+    },
+
   /**
    * infinitescroll
    *

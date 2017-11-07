@@ -8,6 +8,7 @@
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
 **                         v0.0.9 Beta
+**       "The one that never be final"
 **              JS Standard Code Style
 **
 ** https://www.github.com/wdg/_.js/
