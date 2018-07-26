@@ -1,0 +1,19 @@
+{
+  "name": "wdgwvframework",
+  "version": "1.0.0",
+  "description": "WDGWV _.JS Framework",
+  "main": "_.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdg/_.js.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wdg/_.js/issues"
+  },
+  "homepage": "https://github.com/wdg/_.js#readme"
+}

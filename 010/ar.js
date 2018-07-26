@@ -19,7 +19,7 @@
 */
 
 // _ function
-;(function (self) {
+(function (self) {
   // * self._lastObj
   // *
   // * Last selected object
@@ -81,7 +81,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r171105'
+    this.revision = 'r180727'
 
     // * this.fullversion
     // *
@@ -118,14 +118,14 @@
     // * Regex for script tag
     // *
     // * @var string scriptRX
-    this.ScriptRX = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>' //eslint-disable-line
+    this.ScriptRX = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>'
 
     // * this.JSONRX
     // *
     // * Regex for JSON
     // *
     // * @var string JSONRX
-    this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/' //eslint-disable-line
+    this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/'
 
     // * this.nodeJS
     // *
@@ -290,6 +290,14 @@
     // * @since v0.0.7
     // * @var string getBrowser
     this.getBrowser = temp
+
+    // * this.innerHTML
+    // *
+    // * innerHTML
+    // *
+    // * @since v0.1.0
+    // * @var string innerHTML
+    this.innerHTML = (this.length === 1) ? selector[0].innerHTML : null
 
     // Add selector to object for method chaining
     for (var i = 0; i < this.length; i++) {
@@ -777,18 +785,18 @@
     deprecated: function (what, since, endoflife, alternative) {
       console.warn(
         this.format(
-            '⚠️  function \'%s\' is deprecated since v%s %s\n               this function will be removed in v%s %s\n%s',
+          '⚠️  function \'%s\' is deprecated since v%s %s\n               this function will be removed in v%s %s\n%s',
 
-            what,
-            since,
-            '(https://github.com/wdg/_.js/wiki/changed_in_' + since.replace(/(\.|b|a)/g, '') + ')',
-            endoflife,
-            '(https://github.com/wdg/_.js/wiki/changed_in_' + endoflife.replace(/(\.|b|a)/g, '') + ')',
-            typeof alternative === 'undefined'
-              ? '\n There\'s no alternative for ' + what
-              : '\nAlternative: _.' + alternative + '(...) See https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
+          what,
+          since,
+          '(https://github.com/wdg/_.js/wiki/changed_in_' + since.replace(/(\.|b|a)/g, '') + ')',
+          endoflife,
+          '(https://github.com/wdg/_.js/wiki/changed_in_' + endoflife.replace(/(\.|b|a)/g, '') + ')',
+          typeof alternative === 'undefined'
+            ? '\n There\'s no alternative for ' + what
+            : '\nAlternative: _.' + alternative + '(...) See https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
                 'function_' + alternative + ' for more information'
-          )
+        )
       )
       return null
     },
@@ -1111,7 +1119,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) //eslint-disable-line
+                eval(js[i].innerHTML) // Find a better solution.
               }
 
               // fix posts also (.ajax)
@@ -1167,7 +1175,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) //eslint-disable-line
+                eval(js[i].innerHTML) // Find a better solution
               }
 
               // fix posts also (.ajax)
@@ -1829,7 +1837,7 @@
       if (this.nodeJS) {
         process.stdout.write('\x1Bc')
       } else {
-        console.warn('_.clearScreen() is only for CLi')
+        console.warn('_.clearScreen() is only for CLI')
       }
     },
 
@@ -1845,7 +1853,7 @@
       if (this.nodeJS) {
         process.stdout.write('\r\x1b[K')
       } else {
-        console.warn('_.clearScreen() is only for CLi')
+        console.warn('_.clearScreen() is only for CLI')
       }
     },
 
@@ -1882,18 +1890,38 @@
         return false
       }
     },
-  /**
-   * infinitescroll
-   *
-   * infinite scroll
-   *
-   * @web only
-   * @notest
-   * @param object object
-   * @param callbackOnEnd the callback function on reaching end of the page
-   * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
-   * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
-   */
+
+    /**
+     * DOMEval
+     *
+     * Eval code in DOM
+     *
+     * @web only
+     * @notest
+     * @since v0.1.0
+     * @param code code to run
+     * @example _().DOMEval('alert(1)')
+     */
+    DOMEval: function (code, doc) {
+      doc = doc || document
+
+      var script = doc.createElement('script')
+      script.text = code
+      doc.head.appendChild(script).parentNode.removeChild(script)
+    },
+
+    /**
+     * infinitescroll
+     *
+     * infinite scroll
+     *
+     * @web only
+     * @notest
+     * @param object object
+     * @param callbackOnEnd the callback function on reaching end of the page
+     * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
+     * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
+     */
     infinitescroll: function (callbackOnEnd) {
       var len = this.length
       while (len--) {
@@ -1981,7 +2009,7 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
 }
 
 // Please. please.
-// Somethimes we'll need to use eslint-disable-line
+// Sometimes we'll need to use eslint-disable-line
 // because eslint does not know what we're doing with the code.
 //
 // Thanks,
