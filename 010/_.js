@@ -944,6 +944,7 @@
               }
               document.head.appendChild(script)
             } else {
+              var vm = require('vm')
               var val = this._NodeAjaxHelper(jsArray[i], vm.runInThisContext)
               if (i === 1) {
                 _._copy_js()
@@ -974,6 +975,7 @@
             }, 10, Callback)
             document.head.appendChild(scriptOne)
           } else {
+            var vm = require('vm')
             return this._NodeAjaxHelper(jsArray, vm.runInThisContext)
           }
         } else {
@@ -2020,6 +2022,7 @@
   // node.js support
   if (typeof exports !== 'undefined') {
     module.exports = _
+    global._ = _
   }
 
   // And return

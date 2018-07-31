@@ -1,5 +1,3 @@
-#/usr/local/bin/node
-
 /*
 **                         _
 **                        (_)
@@ -113,6 +111,8 @@ function __RunTest (i, x, z) {
   }, _timeoutCounter * delay, i, x, z)
   _timeoutCounter++
 }
+
+_.require('https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test.js')
 
 // Since we've never gonna call a object in Node.js this will always be undefined.
 // We still put the test in
