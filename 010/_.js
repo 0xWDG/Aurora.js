@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.1.0 Beta
+**                         v1.0.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -40,6 +40,13 @@
   // *
   // * @var array _eventStore
   self._eventStore = []
+
+  // * self._temporary
+  // *
+  // * Temporary functions.
+  // *
+  // * @var function _temporary
+  self._temporary = null
 
   // _ returns new Library object that hold our selector. Ex: _('.wrapper')
   var _ = function (params) {
@@ -74,14 +81,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.1.0b'
+    this.version = '1.0.0b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180726'
+    this.revision = 'r180731'
 
     // * this.fullversion
     // *
@@ -906,6 +913,32 @@
     },
 
     /**
+     * Evaluate
+     *
+     * Evalate some code.
+     *
+     * @param string JavaScriptCode
+     * @return mixed
+     * @example _.evaluate('alert(1)')
+     */
+    evaluate: function (something) {
+      if (!_.nodeJS) {
+        var s = document.createElement('script')
+
+        if (window.attachEvent && !window.addEventListener) {
+          /* old internet explorer < 10 */
+          s.src = 'data:text/javascript,' + encodeURIComponent(something)
+        } else {
+          s.src = 'data:text/javascript;base64,' + btoa(something)
+        }
+
+        document.body.appendChild(s)
+      } else {
+        return require('vm').runInThisContext(something)
+      }
+    },
+
+    /**
      * require
      *
      * Load/Require a javascript file
@@ -944,13 +977,11 @@
               }
               document.head.appendChild(script)
             } else {
-              var vm = require('vm')
-              var val = this._NodeAjaxHelper(jsArray[i], vm.runInThisContext)
+              var val = this._NodeAjaxHelper(jsArray[i], this.evaluate)
               if (i === jsArray.length - 1) {
-                _._copy_js()
+                // _._copy_js()
                 return Callback()
               }
-              // return val
             }
           } else {
             _._copy_js()
@@ -975,8 +1006,7 @@
             }, 10, Callback)
             document.head.appendChild(scriptOne)
           } else {
-            var vm = require('vm')
-            return this._NodeAjaxHelper(jsArray, vm.runInThisContext)
+            return this._NodeAjaxHelper(jsArray, this.evaluate)
           }
         } else {
           _._copy_js()
@@ -1130,7 +1160,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) // Find a better solution.
+                this.evaluate(js[i].innerHTML) // Find a better solution.
               }
 
               // fix posts also (.ajax)
@@ -1186,7 +1216,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) // Find a better solution
+                this.evaluate(js[i].innerHTML) // Find a better solution
               }
 
               // fix posts also (.ajax)
