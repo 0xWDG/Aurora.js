@@ -81,7 +81,7 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '1.0.0b'
+    this.version = '1.0.0'
 
     // * this.revision
     // *
@@ -118,7 +118,7 @@
     // * is this a stable version
     // *
     // * @var bool isStable
-    this.isStable = (!this.isBeta && !this.isAlpha)
+    this.isStable = !this.isBeta
 
     // * this.scriptRX
     // *
@@ -2009,25 +2009,6 @@
         // _('this is a verry long long string').truncate(10)
         return false
       }
-    },
-
-    /**
-     * DOMEval
-     *
-     * Eval code in DOM
-     *
-     * @web only
-     * @notest
-     * @since v0.1.0
-     * @param code code to run
-     * @example _().DOMEval('alert(1)')
-     */
-    DOMEval: function (code, doc) {
-      doc = doc || document
-
-      var script = doc.createElement('script')
-      script.text = code
-      doc.head.appendChild(script).parentNode.removeChild(script)
     },
 
     /**

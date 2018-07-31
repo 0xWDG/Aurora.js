@@ -2012,25 +2012,6 @@
     },
 
     /**
-     * DOMEval
-     *
-     * Eval code in DOM
-     *
-     * @web only
-     * @notest
-     * @since v0.1.0
-     * @param code code to run
-     * @example _().DOMEval('alert(1)')
-     */
-    DOMEval: function (code, doc) {
-      doc = doc || document
-
-      var script = doc.createElement('script')
-      script.text = code
-      doc.head.appendChild(script).parentNode.removeChild(script)
-    },
-
-    /**
      * infinitescroll
      *
      * infinite scroll
