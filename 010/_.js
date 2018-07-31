@@ -921,17 +921,17 @@
      * @example _.require(['a', 'r', 'ra', 'y'], function () { doSomeThing(); })
      */
     require: function (jsArray, Callback, local) {
-      if (!this.nodeJS) {
-        if (typeof jsArray === 'object') {
-          for (var i = jsArray.length - 1; i >= 0; i--) {
-            if (self._modLoaded.indexOf(jsArray[i]) === -1) {
-              self._modLoaded.push(jsArray[i])
-              if (!jsArray[i].match(/\.js/g)) {
-                jsArray[i] = jsArray[i] + '.js'
-              }
-              if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
-                jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
-              }
+      if (typeof jsArray === 'object') {
+        for (var i = jsArray.length - 1; i >= 0; i--) {
+          if (self._modLoaded.indexOf(jsArray[i]) === -1) {
+            self._modLoaded.push(jsArray[i])
+            if (!jsArray[i].match(/\.js/g)) {
+              jsArray[i] = jsArray[i] + '.js'
+            }
+            if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
+              jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+            }
+            if (!this.nodeJS) {
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
@@ -944,17 +944,26 @@
               }
               document.head.appendChild(script)
             } else {
-              _._copy_js()
-              Callback()
+              var val = this._NodeAjaxHelper(jsArray[i], vm.runInThisContext)
+              if (i === 1) {
+                _._copy_js()
+                Callback()
+              }
+              return val
             }
+          } else {
+            _._copy_js()
+            Callback()
           }
-        } else if (typeof (jsArray) === 'string') {
-          if (self._modLoaded.indexOf(jsArray) === -1) {
-            self._modLoaded.push(jsArray)
-            if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-            if (this.startsWith(jsArray, '_') && !this.isLocal()) {
-              jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
-            }
+        }
+      } else if (typeof (jsArray) === 'string') {
+        if (self._modLoaded.indexOf(jsArray) === -1) {
+          self._modLoaded.push(jsArray)
+          if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
+          if (this.startsWith(jsArray, '_') && !this.isLocal()) {
+            jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
+          }
+          if (!this.nodeJS) {
             var scriptOne = document.createElement('script')
             scriptOne.type = 'text/javascript'
             scriptOne.src = jsArray
@@ -965,16 +974,16 @@
             }, 10, Callback)
             document.head.appendChild(scriptOne)
           } else {
-            _._copy_js()
-            Callback()
+            return this._NodeAjaxHelper(jsArray, vm.runInThisContext)
           }
         } else {
-          console.error('Please use only a array, or a string.')
+          _._copy_js()
+          Callback()
         }
       } else {
-        // NEED A WAY TO REQUIRE EXTENSIONS WITH USE OF NODE.JS
-        // ...
+        console.error('Please use only a array, or a string.')
       }
+
       return null
     },
 
@@ -1221,22 +1230,30 @@
 
         https.get(url, function (res) {
           res.setEncoding('utf8')
-          var data = ''
+          var rawData = ''
 
           if ([301, 302].indexOf(res.statusCode) > -1) {
             callbackFunc(this.ajax(res.headers.location))
           }
 
           res.on('data', function (d) {
-            data += d
+            rawData += d
           })
 
           res.on('end', function () {
-            callbackFunc(data)
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(rawData)
+            } else {
+              return rawData
+            }
           })
         }).on('error', function (e) {
           console.error(e)
-          callbackFunc(false)
+          if (typeof callbackFunc === 'function') {
+            return callbackFunc(false)
+          } else {
+            return false
+          }
         })
       } else {
         var http = require('http')
@@ -1253,11 +1270,19 @@
           })
 
           res.on('end', function () {
-            callbackFunc(rawData)
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(rawData)
+            } else {
+              return rawData
+            }
           })
         }).on('error', function (e) {
           console.error('Got error: ' + e.message)
-          callbackFunc(false)
+          if (typeof callbackFunc === 'function') {
+            return callbackFunc(false)
+          } else {
+            return false
+          }
         })
       }
 
