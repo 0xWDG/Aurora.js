@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v1.0.0 Beta
+**                        v1.0.0 Final
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com

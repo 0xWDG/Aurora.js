@@ -7,7 +7,6 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v0.1.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -65,8 +64,8 @@ function __RunTest (i, x, z) {
         console.log('\n' + _.cconsole.color.green + _testPassed + ' (ALL) tests Passed (100 %)' + _.cconsole.color.standard)
       }
     } else {
-      var xEval = String(eval(i)).replace(/(\r\n|\n\r|\r|\n)/g, '') //eslint-disable-line
-      if (typeof z !== 'undefined' || _.runTest(xEval, String(x).replace(/(\r\n|\n\r|\r|\n)/g, ''))) { //eslint-disable-line
+    var xEval = String(eval(i)).replace(/(\r\n|\n\r|\r|\n)/g, '') //eslint-disable-line
+    if (typeof z !== 'undefined' || _.runTest(xEval, String(x).replace(/(\r\n|\n\r|\r|\n)/g, ''))) { //eslint-disable-line
         if (_testFailed === 0) {
           process.stdout.write('\x1Bc')
           console.log(_.cconsole.color.standard + '**')
@@ -94,28 +93,17 @@ function __RunTest (i, x, z) {
           console.log('')
           console.log('')
         }
-        process.stdout.write('Expecting: ' + _.cconsole.color.green + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
-        if (_testCounter < 10) {
-          _testCounter = '00' + _testCounter
-        } else if (_testCounter < 100) {
-          _testCounter = '0' + _testCounter
-        } else {
-          _.noop()
-        }
+      process.stdout.write('Expecting: ' + _.cconsole.color.green + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.green + xEval + _.cconsole.color.standard + '\r') //eslint-disable-line
+
+        if (_testCounter < 10) { _testCounter = '00' + _testCounter } else if (_testCounter < 100) { _testCounter = '0' + _testCounter } else { _.noop() }
         fillScreen('\r' + _.cconsole.color.green + 'Test (#' + _testCounter + ') ' + i + ' passed' + _.cconsole.color.standard)
         _testCounter++
         _testPassed++
       } else {
-        if (_testCounter < 10) {
-          _testCounter = '0' + _testCounter
-        } else if (_testCounter < 100) {
-          _testCounter = '0' + _testCounter
-        } else {
-          _.noop()
-        }
+        if (_testCounter < 10) { _testCounter = '0' + _testCounter } else if (_testCounter < 100) { _testCounter = '0' + _testCounter } else { _.noop() }
 
         console.log(_.cconsole.color.red + 'Test (#' + _testCounter + ') ' + i + ' failed' + _.cconsole.color.standard)
-        console.log('Expecting: ' + _.cconsole.color.magenta + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + xEval + _.cconsole.color.standard) //eslint-disable-line
+      console.log('Expecting: ' + _.cconsole.color.magenta + String(x).replace(/(\r\n|\n\r|\r|\n)/g, '') + _.cconsole.color.standard + '; Got: ' + _.cconsole.color.red + xEval + _.cconsole.color.standard) //eslint-disable-line
         _testCounter++
         _testFailed++
       }
@@ -123,6 +111,8 @@ function __RunTest (i, x, z) {
   }, _timeoutCounter * delay, i, x, z)
   _timeoutCounter++
 }
+
+_.require('https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test.js')
 
 // Since we've never gonna call a object in Node.js this will always be undefined.
 // We still put the test in
@@ -313,12 +303,14 @@ __RunTest('_.isPlainObject([])', false)
 
 // Require
 // ... Does not work yet on Node.js
-__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+__RunTest('_.require([\'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test1.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test2.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test3.js\'], function () { return true; })', true)
 
 // Format code
 // like sprintf(...)
 __RunTest('_.format(\'my %s\', \'wesley\')', 'my wesley')
 
+// Hide this wrapper
+// if we are a browser...
 __RunTest('_(\'.wrapper\').html(\'xxxx\')', false)
 
 __RunTest('_(\'.wrapper\').html(\'xxxx\', true)', false)
@@ -337,7 +329,7 @@ __RunTest('_.isLocal()', true)
 
 __RunTest('_.requireSSL()')
 
-__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+// __RunTest('_.loadExtension([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
 
 __RunTest('_.isUndefined(false)', false)
 

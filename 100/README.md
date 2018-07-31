@@ -1,11 +1,12 @@
 # _.js
-#### v0.0.9 (Beta)
+#### v1.0.0
 
 #### Biggest changes
 
 - Node.js support
-- Better css support (in progress)
-- ...
+- Better css support
+- No eval!
+- require for Node.js
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wdg/_.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
