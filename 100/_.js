@@ -81,7 +81,7 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '1.0.0b'
+    this.version = '1.0.0'
 
     // * this.revision
     // *
@@ -118,7 +118,7 @@
     // * is this a stable version
     // *
     // * @var bool isStable
-    this.isStable = (!this.isBeta && !this.isAlpha)
+    this.isStable = !this.isBeta
 
     // * this.scriptRX
     // *
