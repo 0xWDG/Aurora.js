@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                         v1.0.0 Beta
+**                        v1.0.0 Final
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -917,7 +917,7 @@
      *
      * Evalate some code.
      *
-     * @param string JavaScriptCode
+     * @param string JavaScriptCode Javascript code to be evaluated.
      * @return mixed
      * @example _.evaluate('alert(1)')
      */
@@ -926,7 +926,6 @@
         var s = document.createElement('script')
 
         if (window.attachEvent && !window.addEventListener) {
-          /* old internet explorer < 10 */
           s.src = 'data:text/javascript,' + encodeURIComponent(something)
         } else {
           s.src = 'data:text/javascript;base64,' + btoa(something)
@@ -1019,6 +1018,53 @@
       return null
     },
 
+    /**
+     * Hide
+     *
+     * Hide a object from the website
+     *
+     * @web only
+     * @param object object Wrapper
+     * @return this
+     * @example _('.wrapper').hide()
+     */
+    hide: function () {
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'none'
+        }
+        return this
+      } else {
+        return false
+      }
+    },
+
+    /**
+     * show
+     *
+     * show a object from the website
+     *
+     * @web only
+     * @param object object Wrapper
+     * @return this
+     * @example _('.wrapper').show()
+     */
+    show: function () {
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'block'
+        }
+
+        return this
+      } else {
+        return false
+      }
+    },
     /**
      * Format
      *

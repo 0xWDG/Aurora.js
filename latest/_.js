@@ -926,7 +926,6 @@
         var s = document.createElement('script')
 
         if (window.attachEvent && !window.addEventListener) {
-          /* old internet explorer < 10 */
           s.src = 'data:text/javascript,' + encodeURIComponent(something)
         } else {
           s.src = 'data:text/javascript;base64,' + btoa(something)
