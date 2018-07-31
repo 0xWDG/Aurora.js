@@ -917,7 +917,7 @@
      *
      * Evalate some code.
      *
-     * @param string JavaScriptCode
+     * @param string JavaScriptCode Javascript code to be evaluated.
      * @return mixed
      * @example _.evaluate('alert(1)')
      */
