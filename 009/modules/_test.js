@@ -20,7 +20,7 @@
 
 console.log('Extension _test.js loaded :)')
 
-if (!window._) {
+if (typeof _ !== 'function') {
   window.alert('Please make sure _.js is loaded!')
 } else {
   console.log('Found _.js')

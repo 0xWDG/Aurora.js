@@ -17,7 +17,7 @@
     Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md (CC BY 4.0)
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
-if (!window._) {
+if (typeof window._ !== 'function') {
   window.alert('Please make sure _.js is loaded!')
 } else {
   window.players = {} // the media players
@@ -325,7 +325,7 @@ if (!window._) {
           // Add Player to the global window.players list (for skip, pause, active, multiple files)
           /*eslint-disable */
           eval('window.players=this.merge(window.players,{MMMain' + now + ":{file:data['file'][i],html:MMElement,options:options}});")
-        /*eslint-enable */
+        /* eslint-enable */
         }
 
         // Ad on end.
@@ -420,7 +420,7 @@ if (!window._) {
             // Add Player to the global window.players list (for skip, pause, active, multiple files)
             /*eslint-disable */
             eval('window.players=this.merge(window.players,{MMMain' + (now + 1) + ":{file:data['after'],html:MMElement,options:options}});")
-          /*eslint-enable */
+          /* eslint-enable */
           }
         }
       } else {
