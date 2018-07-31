@@ -17,7 +17,7 @@
     Licence: https://github.com/wesdegroot/_.js/blob/master/LICENCE.md (CC BY 4.0)
     Latest:  https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js
 */
-if (typeof window._ !== 'function') {
+if (typeof _ !== 'function') {
   window.alert('Please make sure _.js is loaded!')
 } else {
   // Load Text functions

@@ -946,11 +946,11 @@
             } else {
               var vm = require('vm')
               var val = this._NodeAjaxHelper(jsArray[i], vm.runInThisContext)
-              if (i === 1) {
+              if (i === jsArray.length - 1) {
                 _._copy_js()
-                Callback()
+                return Callback()
               }
-              return val
+              // return val
             }
           } else {
             _._copy_js()
@@ -1230,19 +1230,31 @@
       if (url.toLowerCase().indexOf('https://') > -1) {
         var https = require('https')
 
-        https.get(url, function (res) {
-          res.setEncoding('utf8')
+        https.get(url, function (resource) {
+          resource.setEncoding('utf8')
           var rawData = ''
 
-          if ([301, 302].indexOf(res.statusCode) > -1) {
-            callbackFunc(this.ajax(res.headers.location))
+          if ([301, 302].indexOf(resource.statusCode) > -1) {
+            if (typeof callbackFunc === 'function') {
+              return this.ajax(resource.headers.location, callbackFunc)
+            } else {
+              return this._NodeAjaxHelper(resource.headers.location)
+            }
           }
 
-          res.on('data', function (d) {
+          if ([404, 403].indexOf(resource.statusCode) > -1) {
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(false)
+            } else {
+              return false
+            }
+          }
+
+          resource.on('data', function (d) {
             rawData += d
           })
 
-          res.on('end', function () {
+          resource.on('end', function () {
             if (typeof callbackFunc === 'function') {
               return callbackFunc(rawData)
             } else {
@@ -1250,7 +1262,7 @@
             }
           })
         }).on('error', function (e) {
-          console.error(e)
+          console.error('Error: ' + e)
           if (typeof callbackFunc === 'function') {
             return callbackFunc(false)
           } else {
@@ -1260,18 +1272,23 @@
       } else {
         var http = require('http')
 
-        http.get(url, function (res) {
-          res.setEncoding('utf8')
+        http.get(url, function (resource) {
+          resource.setEncoding('utf8')
           var rawData = ''
-          if (res.statusCode !== 200) {
-            console.error('Request Failed.\nStatus Code: ' + res.statusCode)
+          if (resource.statusCode !== 200) {
+            console.error('Request Failed.\nStatus Code: ' + resource.statusCode)
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(false)
+            } else {
+              return false
+            }
           }
 
-          res.on('data', function (chunk) {
+          resource.on('data', function (chunk) {
             rawData += chunk
           })
 
-          res.on('end', function () {
+          resource.on('end', function () {
             if (typeof callbackFunc === 'function') {
               return callbackFunc(rawData)
             } else {

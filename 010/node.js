@@ -303,7 +303,7 @@ __RunTest('_.isPlainObject([])', false)
 
 // Require
 // ... Does not work yet on Node.js
-__RunTest('_.require([\'a\', \'r\', \'ra\', \'y\'], function () { doSomeThing(); })', null)
+__RunTest('_.require([\'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test1.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test2.js\', \'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/_test3.js\'], function () { return true; })', true)
 
 // Format code
 // like sprintf(...)
