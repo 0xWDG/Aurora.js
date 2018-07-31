@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"./m/_infinitescroll.js",
+"lineCount":1,
+"mappings":"AAmBiB,UAAjB,GAAI,MAAOA,EAAX,CACEC,MAAAC,MAAA,CAAa,kCAAb,CADF,CAaED,MAAAD,EAAAG,GAAAC,gBAbF,CAagCC,QAAS,CAACC,CAAD,CAAgB,CAErD,IADA,IAAIC,EAAM,IAAAC,OACV,CAAOD,CAAA,EAAP,CAAA,CACE,IAAA,CAAKA,CAAL,CAAAE,iBAAA,CAA2B,QAA3B,CAAqC,QAAS,CAACC,CAAD,CAAU,CACtDC,OAAAC,IAAA,CAAY,IAAAC,aAAZ,CACI,KAAAC,UAAJ,CAAqB,IAAAC,aAArB,CAAyC,GAAzC,EAAgD,IAAAF,aAAhD,GAC+B,UAA7B,GAAI,MAAOP,EAAX,CACEA,CAAA,EADF,CAGEL,MAAAD,EAAAgB,OAAA,CAAgB,gCAAhB,CAJJ,CAFsD,CAAxD,CASG,IAAA,CAAKT,CAAL,CATH,CAHmD;",
+"sources":["./_infinitescroll.js"],
+"names":["_","window","alert","fn","infinitescroll2","window._.fn.infinitescroll2","callbackOnEnd","len","length","addEventListener","element","console","log","scrollHeight","scrollTop","clientHeight","_error"]
+}

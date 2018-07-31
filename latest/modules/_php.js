@@ -7,7 +7,7 @@
                     _   | |  \___  \
      ______    _   | |__| |  ____) |
     |______|  (_)   \____/  |______/
-                              v0.0.7
+                              v0.1.0
 
     https://www.github.com/wesdegroot/_.js/
     or https://www.wdgwv.com

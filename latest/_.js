@@ -7,8 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                       v0.0.8 Stable
-**              JS Standard Code Style
+**                        v1.0.0 Final
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -20,7 +19,7 @@
 */
 
 // _ function
-;(function (self) {
+(function (self) {
   // * self._lastObj
   // *
   // * Last selected object
@@ -41,6 +40,13 @@
   // *
   // * @var array _eventStore
   self._eventStore = []
+
+  // * self._temporary
+  // *
+  // * Temporary functions.
+  // *
+  // * @var function _temporary
+  self._temporary = null
 
   // _ returns new Library object that hold our selector. Ex: _('.wrapper')
   var _ = function (params) {
@@ -75,14 +81,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '0.0.8'
+    this.version = '1.0.0b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r170502'
+    this.revision = 'r180731'
 
     // * this.fullversion
     // *
@@ -97,15 +103,6 @@
     // *
     // * @var bool isBeta
     this.isBeta = (this.version.match(/b/g))
-
-    // * this.isAlpha
-    // *
-    // * Is product in Aplha (alfa) status
-    // *
-    // * @var bool isAlpha
-    // * @deprecated v0.0.6
-    // * @removed v0.1.0
-    this.isAlpha = (this.version.match(/a/g))
 
     // * this.isCompiled
     // *
@@ -128,14 +125,14 @@
     // * Regex for script tag
     // *
     // * @var string scriptRX
-    this.ScriptRX = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>' //eslint-disable-line
+    this.ScriptRX = '<script[^>]*>([\\S\\s]*?)<\/script\\s*>'
 
     // * this.JSONRX
     // *
     // * Regex for JSON
     // *
     // * @var string JSONRX
-    this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/' //eslint-disable-line
+    this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/'
 
     // * this.nodeJS
     // *
@@ -185,7 +182,7 @@
     // * @cli only
     // * @since v0.0.8
     // * @var object console
-    // * @example _.emoij.color.red
+    // * @example _.cconsole.color.red
     this.cconsole = {
       reset: {
         start: '\u001b[0m',
@@ -301,6 +298,14 @@
     // * @var string getBrowser
     this.getBrowser = temp
 
+    // * this.innerHTML
+    // *
+    // * innerHTML
+    // *
+    // * @since v0.1.0
+    // * @var string innerHTML
+    this.innerHTML = (this.length === 1) ? selector[0].innerHTML : null
+
     // Add selector to object for method chaining
     for (var i = 0; i < this.length; i++) {
       this[i] = selector[i]
@@ -377,7 +382,6 @@
             decodeURIComponent('%F0%9F%92%99'))
         }
       }
-      return
     },
 
     /**
@@ -518,12 +522,12 @@
      * @return null
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
-    setCookie: function (name, value) { // , expires, path, domain, secure
+    setCookie: function (name, value, expires, path, domain, secure) {
       if (!this.nodeJS) {
         if (!domain) {
           var tdomain = self.location.hostname
           tdomain = domain.split('.')
-          var domain = '.'
+          domain = '.'
 
           for (var i = 1; i < tdomain.lenth; i++) {
             domain += tdomain[i]
@@ -534,15 +538,15 @@
         today.setTime(today.getTime())
 
         if (typeof expires !== typeof 'String') {
-          var expires = 1
+          expires = 1
         }
 
         if (typeof path !== typeof 'String') {
-          var path = '/'
+          path = '/'
         }
 
         if (typeof secure !== typeof false) {
-          var secure = false
+          secure = false
         }
 
         if (expires) {
@@ -576,13 +580,13 @@
      * @return bool
      * @example _.getCookie('Cookiemonster')
      */
-    deleteCookie: function (name) { // , path, domain
+    deleteCookie: function (name, path, domain) {
       if (!this.nodeJS) {
         if (this.getCookie(name)) {
           if (!domain) {
             var tdomain = self.location.hostname
             tdomain = domain.split('.')
-            var domain = '.'
+            domain = '.'
 
             for (var i = 1; i < tdomain.lenth; i++) {
               domain += tdomain[i]
@@ -788,18 +792,18 @@
     deprecated: function (what, since, endoflife, alternative) {
       console.warn(
         this.format(
-            '⚠️  function \'%s\' is deprecated since v%s %s\n               this function will be removed in v%s %s\n%s',
+          '⚠️  function \'%s\' is deprecated since v%s %s\n               this function will be removed in v%s %s\n%s',
 
-            what,
-            since,
-            '(https://github.com/wdg/_.js/wiki/changed_in_' + since.replace(/(\.|b|a)/g, '') + ')',
-            endoflife,
-            '(https://github.com/wdg/_.js/wiki/changed_in_' + endoflife.replace(/(\.|b|a)/g, '') + ')',
-            typeof alternative === 'undefined'
-              ? '\n There\'s no alternative for ' + what
-              : '\nAlternative: _.' + alternative + '(...) See https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
+          what,
+          since,
+          '(https://github.com/wdg/_.js/wiki/changed_in_' + since.replace(/(\.|b|a)/g, '') + ')',
+          endoflife,
+          '(https://github.com/wdg/_.js/wiki/changed_in_' + endoflife.replace(/(\.|b|a)/g, '') + ')',
+          typeof alternative === 'undefined'
+            ? '\n There\'s no alternative for ' + what
+            : '\nAlternative: _.' + alternative + '(...) See https://github.com/wdg/_.js/wiki/' + (this.isBeta ? 'flbeta_' : '') +
                 'function_' + alternative + ' for more information'
-          )
+        )
       )
       return null
     },
@@ -868,8 +872,7 @@
      * @example _.escapeForRegex('myPotensialRegexUnSafeString')
      */
     escapeForRegex: function (str) {
-      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1')
-                .replace(/\x08/g, '\\x08') //eslint-disable-line
+      return str.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').replace(/\x08/g, '\\x08') //eslint-disable-line
     },
 
     /**
@@ -910,6 +913,32 @@
     },
 
     /**
+     * Evaluate
+     *
+     * Evalate some code.
+     *
+     * @param string JavaScriptCode
+     * @return mixed
+     * @example _.evaluate('alert(1)')
+     */
+    evaluate: function (something) {
+      if (!_.nodeJS) {
+        var s = document.createElement('script')
+
+        if (window.attachEvent && !window.addEventListener) {
+          /* old internet explorer < 10 */
+          s.src = 'data:text/javascript,' + encodeURIComponent(something)
+        } else {
+          s.src = 'data:text/javascript;base64,' + btoa(something)
+        }
+
+        document.body.appendChild(s)
+      } else {
+        return require('vm').runInThisContext(something)
+      }
+    },
+
+    /**
      * require
      *
      * Load/Require a javascript file
@@ -925,41 +954,48 @@
      * @example _.require(['a', 'r', 'ra', 'y'], function () { doSomeThing(); })
      */
     require: function (jsArray, Callback, local) {
-      if (!this.nodeJS) {
-        if (typeof local === 'undefined') local = false
-        if (typeof jsArray === 'object') {
-          for (var i = jsArray.length - 1; i >= 0; i--) {
-            if (self._modLoaded.indexOf(jsArray[i]) === -1) {
-              self._modLoaded.push(jsArray[i])
-              if (!jsArray[i].match(/\.js/g)) {
-                jsArray[i] = jsArray[i] + '.js'
-              }
-              if (this.startsWith(jsArray[i], '_') && !local) {
-                jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
-              }
+      if (typeof jsArray === 'object') {
+        for (var i = jsArray.length - 1; i >= 0; i--) {
+          if (self._modLoaded.indexOf(jsArray[i]) === -1) {
+            self._modLoaded.push(jsArray[i])
+            if (!jsArray[i].match(/\.js/g)) {
+              jsArray[i] = jsArray[i] + '.js'
+            }
+            if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
+              jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+            }
+            if (!this.nodeJS) {
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
               if (i === 1) {
-                scriptOne.onreadystatechange = ''
-                scriptOne.onload = setTimeout(function (Callback) {
+                script.onreadystatechange = ''
+                script.onload = setTimeout(function (Callback) {
                   _._copy_js()
                   Callback()
                 }, 10, Callback)
               }
               document.head.appendChild(script)
             } else {
-              _._copy_js()
-              Callback()
+              var val = this._NodeAjaxHelper(jsArray[i], this.evaluate)
+              if (i === jsArray.length - 1) {
+                _._copy_js()
+                return Callback()
+              }
             }
+          } else {
+            _._copy_js()
+            Callback()
           }
-        } else if (typeof (jsArray) === 'string') {
-          if (self._modLoaded.indexOf(jsArray) === -1) {
-            self._modLoaded.push(jsArray)
-            if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-            if (this.startsWith(jsArray, '_') && !local) {
-              jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
-            }
+        }
+      } else if (typeof (jsArray) === 'string') {
+        if (self._modLoaded.indexOf(jsArray) === -1) {
+          self._modLoaded.push(jsArray)
+          if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
+          if (this.startsWith(jsArray, '_') && !this.isLocal()) {
+            jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
+          }
+          if (!this.nodeJS) {
             var scriptOne = document.createElement('script')
             scriptOne.type = 'text/javascript'
             scriptOne.src = jsArray
@@ -970,19 +1006,66 @@
             }, 10, Callback)
             document.head.appendChild(scriptOne)
           } else {
-            _._copy_js()
-            Callback()
+            return this._NodeAjaxHelper(jsArray, this.evaluate)
           }
         } else {
-          console.error('Please use only a array, or a string.')
+          _._copy_js()
+          Callback()
         }
       } else {
-        // NEED A WAY TO REQUIRE EXTENSIONS WITH USE OF NODE.JS
-        // ...
+        console.error('Please use only a array, or a string.')
       }
+
       return null
     },
 
+    /**
+     * Hide
+     *
+     * Hide a object from the website
+     *
+     * @web only
+     * @param object object Wrapper
+     * @return this
+     * @example _('.wrapper').hide()
+     */
+    hide: function () {
+      if (!this.nodeJS) {
+        var len = this.length
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'none'
+        }
+        return this
+      } else {
+        return false
+      }
+    },
+
+    /**
+     * show
+     *
+     * show a object from the website
+     *
+     * @web only
+     * @param object object Wrapper
+     * @return this
+     * @example _('.wrapper').show()
+     */
+    show: function () {
+      if (!this.nodeJS) {
+        var len = this.length
+
+        while (len--) {
+          self._lastObj = this[len]
+          this[len].style.display = 'block'
+        }
+
+        return this
+      } else {
+        return false
+      }
+    },
     /**
      * Format
      *
@@ -1020,33 +1103,6 @@
     },
 
     /**
-     * Hide
-     *
-     * Hide a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').hide()
-     */
-    hide: function () {
-      this.deprecated('hide', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'none'
-        }
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
      * html
      *
      * place html in a object from the website
@@ -1073,35 +1129,6 @@
           } else {
             this[len].innerHTML += data
           }
-        }
-
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
-     * show
-     *
-     * show a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @deprecated 0.0.8
-     * @removed 0.1.0
-     * @alternative toggle
-     * @return this
-     * @example _('.wrapper').show()
-     */
-    show: function () {
-      this.deprecated('show', '0.0.8', '0.1.0', 'toggle')
-      if (!this.nodeJS) {
-        var len = this.length
-
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'block'
         }
 
         return this
@@ -1180,7 +1207,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) //eslint-disable-line
+                this.evaluate(js[i].innerHTML) // Find a better solution.
               }
 
               // fix posts also (.ajax)
@@ -1205,12 +1232,13 @@
      *
      * Loads a page AJAX
      *
-     * @web only
+     * @univeral function
      * @param object object Wrapper
      * @param string url Url to get
      * @param object options extra options
-     * @return bool
-     * @example _('.wrapper').ajax(url, options)
+     * @return bool/string
+     * @example for web use: _('.wrapper').ajax(url, options)
+     * @example for node use: _.ajax(url, options)
      */
     ajax: function (url, options) {
       if (!this.nodeJS) {
@@ -1235,7 +1263,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                eval(js[i].innerHTML) //eslint-disable-line
+                this.evaluate(js[i].innerHTML) // Find a better solution
               }
 
               // fix posts also (.ajax)
@@ -1251,6 +1279,107 @@
           xmlhttp.open('GET', url, true)
           xmlhttp.send()
         }
+      } else {
+        // Node JS
+        return this._NodeAjaxHelper(url, function (x) {
+          return x
+        })
+      }
+
+      console.error('No return!')
+      return false
+    },
+
+    /**
+     * _NodeAjaxHelper
+     *
+     * Node Ajax Helper
+     * Please not call this function yourself, unless you know what you are doing!
+     *
+     * @internal
+     * @cli only
+     * @param string url
+     * @param function callbackFunc callback to
+     * @return false
+     * @example _._NodeAjaxHelper(url, callback)
+     */
+    _NodeAjaxHelper: function (url, callbackFunc) {
+      if (url.toLowerCase().indexOf('https://') > -1) {
+        var https = require('https')
+
+        https.get(url, function (resource) {
+          resource.setEncoding('utf8')
+          var rawData = ''
+
+          if ([301, 302].indexOf(resource.statusCode) > -1) {
+            if (typeof callbackFunc === 'function') {
+              return this.ajax(resource.headers.location, callbackFunc)
+            } else {
+              return this._NodeAjaxHelper(resource.headers.location)
+            }
+          }
+
+          if ([404, 403].indexOf(resource.statusCode) > -1) {
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(false)
+            } else {
+              return false
+            }
+          }
+
+          resource.on('data', function (d) {
+            rawData += d
+          })
+
+          resource.on('end', function () {
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(rawData)
+            } else {
+              return rawData
+            }
+          })
+        }).on('error', function (e) {
+          console.error('Error: ' + e)
+          if (typeof callbackFunc === 'function') {
+            return callbackFunc(false)
+          } else {
+            return false
+          }
+        })
+      } else {
+        var http = require('http')
+
+        http.get(url, function (resource) {
+          resource.setEncoding('utf8')
+          var rawData = ''
+          if (resource.statusCode !== 200) {
+            console.error('Request Failed.\nStatus Code: ' + resource.statusCode)
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(false)
+            } else {
+              return false
+            }
+          }
+
+          resource.on('data', function (chunk) {
+            rawData += chunk
+          })
+
+          resource.on('end', function () {
+            if (typeof callbackFunc === 'function') {
+              return callbackFunc(rawData)
+            } else {
+              return rawData
+            }
+          })
+        }).on('error', function (e) {
+          console.error('Got error: ' + e.message)
+          if (typeof callbackFunc === 'function') {
+            return callbackFunc(false)
+          } else {
+            return false
+          }
+        })
       }
 
       return false
@@ -1275,32 +1404,6 @@
     },
 
     /**
-     * isLocal
-     *
-     * Are we running local?
-     *
-     * @universal function
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.isLocal()
-     */
-    isLocal: function () {
-      if (!this.nodeJS) {
-        if (self.location.protocol !== 'file:') {
-          if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
-            return false
-          } else {
-            return true
-          }
-        } else {
-          return true
-        }
-      } else {
-        return true
-      }
-    },
-
-    /**
      * requireSSL
      *
      * this make "SSL" / "HTTPS" required
@@ -1318,24 +1421,6 @@
           }
         }
       }
-      return
-    },
-
-    /**
-     * loadExtension
-     *
-     * loadExtension Tries to load a extension (module)
-     *
-     * @web only
-     * @deprecated 0.0.4
-     * @removed 0.1.0
-     * @param object [object] Wrapper
-     * @return bool
-     * @example _.loadExtension(src, callback)
-     */
-    loadExtension: function (src, callback) {
-      this.deprecated('loadExtension', '0.0.4', '0.1.0', 'require')
-      return this.require(src, callback)
     },
 
     /**
@@ -1493,12 +1578,46 @@
         while (len--) {
           self._lastObj = this[len]
           if (this.isUndefined(write)) { // Read
-            return self.getComputedStyle(this[len]).getPropertyValue(read)
+            return this[len].style.cssText
           } else { // Write
-            var _read = read
-            _read = _read.replace(/-/g, '')
-            // this[len].style._read = write; // does edit the dom.
-            this[len].setAttribute('style', read + ':' + write + ';')
+            // Explode ";" from ".style.cssText".
+            // Loop, and change if is in our requested value.
+            var arrayOfItems = this[len].style.cssText.split(';')
+
+            // New array of items
+            var newArrayOfItems = ''
+
+            // Is the item found?
+            var found = false
+
+            // Where are we?
+            var count = 0
+
+            // Temporary variable
+            var temp = ''
+
+            while (count < arrayOfItems.length) {
+              if (this.startsWith(read, arrayOfItems[count])) {
+                temp = arrayOfItems[count].split(':')
+                newArrayOfItems = newArrayOfItems + temp[0] + ': ' + write + '; '
+                found = true
+              } else {
+                newArrayOfItems = newArrayOfItems + arrayOfItems[count] + '; '
+              }
+
+              count++
+            }
+
+            if (found) {
+              // console.log(this[len].style.cssText + "" + read + ":" + write + ";")
+              this[len].style.cssText = this[len].style.cssText + read + ':' + write + ';'
+            } else {
+              this[len].style.cssText = newArrayOfItems
+            }
+
+            // console.log(this[len].style.cssText)
+            // console.log('document.querySelectorAll(\'.' + this[len].className + '\')[' + len + '].style.' + _read + '= \'' + write + '\';')
+            // eval('document.querySelectorAll(\'.' + this[len].className + '\')[' + len + '].style.' + _read + '= \'' + write + '\';')
             return this
           }
         }
@@ -1613,6 +1732,32 @@
      */
     startsWith: function (str, pattern) {
       return str.lastIndexOf(pattern, 0) === 0
+    },
+
+    /**
+     * isLocal
+     *
+     * Are we running local?
+     *
+     * @universal function
+     * @param object [object] Wrapper
+     * @return bool
+     * @example _.isLocal()
+     */
+    isLocal: function () {
+      if (!this.nodeJS) {
+        if (self.location.protocol !== 'file:') {
+          if (!self.location.href.match(/(file:\/\/|localhost|127\.0\.0\.1|::1)/g)) {
+            return false
+          } else {
+            return true
+          }
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
     },
 
     /**
@@ -1731,11 +1876,10 @@
       for (var i = 0; i < arr.length; i++) {
         // (other) Underscore.js uses -> : __ret.push(callback_int(i, arr[i]))
         var temp = callbackInt(i, arr[i])
-        
+
         if (typeof temp === 'undefined') {
           _.error('ERROR WHILE MAPPING')
-        }
-        else {
+        } else {
           if (typeof temp[0] === 'string') {
             for (var j = 0; j < temp.length; j++) {
               __ret.push(temp[j])
@@ -1812,9 +1956,9 @@
      */
     clearScreen: function () {
       if (this.nodeJS) {
-        process.stdout.write('\x1Bc');
+        process.stdout.write('\x1Bc')
       } else {
-        console.warn('_.clearScreen() is only for CLi')
+        console.warn('_.clearScreen() is only for CLI')
       }
     },
 
@@ -1828,9 +1972,9 @@
      */
     oneLineUp: function () {
       if (this.nodeJS) {
-        process.stdout.write("\r\x1b[K")
+        process.stdout.write('\r\x1b[K')
       } else {
-        console.warn('_.clearScreen() is only for CLi')
+        console.warn('_.clearScreen() is only for CLI')
       }
     },
 
@@ -1865,6 +2009,53 @@
       } else {
         // _('this is a verry long long string').truncate(10)
         return false
+      }
+    },
+
+    /**
+     * DOMEval
+     *
+     * Eval code in DOM
+     *
+     * @web only
+     * @notest
+     * @since v0.1.0
+     * @param code code to run
+     * @example _().DOMEval('alert(1)')
+     */
+    DOMEval: function (code, doc) {
+      doc = doc || document
+
+      var script = doc.createElement('script')
+      script.text = code
+      doc.head.appendChild(script).parentNode.removeChild(script)
+    },
+
+    /**
+     * infinitescroll
+     *
+     * infinite scroll
+     *
+     * @web only
+     * @notest
+     * @param object object
+     * @param callbackOnEnd the callback function on reaching end of the page
+     * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
+     * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
+     */
+    infinitescroll: function (callbackOnEnd) {
+      var len = this.length
+      while (len--) {
+        this[len].addEventListener('scroll', function (element) {
+          console.log(this.scrollHeight)
+          if (this.scrollTop + this.clientHeight + 250 >= this.scrollHeight) {
+            if (typeof callbackOnEnd === 'function') {
+              callbackOnEnd()
+            } else {
+              _._error('infinitescroll')
+            }
+          }
+        })
       }
     },
 
@@ -1925,6 +2116,7 @@
   // node.js support
   if (typeof exports !== 'undefined') {
     module.exports = _
+    global._ = _
   }
 
   // And return
@@ -1939,11 +2131,10 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
 }
 
 // Please. please.
-// Somethimes we'll need to use eslint-disable-line
+// Sometimes we'll need to use eslint-disable-line
 // because eslint does not know what we're doing with the code.
 //
 // Thanks,
 // For reading the full source code.
 // if you have questions, please go to:
 // -> https://github.com/wdg/_.js/issues
-

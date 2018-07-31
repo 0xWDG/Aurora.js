@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                        v1.0.0 Final
+**                         v0.1.0 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -40,13 +40,6 @@
   // *
   // * @var array _eventStore
   self._eventStore = []
-
-  // * self._temporary
-  // *
-  // * Temporary functions.
-  // *
-  // * @var function _temporary
-  self._temporary = null
 
   // _ returns new Library object that hold our selector. Ex: _('.wrapper')
   var _ = function (params) {
@@ -81,14 +74,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '1.0.0b'
+    this.version = '0.1.0b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180731'
+    this.revision = 'r180727'
 
     // * this.fullversion
     // *
@@ -913,32 +906,6 @@
     },
 
     /**
-     * Evaluate
-     *
-     * Evalate some code.
-     *
-     * @param string JavaScriptCode
-     * @return mixed
-     * @example _.evaluate('alert(1)')
-     */
-    evaluate: function (something) {
-      if (!_.nodeJS) {
-        var s = document.createElement('script')
-
-        if (window.attachEvent && !window.addEventListener) {
-          /* old internet explorer < 10 */
-          s.src = 'data:text/javascript,' + encodeURIComponent(something)
-        } else {
-          s.src = 'data:text/javascript;base64,' + btoa(something)
-        }
-
-        document.body.appendChild(s)
-      } else {
-        return require('vm').runInThisContext(something)
-      }
-    },
-
-    /**
      * require
      *
      * Load/Require a javascript file
@@ -954,17 +921,17 @@
      * @example _.require(['a', 'r', 'ra', 'y'], function () { doSomeThing(); })
      */
     require: function (jsArray, Callback, local) {
-      if (typeof jsArray === 'object') {
-        for (var i = jsArray.length - 1; i >= 0; i--) {
-          if (self._modLoaded.indexOf(jsArray[i]) === -1) {
-            self._modLoaded.push(jsArray[i])
-            if (!jsArray[i].match(/\.js/g)) {
-              jsArray[i] = jsArray[i] + '.js'
-            }
-            if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
-              jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
-            }
-            if (!this.nodeJS) {
+      if (!this.nodeJS) {
+        if (typeof jsArray === 'object') {
+          for (var i = jsArray.length - 1; i >= 0; i--) {
+            if (self._modLoaded.indexOf(jsArray[i]) === -1) {
+              self._modLoaded.push(jsArray[i])
+              if (!jsArray[i].match(/\.js/g)) {
+                jsArray[i] = jsArray[i] + '.js'
+              }
+              if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
+                jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
+              }
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
@@ -977,25 +944,17 @@
               }
               document.head.appendChild(script)
             } else {
-              var val = this._NodeAjaxHelper(jsArray[i], this.evaluate)
-              if (i === jsArray.length - 1) {
-                _._copy_js()
-                return Callback()
-              }
+              _._copy_js()
+              Callback()
             }
-          } else {
-            _._copy_js()
-            Callback()
           }
-        }
-      } else if (typeof (jsArray) === 'string') {
-        if (self._modLoaded.indexOf(jsArray) === -1) {
-          self._modLoaded.push(jsArray)
-          if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
-          if (this.startsWith(jsArray, '_') && !this.isLocal()) {
-            jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
-          }
-          if (!this.nodeJS) {
+        } else if (typeof (jsArray) === 'string') {
+          if (self._modLoaded.indexOf(jsArray) === -1) {
+            self._modLoaded.push(jsArray)
+            if (!jsArray.match(/\.js/g)) jsArray = jsArray + '.js'
+            if (this.startsWith(jsArray, '_') && !this.isLocal()) {
+              jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
+            }
             var scriptOne = document.createElement('script')
             scriptOne.type = 'text/javascript'
             scriptOne.src = jsArray
@@ -1006,66 +965,19 @@
             }, 10, Callback)
             document.head.appendChild(scriptOne)
           } else {
-            return this._NodeAjaxHelper(jsArray, this.evaluate)
+            _._copy_js()
+            Callback()
           }
         } else {
-          _._copy_js()
-          Callback()
+          console.error('Please use only a array, or a string.')
         }
       } else {
-        console.error('Please use only a array, or a string.')
+        // NEED A WAY TO REQUIRE EXTENSIONS WITH USE OF NODE.JS
+        // ...
       }
-
       return null
     },
 
-    /**
-     * Hide
-     *
-     * Hide a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @return this
-     * @example _('.wrapper').hide()
-     */
-    hide: function () {
-      if (!this.nodeJS) {
-        var len = this.length
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'none'
-        }
-        return this
-      } else {
-        return false
-      }
-    },
-
-    /**
-     * show
-     *
-     * show a object from the website
-     *
-     * @web only
-     * @param object object Wrapper
-     * @return this
-     * @example _('.wrapper').show()
-     */
-    show: function () {
-      if (!this.nodeJS) {
-        var len = this.length
-
-        while (len--) {
-          self._lastObj = this[len]
-          this[len].style.display = 'block'
-        }
-
-        return this
-      } else {
-        return false
-      }
-    },
     /**
      * Format
      *
@@ -1207,7 +1119,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution.
+                eval(js[i].innerHTML) // Find a better solution.
               }
 
               // fix posts also (.ajax)
@@ -1263,7 +1175,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution
+                eval(js[i].innerHTML) // Find a better solution
               }
 
               // fix posts also (.ajax)
@@ -1307,78 +1219,45 @@
       if (url.toLowerCase().indexOf('https://') > -1) {
         var https = require('https')
 
-        https.get(url, function (resource) {
-          resource.setEncoding('utf8')
-          var rawData = ''
+        https.get(url, function (res) {
+          res.setEncoding('utf8')
+          var data = ''
 
-          if ([301, 302].indexOf(resource.statusCode) > -1) {
-            if (typeof callbackFunc === 'function') {
-              return this.ajax(resource.headers.location, callbackFunc)
-            } else {
-              return this._NodeAjaxHelper(resource.headers.location)
-            }
+          if ([301, 302].indexOf(res.statusCode) > -1) {
+            callbackFunc(this.ajax(res.headers.location))
           }
 
-          if ([404, 403].indexOf(resource.statusCode) > -1) {
-            if (typeof callbackFunc === 'function') {
-              return callbackFunc(false)
-            } else {
-              return false
-            }
-          }
-
-          resource.on('data', function (d) {
-            rawData += d
+          res.on('data', function (d) {
+            data += d
           })
 
-          resource.on('end', function () {
-            if (typeof callbackFunc === 'function') {
-              return callbackFunc(rawData)
-            } else {
-              return rawData
-            }
+          res.on('end', function () {
+            callbackFunc(data)
           })
         }).on('error', function (e) {
-          console.error('Error: ' + e)
-          if (typeof callbackFunc === 'function') {
-            return callbackFunc(false)
-          } else {
-            return false
-          }
+          console.error(e)
+          callbackFunc(false)
         })
       } else {
         var http = require('http')
 
-        http.get(url, function (resource) {
-          resource.setEncoding('utf8')
+        http.get(url, function (res) {
+          res.setEncoding('utf8')
           var rawData = ''
-          if (resource.statusCode !== 200) {
-            console.error('Request Failed.\nStatus Code: ' + resource.statusCode)
-            if (typeof callbackFunc === 'function') {
-              return callbackFunc(false)
-            } else {
-              return false
-            }
+          if (res.statusCode !== 200) {
+            console.error('Request Failed.\nStatus Code: ' + res.statusCode)
           }
 
-          resource.on('data', function (chunk) {
+          res.on('data', function (chunk) {
             rawData += chunk
           })
 
-          resource.on('end', function () {
-            if (typeof callbackFunc === 'function') {
-              return callbackFunc(rawData)
-            } else {
-              return rawData
-            }
+          res.on('end', function () {
+            callbackFunc(rawData)
           })
         }).on('error', function (e) {
           console.error('Got error: ' + e.message)
-          if (typeof callbackFunc === 'function') {
-            return callbackFunc(false)
-          } else {
-            return false
-          }
+          callbackFunc(false)
         })
       }
 
@@ -2116,7 +1995,6 @@
   // node.js support
   if (typeof exports !== 'undefined') {
     module.exports = _
-    global._ = _
   }
 
   // And return

@@ -20,12 +20,29 @@
 if (typeof _ !== 'function') {
   window.alert('Please make sure _.js is loaded!')
 } else {
-  // Load Text functions
-  window._.fn.text_to_console = function (name) {
+  /**
+   * infinitescroll
+   *
+   * infinite scroll
+   *
+   * @param object object
+   * @param callbackOnEnd the callback function on reaching end of the page
+   * @see https://github.com/wesdegroot/_.js/wiki/module_infinitescroll
+   * @example _('.wrapper').infinitescroll(function () { loadMoreData(); })
+   */
+  window._.fn.infinitescroll2 = function (callbackOnEnd) {
     var len = this.length
-
     while (len--) {
-      console.log('Text to console: ' + this[len].innerHTML)
+      this[len].addEventListener('scroll', function (element) {
+        console.log(this.scrollHeight)
+        if (this.scrollTop + this.clientHeight + 250 >= this.scrollHeight) {
+          if (typeof callbackOnEnd === 'function') {
+            callbackOnEnd()
+          } else {
+            window._._error('#infinitescroll#infinitescroll')
+          }
+        }
+      }, this[len])
     }
   }
 }
