@@ -88,7 +88,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180731'
+    this.revision = 'r180801'
 
     // * this.fullversion
     // *
@@ -1206,7 +1206,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution.
+                _.evaluate(js[i].innerHTML)
               }
 
               // fix posts also (.ajax)
@@ -1262,7 +1262,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution
+                _.evaluate(js[i].innerHTML)
               }
 
               // fix posts also (.ajax)
@@ -1280,7 +1280,7 @@
         }
       } else {
         // Node JS
-        return this._NodeAjaxHelper(url, function (x) {
+        return _._NodeAjaxHelper(url, function (x) {
           return x
         })
       }
@@ -1312,9 +1312,9 @@
 
           if ([301, 302].indexOf(resource.statusCode) > -1) {
             if (typeof callbackFunc === 'function') {
-              return this.ajax(resource.headers.location, callbackFunc)
+              return _.ajax(resource.headers.location, callbackFunc)
             } else {
-              return this._NodeAjaxHelper(resource.headers.location)
+              return _._NodeAjaxHelper(resource.headers.location)
             }
           }
 
@@ -2110,9 +2110,10 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
   window.dispatchEvent(_JSLoaded)
 }
 
-// Please. please.
-// Sometimes we'll need to use eslint-disable-line
-// because eslint does not know what we're doing with the code.
+// Congrats,
+// You've readed a lot.
+// If you want to help
+// -> https://github.com/wdg/_.js/issues
 //
 // Thanks,
 // For reading the full source code.
