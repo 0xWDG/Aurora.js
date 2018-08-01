@@ -88,7 +88,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180731'
+    this.revision = 'r180801'
 
     // * this.fullversion
     // *
