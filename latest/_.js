@@ -1206,7 +1206,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution.
+                _.evaluate(js[i].innerHTML) // Find a better solution.
               }
 
               // fix posts also (.ajax)
@@ -1262,7 +1262,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                this.evaluate(js[i].innerHTML) // Find a better solution
+                _.evaluate(js[i].innerHTML) // Find a better solution
               }
 
               // fix posts also (.ajax)
@@ -1280,7 +1280,7 @@
         }
       } else {
         // Node JS
-        return this._NodeAjaxHelper(url, function (x) {
+        return _._NodeAjaxHelper(url, function (x) {
           return x
         })
       }
@@ -1312,9 +1312,9 @@
 
           if ([301, 302].indexOf(resource.statusCode) > -1) {
             if (typeof callbackFunc === 'function') {
-              return this.ajax(resource.headers.location, callbackFunc)
+              return _.ajax(resource.headers.location, callbackFunc)
             } else {
-              return this._NodeAjaxHelper(resource.headers.location)
+              return _._NodeAjaxHelper(resource.headers.location)
             }
           }
 
