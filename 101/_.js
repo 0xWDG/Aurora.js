@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                        v1.0.0 Final
+**                        v1.0.1 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -81,14 +81,14 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '1.0.0'
+    this.version = '1.0.1b'
 
     // * this.revision
     // *
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180801'
+    this.revision = 'r180804'
 
     // * this.fullversion
     // *
@@ -923,14 +923,8 @@
      */
     evaluate: function (something) {
       if (!_.nodeJS) {
-        var s = document.createElement('script')
-
-        if (window.attachEvent && !window.addEventListener) {
-          s.src = 'data:text/javascript,' + encodeURIComponent(something)
-        } else {
-          s.src = 'data:text/javascript;base64,' + btoa(something)
-        }
-
+        var scriptElement = document.createElement('script')
+        scriptElement.appendChild(document.createTextNode(response))
         document.body.appendChild(s)
       } else {
         return require('vm').runInThisContext(something)
