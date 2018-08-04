@@ -134,14 +134,14 @@
     // * @var string JSONRX
     this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/'
 
-    // * this.nodeJS
+    // * self.nodeJS
     // *
     // * Do we run in nodeJS?
     // *
     // * @since v0.0.8
     // * @var object nodeJS
     // * @example _.nodeJS
-    this.nodeJS = (typeof exports !== 'undefined')
+    self.nodeJS = (typeof exports !== 'undefined')
 
     // * this.emoij
     // *
@@ -258,7 +258,7 @@
     // * @since v0.0.8
     // * @var object _nav
     // * @internal
-    var _nav = !this.nodeJS ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
+    var _nav = !self.nodeJS ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
 
     // * temp
     // *
@@ -364,7 +364,7 @@
      */
     $: function (x) {
       // Sometimes we'll also need FUN
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         self.alert('Hi')
 
         if (self.confirm("Did you know that i'm not jQuery?")) {
@@ -468,7 +468,7 @@
      */
     isArray: function (obj) {
       // Since node.js cannot handle isArray if a item is NOT an array
-      return (!this.nodeJS ? obj.isArray : false) || (this.type(obj) === 'array')
+      return (!self.nodeJS ? obj.isArray : false) || (this.type(obj) === 'array')
     },
 
     /**
@@ -483,7 +483,7 @@
      * @example _.getCookie('Cookiemonster')
      */
     getCookie: function (name) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var start = document.cookie.indexOf(name + '=')
         var len = start + name.length + 1
 
@@ -523,7 +523,7 @@
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
     setCookie: function (name, value, expires, path, domain, secure) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (!domain) {
           var tdomain = self.location.hostname
           tdomain = domain.split('.')
@@ -581,7 +581,7 @@
      * @example _.getCookie('Cookiemonster')
      */
     deleteCookie: function (name, path, domain) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (this.getCookie(name)) {
           if (!domain) {
             var tdomain = self.location.hostname
@@ -618,7 +618,7 @@
      * @example _('.hideOrShowMe').toggle()
      */
     toggle: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
         while (len--) {
           if (this[len].style.display !== 'none') {
@@ -649,7 +649,7 @@
      * @example _('.wrapper').on('mousemove', true); // Remove.
      */
     on: function (myEvent, callback) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
         if (typeof callback === 'function') {
           while (len--) {
@@ -701,7 +701,7 @@
      * @example _.supportTouch()
      */
     supportTouch: function () {
-      return this.nodeJS ? false : (
+      return self.nodeJS ? false : (
         ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
         (navigator.msMaxTouchPoints > 0)
@@ -720,7 +720,7 @@
      * @example _("<b>Hi!</b>").appendTo(".inner")
      */
     appendTo: function (to) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (to === 'body') {
           document.body.innerHTML += this.param
         } else if (to === 'head') {
@@ -820,7 +820,7 @@
      * @example _.error('Message')
      */
     error: function (msg) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         throw new Error(msg)
       } else {
         console.error(msg)
@@ -922,7 +922,7 @@
      * @example _.evaluate('alert(1)')
      */
     evaluate: function (something) {
-      if (!_.nodeJS) {
+      if (!self.nodeJS) {
         var scriptElement = document.createElement('script')
         scriptElement.appendChild(document.createTextNode(response))
         document.body.appendChild(s)
@@ -957,7 +957,7 @@
             if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
               jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
             }
-            if (!this.nodeJS) {
+            if (!self.nodeJS) {
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
@@ -988,7 +988,7 @@
           if (this.startsWith(jsArray, '_') && !this.isLocal()) {
             jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
           }
-          if (!this.nodeJS) {
+          if (!self.nodeJS) {
             var scriptOne = document.createElement('script')
             scriptOne.type = 'text/javascript'
             scriptOne.src = jsArray
@@ -1023,7 +1023,7 @@
      * @example _('.wrapper').hide()
      */
     hide: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
@@ -1046,7 +1046,7 @@
      * @example _('.wrapper').show()
      */
     show: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1109,7 +1109,7 @@
      * @example _('.wrapper').html() //Read
      */
     html: function (data, append) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1141,7 +1141,7 @@
      * @example _.framebreak()
      */
     framebreak: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (self.top.location !== self.location) {
           self.top.location.href = document.location.href
         }
@@ -1164,7 +1164,7 @@
      * @example _('.wrapper').ajaxPost(form)
      */
     ajaxPOST: function (form, callback) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1200,7 +1200,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                _.evaluate(js[i].innerHTML)
+                self.evaluate(js[i].innerHTML)
               }
 
               // fix posts also (.ajax)
@@ -1234,7 +1234,7 @@
      * @example for node use: _.ajax(url, options)
      */
     ajax: function (url, options) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1256,7 +1256,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                _.evaluate(js[i].innerHTML)
+                self.evaluate(js[i].innerHTML)
               }
 
               // fix posts also (.ajax)
@@ -1407,7 +1407,7 @@
      * @example _.requireSSL()
      */
     requireSSL: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (self.location.protocol !== 'https:' && self.location.protocol !== 'file:') {
           if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
             self.location.href = 'https:' + self.location.href.substring(self.location.protocol.length)
@@ -1474,7 +1474,7 @@
      * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {window.alert(size)})
      */
     getFileSize: function (fileURL, onSize) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1520,7 +1520,7 @@
      * @example _('.codeField').stripTags()
      */
     stripTags: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1528,7 +1528,7 @@
           this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '')
         }
       }
-      return !this.nodeJS ? null : false
+      return !self.nodeJS ? null : false
     },
 
     /**
@@ -1542,7 +1542,7 @@
      * @example _('.codeField').stripScripts()
      */
     stripScripts: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1551,7 +1551,7 @@
         }
       }
 
-      return !this.nodeJS ? null : false
+      return !self.nodeJS ? null : false
     },
 
     /**
@@ -1566,7 +1566,7 @@
      * @example _('.wrapper').css('width', '10px')
      */
     css: function (read, write) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
@@ -1738,7 +1738,7 @@
      * @example _.isLocal()
      */
     isLocal: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         if (self.location.protocol !== 'file:') {
           if (!self.location.href.match(/(file:\/\/|localhost|127\.0\.0\.1|::1)/g)) {
             return false
@@ -1813,7 +1813,7 @@
      * @example _('.wrapper').scrollToBottom()
      */
     scrollToBottom: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1838,7 +1838,7 @@
      * @example _('.wrapper').scrollToTop()
      */
     scrollToTop: function () {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1948,7 +1948,7 @@
      * @example _.clearScreen()
      */
     clearScreen: function () {
-      if (this.nodeJS) {
+      if (self.nodeJS) {
         process.stdout.write('\x1Bc')
       } else {
         console.warn('_.clearScreen() is only for CLI')
@@ -1964,7 +1964,7 @@
      * @example _.oneLineUp()
      */
     oneLineUp: function () {
-      if (this.nodeJS) {
+      if (self.nodeJS) {
         process.stdout.write('\r\x1b[K')
       } else {
         console.warn('_.clearScreen() is only for CLI')
@@ -1984,7 +1984,7 @@
      * @example _('.wrapper').truncate(length[, truncation])
      */
     truncate: function (length, truncation) {
-      if (!this.nodeJS) {
+      if (!self.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
