@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                        v1.0.0 Final
+**                        v1.0.1 Beta.
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -81,7 +81,7 @@
     // * We'll gonna set the version
     // *
     // * @var string version
-    this.version = '1.0.0'
+    this.version = '1.0.1b'
 
     // * this.revision
     // *
@@ -921,13 +921,14 @@
      * @return mixed
      * @example _.evaluate('alert(1)')
      */
-    evaluate: function (something) {
+    evaluate: function (JavaScriptCode) {
       if (!self.nodeJS) {
         var scriptElement = document.createElement('script')
-        scriptElement.appendChild(document.createTextNode(response))
-        document.body.appendChild(s)
+        scriptElement.appendChild(document.createTextNode(JavaScriptCode))
+        document.body.appendChild(scriptElement)
+        return true
       } else {
-        return require('vm').runInThisContext(something)
+        return require('vm').runInThisContext(JavaScriptCode)
       }
     },
 
@@ -1200,7 +1201,7 @@
               // JavaScript Fix!
               var js = change.getElementsByTagName('script')
               for (var i = 0, j = js.length; i < j; i++) {
-                self.evaluate(js[i].innerHTML)
+                _.evaluate(js[i].innerHTML)
               }
 
               // fix posts also (.ajax)
@@ -1251,13 +1252,8 @@
 
           xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              var temporaryReturn = ''
               change.innerHTML = xmlhttp.responseText
-
-              // JavaScript Fix!
-              var js = change.getElementsByTagName('script')
-              for (var i = 0, j = js.length; i < j; i++) {
-                self.evaluate(js[i].innerHTML)
-              }
 
               // fix posts also (.ajax)
               var pst = change.getElementsByTagName('form')
@@ -1266,6 +1262,14 @@
                   pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
                 }
               }
+
+              // JavaScript Fix!
+              var js = change.getElementsByTagName('script')
+              for (var i = 0, j = js.length; i < j; i++) {
+                temporaryReturn = temporaryReturn + _.evaluate(js[i].innerHTML)
+              }
+
+              return temporaryReturn
             }
           }
 
@@ -1279,7 +1283,6 @@
         })
       }
 
-      console.error('No return!')
       return false
     },
 
