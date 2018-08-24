@@ -1172,6 +1172,7 @@
           self._lastObj = this[len]
           var xmlPhttp
           var change = this[len]
+          window._tParam = this.param
 
           if (self.XMLHttpRequest) {
             xmlPhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -1208,7 +1209,7 @@
               var pst = change.getElementsByTagName('form')
               for (var ii = 0, jj = pst.length; ii < jj; ii++) {
                 if (pst[ii].method.toLowerCase() === 'post') {
-                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('" + window._tParam + "').ajaxPOST(this);")
                 }
               }
             }
@@ -1243,6 +1244,7 @@
 
           var xmlhttp
           var change = this[len]
+          window._tParam = this.param
 
           if (self.XMLHttpRequest) {
             xmlhttp = new self.XMLHttpRequest() // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -1259,7 +1261,7 @@
               var pst = change.getElementsByTagName('form')
               for (var ii = 0, jj = pst.length; ii < jj; ii++) {
                 if (pst[ii].method.toLowerCase() === 'post') {
-                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('." + change.className + "').ajaxPOST(this);")
+                  pst[ii].setAttribute('onsubmit', "event.preventDefault();_('" + window._tParam + "').ajaxPOST(this);")
                 }
               }
 
