@@ -7,7 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
-**                        v1.0.1 Beta.
+**                        v1.0.1 Beta
 **
 ** https://www.github.com/wdg/_.js/
 ** or https://www.wdgwv.com
@@ -41,6 +41,13 @@
   // * @var array _eventStore
   self._eventStore = []
 
+  // * self._watchStore
+  // *
+  // * Watch store (On change, ajax)
+  // *
+  // * @var array _watchStore
+  self._watchStore = {}
+
   // * self._temporary
   // *
   // * Temporary functions.
@@ -61,6 +68,7 @@
     // *
     // * @var object selector
     var selector = typeof exports !== 'undefined' || typeof params === 'undefined' ? [] : (params.indexOf('>') === -1) ? document.querySelectorAll(params) : []
+    this.selector = (selector.length === 1) ? selector[0] : selector
 
     // * this.lenth
     // *
@@ -76,6 +84,8 @@
     // * @var string param
     this.param = params
 
+    this._watchStore = {}
+
     // * this.version
     // *
     // * We'll gonna set the version
@@ -88,7 +98,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180804'
+    this.revision = 'r180825'
 
     // * this.fullversion
     // *
@@ -653,6 +663,10 @@
         var len = this.length
         if (typeof callback === 'function') {
           while (len--) {
+            if (myEvent === 'change' || myEvent === 'AJAX') {
+              _._watchStore[this.param] = [this[len].innerHTML, callback]
+              return
+            }
             this[len].addEventListener(myEvent, callback)
             var tempArr = [(self._eventStore.length + 1), this[len], myEvent, callback]
             self._eventStore.push(tempArr)
@@ -675,6 +689,28 @@
         return null
       } else {
         return false
+      }
+    },
+
+    /**
+     * watchEvents
+     *
+     * Watch the events
+     *
+     * @web only
+     * @internal
+     * @example _.watchEvents()
+     */
+    watchEvents: function () {
+      if (self.nodeJS) {
+        console.warn('_.watchEvents() is only for WEB')
+      } else {
+        Object.keys(_._watchStore).forEach(function (index) {
+          if (_(index).html() !== _._watchStore[index][0]) {
+            _._watchStore[index][1]()
+            delete (_._watchStore[index])
+          }
+        })
       }
     },
 
@@ -2107,6 +2143,7 @@ if (typeof exports === 'undefined' && typeof document.createEvent !== 'undefined
   var _JSLoaded = document.createEvent('CustomEvent')
   _JSLoaded.initEvent('_.jsLoaded', !0, !0, { })
   window.dispatchEvent(_JSLoaded)
+  window.setInterval('_.watchEvents()', 1000)
 }
 
 // Congrats,
