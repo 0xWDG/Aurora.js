@@ -7,6 +7,7 @@
 **                    _   | |  \___  \
 **     ______    _   | |__| |  ____) |
 **    |______|  (_)   \____/  |______/
+**                       WDG Framework
 **                        v1.0.0 Final
 **
 ** https://www.github.com/wdg/_.js/
@@ -18,7 +19,7 @@
 ** Latest.: https://raw.githubusercontent.com/wdg/_.js/master/latest/_.js
 */
 
-// _ function
+// WDG Framework function
 (function (self) {
   // * self._lastObj
   // *
@@ -98,7 +99,7 @@
     // * We'll gonna set the revision (prefix: r)
     // *
     // * @var string revision
-    this.revision = 'r180825'
+    this.revision = 'r180828'
 
     // * this.fullversion
     // *
@@ -144,14 +145,14 @@
     // * @var string JSONRX
     this.JSONRX = '/^\/\*-secure-([\s\S]*)\*\/\s*$/'
 
-    // * self.nodeJS
+    // * this.nodeJS
     // *
     // * Do we run in nodeJS?
     // *
     // * @since v0.0.8
     // * @var object nodeJS
     // * @example _.nodeJS
-    self.nodeJS = (typeof exports !== 'undefined')
+    this.nodeJS = (typeof exports !== 'undefined')
 
     // * this.emoij
     // *
@@ -268,7 +269,7 @@
     // * @since v0.0.8
     // * @var object _nav
     // * @internal
-    var _nav = !self.nodeJS ? navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
+    var _nav = !this.nodeJS ? window.navigator : {userAgent: 'Node.js Node.js Node.js', maxTouchPoints: 0, msMaxTouchPoints: 0}
 
     // * temp
     // *
@@ -308,13 +309,338 @@
     // * @var string getBrowser
     this.getBrowser = temp
 
+    // * this.attributes
+    // *
+    // * HTML DOM Element node attributes
+    // *
+    // * @since v0.1.0
+    // * @var string attributes
+    this.attributes = undefined
+
+    // * this.childNodes
+    // *
+    // * HTML DOM Element node childNodes
+    // *
+    // * @since v0.1.0
+    // * @var string childNodes
+    this.childNodes = undefined
+
+    // * this.className
+    // *
+    // * HTML DOM Element node className
+    // *
+    // * @since v0.1.0
+    // * @var string className
+    this.className = undefined
+
+    // * this.clientHeight
+    // *
+    // * HTML DOM Element node clientHeight
+    // *
+    // * @since v0.1.0
+    // * @var string clientHeight
+    this.clientHeight = undefined
+
+    // * this.clientWidth
+    // *
+    // * HTML DOM Element node clientWidth
+    // *
+    // * @since v0.1.0
+    // * @var string clientWidth
+    this.clientWidth = undefined
+
+    // * this.dir
+    // *
+    // * HTML DOM Element node dir
+    // *
+    // * @since v0.1.0
+    // * @var string dir
+    this.dir = undefined
+
+    // * this.firstChild
+    // *
+    // * HTML DOM Element node firstChild
+    // *
+    // * @since v0.1.0
+    // * @var string firstChild
+    this.firstChild = undefined
+
+    // * this.id
+    // *
+    // * HTML DOM Element node id
+    // *
+    // * @since v0.1.0
+    // * @var string id
+    this.id = undefined
+
     // * this.innerHTML
     // *
-    // * innerHTML
+    // * HTML DOM Element node innerHTML
     // *
     // * @since v0.1.0
     // * @var string innerHTML
-    this.innerHTML = (this.length === 1) ? selector[0].innerHTML : null
+    this.innerHTML = undefined
+
+    // * this.lang
+    // *
+    // * HTML DOM Element node lang
+    // *
+    // * @since v0.1.0
+    // * @var string lang
+    this.lang = undefined
+
+    // * this.lastChild
+    // *
+    // * HTML DOM Element node lastChild
+    // *
+    // * @since v0.1.0
+    // * @var string lastChild
+    this.lastChild = undefined
+
+    // * this.localName
+    // *
+    // * HTML DOM Element node localName
+    // *
+    // * @since v0.1.0
+    // * @var string localName
+    this.localName = undefined
+
+    // * this.namespaceURI
+    // *
+    // * HTML DOM Element node namespaceURI
+    // *
+    // * @since v0.1.0
+    // * @var string namespaceURI
+    this.namespaceURI = undefined
+
+    // * this.nextSibling
+    // *
+    // * HTML DOM Element node nextSibling
+    // *
+    // * @since v0.1.0
+    // * @var string nextSibling
+    this.nextSibling = undefined
+
+    // * this.nodeName
+    // *
+    // * HTML DOM Element node nodeName
+    // *
+    // * @since v0.1.0
+    // * @var string nodeName
+    this.nodeName = undefined
+
+    // * this.nodeType
+    // *
+    // * HTML DOM Element node nodeType
+    // *
+    // * @since v0.1.0
+    // * @var string nodeType
+    this.nodeType = undefined
+
+    // * this.nodeValue
+    // *
+    // * HTML DOM Element node nodeValue
+    // *
+    // * @since v0.1.0
+    // * @var string nodeValue
+    this.nodeValue = undefined
+
+    // * this.offsetLeft
+    // *
+    // * HTML DOM Element node offsetLeft
+    // *
+    // * @since v0.1.0
+    // * @var string offsetLeft
+    this.offsetLeft = undefined
+
+    // * this.offsetTop
+    // *
+    // * HTML DOM Element node offsetTop
+    // *
+    // * @since v0.1.0
+    // * @var string offsetTop
+    this.offsetTop = undefined
+
+    // * this.offsetParent
+    // *
+    // * HTML DOM Element node offsetParent
+    // *
+    // * @since v0.1.0
+    // * @var string offsetParent
+    this.offsetParent = undefined
+
+    // * this.offsetWidth
+    // *
+    // * HTML DOM Element node offsetWidth
+    // *
+    // * @since v0.1.0
+    // * @var string offsetWidth
+    this.offsetWidth = undefined
+
+    // * this.offsetHeight
+    // *
+    // * HTML DOM Element node offsetHeight
+    // *
+    // * @since v0.1.0
+    // * @var string offsetHeight
+    this.offsetHeight = undefined
+
+    // * this.ownerDocument
+    // *
+    // * HTML DOM Element node ownerDocument
+    // *
+    // * @since v0.1.0
+    // * @var string ownerDocument
+    this.ownerDocument = undefined
+
+    // * this.parentNode
+    // *
+    // * HTML DOM Element node parentNode
+    // *
+    // * @since v0.1.0
+    // * @var string parentNode
+    this.parentNode = undefined
+
+    // * this.prefix
+    // *
+    // * HTML DOM Element node prefix
+    // *
+    // * @since v0.1.0
+    // * @var string prefix
+    this.prefix = undefined
+
+    // * this.previousSibling
+    // *
+    // * HTML DOM Element node previousSibling
+    // *
+    // * @since v0.1.0
+    // * @var string previousSibling
+    this.previousSibling = undefined
+
+    // * this.prototype
+    // *
+    // * HTML DOM Element node prototype
+    // *
+    // * @since v0.1.0
+    // * @var string prototype
+    this.prototype = undefined
+
+    // * this.scrollLeft
+    // *
+    // * HTML DOM Element node scrollLeft
+    // *
+    // * @since v0.1.0
+    // * @var string scrollLeft
+    this.scrollLeft = undefined
+
+    // * this.scrollTop
+    // *
+    // * HTML DOM Element node scrollTop
+    // *
+    // * @since v0.1.0
+    // * @var string scrollTop
+    this.scrollTop = undefined
+
+    // * this.scrollHeight
+    // *
+    // * HTML DOM Element node scrollHeight
+    // *
+    // * @since v0.1.0
+    // * @var string scrollHeight
+    this.scrollHeight = undefined
+
+    // * this.scrollWidth
+    // *
+    // * HTML DOM Element node scrollWidth
+    // *
+    // * @since v0.1.0
+    // * @var string scrollWidth
+    this.scrollWidth = undefined
+
+    // * this.style
+    // *
+    // * HTML DOM Element node style
+    // *
+    // * @since v0.1.0
+    // * @var string style
+    this.style = undefined
+
+    // * this.tabIndex
+    // *
+    // * HTML DOM Element node tabIndex
+    // *
+    // * @since v0.1.0
+    // * @var string tabIndex
+    this.tabIndex = undefined
+
+    // * this.tagName
+    // *
+    // * HTML DOM Element node tagName
+    // *
+    // * @since v0.1.0
+    // * @var string tagName
+    this.tagName = undefined
+
+    // * this.title
+    // *
+    // * HTML DOM Element node title
+    // *
+    // * @since v0.1.0
+    // * @var string title
+    this.title = undefined
+
+    // * this.copyItems
+    // *
+    // * copy DOM javascript items
+    // *
+    // * @since v0.1.0
+    // * @var array String
+    this.copyItems = [
+      'attributes',
+      'childNodes',
+      'className',
+      'clientHeight',
+      'clientWidth',
+      'dir',
+      'firstChild',
+      'id',
+      'innerHTML',
+      'lang',
+      'lastChild',
+      'localName',
+      'namespaceURI',
+      'nextSibling',
+      'nodeName',
+      'nodeType',
+      'nodeValue',
+      'offsetLeft',
+      'offsetTop',
+      'offsetParent',
+      'offsetWidth',
+      'offsetHeight',
+      'ownerDocument',
+      'parentNode',
+      'prefix',
+      'previousSibling',
+      'prototype',
+      'scrollLeft',
+      'scrollTop',
+      'scrollHeight',
+      'scrollWidth',
+      'style',
+      'tabIndex',
+      'tagName',
+      'title'
+    ]
+
+    // Copy the element data from the first element
+    for (var i = 0; i < this.copyItems.length; i++) {
+      if (typeof selector[0] !== 'undefined') {
+        if (typeof selector[0][this.copyItems[i]] !== 'undefined') {
+          this[this.copyItems[i]] = selector[0][this.copyItems[i]]
+        }
+      }
+    }
 
     // Add selector to object for method chaining
     for (var i = 0; i < this.length; i++) {
@@ -374,7 +700,7 @@
      */
     $: function (x) {
       // Sometimes we'll also need FUN
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         self.alert('Hi')
 
         if (self.confirm("Did you know that i'm not jQuery?")) {
@@ -478,7 +804,7 @@
      */
     isArray: function (obj) {
       // Since node.js cannot handle isArray if a item is NOT an array
-      return (!self.nodeJS ? obj.isArray : false) || (this.type(obj) === 'array')
+      return (!_.nodeJS ? obj.isArray : false) || (this.type(obj) === 'array')
     },
 
     /**
@@ -493,7 +819,7 @@
      * @example _.getCookie('Cookiemonster')
      */
     getCookie: function (name) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var start = document.cookie.indexOf(name + '=')
         var len = start + name.length + 1
 
@@ -533,7 +859,7 @@
      * @example _.setCookie('Cookiemonster', 'Cookiemonster is cool')
      */
     setCookie: function (name, value, expires, path, domain, secure) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (!domain) {
           var tdomain = self.location.hostname
           tdomain = domain.split('.')
@@ -591,7 +917,7 @@
      * @example _.getCookie('Cookiemonster')
      */
     deleteCookie: function (name, path, domain) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (this.getCookie(name)) {
           if (!domain) {
             var tdomain = self.location.hostname
@@ -628,7 +954,7 @@
      * @example _('.hideOrShowMe').toggle()
      */
     toggle: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
         while (len--) {
           if (this[len].style.display !== 'none') {
@@ -659,7 +985,7 @@
      * @example _('.wrapper').on('mousemove', true); // Remove.
      */
     on: function (myEvent, callback) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
         if (typeof callback === 'function') {
           while (len--) {
@@ -702,7 +1028,7 @@
      * @example _.watchEvents()
      */
     watchEvents: function () {
-      if (self.nodeJS) {
+      if (this.nodeJS) {
         console.warn('_.watchEvents() is only for WEB')
       } else {
         Object.keys(_._watchStore).forEach(function (index) {
@@ -737,7 +1063,7 @@
      * @example _.supportTouch()
      */
     supportTouch: function () {
-      return self.nodeJS ? false : (
+      return this.nodeJS ? false : (
         ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
         (navigator.msMaxTouchPoints > 0)
@@ -756,7 +1082,7 @@
      * @example _("<b>Hi!</b>").appendTo(".inner")
      */
     appendTo: function (to) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (to === 'body') {
           document.body.innerHTML += this.param
         } else if (to === 'head') {
@@ -856,7 +1182,7 @@
      * @example _.error('Message')
      */
     error: function (msg) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         throw new Error(msg)
       } else {
         console.error(msg)
@@ -958,7 +1284,7 @@
      * @example _.evaluate('alert(1)')
      */
     evaluate: function (JavaScriptCode) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var scriptElement = document.createElement('script')
         scriptElement.appendChild(document.createTextNode(JavaScriptCode))
         document.body.appendChild(scriptElement)
@@ -994,7 +1320,7 @@
             if (this.startsWith(jsArray[i], '_') && !this.isLocal()) {
               jsArray[i] = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray[i].toLowerCase()
             }
-            if (!self.nodeJS) {
+            if (!_.nodeJS) {
               var script = document.createElement('script')
               script.type = 'text/javascript'
               script.src = jsArray[i]
@@ -1025,7 +1351,7 @@
           if (this.startsWith(jsArray, '_') && !this.isLocal()) {
             jsArray = 'https://raw.githubusercontent.com/wdg/_.js/master/latest/modules/' + jsArray.toLowerCase()
           }
-          if (!self.nodeJS) {
+          if (!_.nodeJS) {
             var scriptOne = document.createElement('script')
             scriptOne.type = 'text/javascript'
             scriptOne.src = jsArray
@@ -1060,7 +1386,7 @@
      * @example _('.wrapper').hide()
      */
     hide: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
@@ -1083,7 +1409,7 @@
      * @example _('.wrapper').show()
      */
     show: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1146,7 +1472,7 @@
      * @example _('.wrapper').html() //Read
      */
     html: function (data, append) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1178,7 +1504,7 @@
      * @example _.framebreak()
      */
     framebreak: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (self.top.location !== self.location) {
           self.top.location.href = document.location.href
         }
@@ -1201,7 +1527,7 @@
      * @example _('.wrapper').ajaxPost(form)
      */
     ajaxPOST: function (form, callback) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1272,7 +1598,7 @@
      * @example for node use: _.ajax(url, options)
      */
     ajax: function (url, options) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1448,7 +1774,7 @@
      * @example _.requireSSL()
      */
     requireSSL: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (self.location.protocol !== 'https:' && self.location.protocol !== 'file:') {
           if (!self.location.href.match(/(localhost|127\.0\.0\.1|::1)/g)) {
             self.location.href = 'https:' + self.location.href.substring(self.location.protocol.length)
@@ -1515,7 +1841,7 @@
      * @example _.getFileSize('https://www.wdgwv.com/logo.png', function (size) {window.alert(size)})
      */
     getFileSize: function (fileURL, onSize) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1561,7 +1887,7 @@
      * @example _('.codeField').stripTags()
      */
     stripTags: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1569,7 +1895,7 @@
           this[len].innerHTML = this[len].innerHTML.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '')
         }
       }
-      return !self.nodeJS ? null : false
+      return !this.nodeJS ? null : false
     },
 
     /**
@@ -1583,7 +1909,7 @@
      * @example _('.codeField').stripScripts()
      */
     stripScripts: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1592,7 +1918,7 @@
         }
       }
 
-      return !self.nodeJS ? null : false
+      return !this.nodeJS ? null : false
     },
 
     /**
@@ -1607,7 +1933,7 @@
      * @example _('.wrapper').css('width', '10px')
      */
     css: function (read, write) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
@@ -1779,7 +2105,7 @@
      * @example _.isLocal()
      */
     isLocal: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         if (self.location.protocol !== 'file:') {
           if (!self.location.href.match(/(file:\/\/|localhost|127\.0\.0\.1|::1)/g)) {
             return false
@@ -1854,7 +2180,7 @@
      * @example _('.wrapper').scrollToBottom()
      */
     scrollToBottom: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1879,7 +2205,7 @@
      * @example _('.wrapper').scrollToTop()
      */
     scrollToTop: function () {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
 
         while (len--) {
@@ -1989,7 +2315,7 @@
      * @example _.clearScreen()
      */
     clearScreen: function () {
-      if (self.nodeJS) {
+      if (this.nodeJS) {
         process.stdout.write('\x1Bc')
       } else {
         console.warn('_.clearScreen() is only for CLI')
@@ -2005,7 +2331,7 @@
      * @example _.oneLineUp()
      */
     oneLineUp: function () {
-      if (self.nodeJS) {
+      if (this.nodeJS) {
         process.stdout.write('\r\x1b[K')
       } else {
         console.warn('_.clearScreen() is only for CLI')
@@ -2025,7 +2351,7 @@
      * @example _('.wrapper').truncate(length[, truncation])
      */
     truncate: function (length, truncation) {
-      if (!self.nodeJS) {
+      if (!_.nodeJS) {
         var len = this.length
         while (len--) {
           self._lastObj = this[len]
