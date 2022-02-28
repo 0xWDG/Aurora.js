@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"./m/_test.js",
+"lineCount":1,
+"mappings":"AAoBAA,OAAAC,IAAA,CAAY,8BAAZ,CAEiB,WAAjB,GAAI,MAAOC,EAAX,CACEC,MAAAC,MAAA,CAAa,kCAAb,CADF,CAGEJ,OAAAC,IAAA,CAAY,YAAZ,CAGFD,QAAAC,IAAA,CAAY,UAAZ;",
+"sources":["./_test.js"],
+"names":["console","log","_","window","alert"]
+}
